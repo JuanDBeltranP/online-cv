@@ -1,0 +1,23 @@
+---
+title: "Overview"
+---
+
+## Data science
+
+I have several years of experience working as a data scientist in different industries. Advanced knowledge of machine learning, time series analysis, and GIS. Significant experience programming in Python and R.
+
+
+## Project Management
+
+I have experience establishing and working as a part of cross-functional teams. I have worked with Agile methodology and continuous integration/continuous delivery principles.
+
+
+## Presentation & Data Visualisation
+
+I have strong experience building dashboards,reports and presentations for wider audiences using RMarkdown, Shiny and Bokeh. Recent experience using Quarto (which I used to build my CV). I have presenting my results in academic and commercial journals. I run a journal club in the research department.
+
+### Leadership
+
+I have been mentoring juniors peers and acting as a data advocate across multiple teams in my current and previous roles. I have researched difficult problems with curiosity and rigour. I have been designing technical interviews and explaining complex concepts to stakeholders with clarity and empathy.
+
+*****

@@ -1,0 +1,72 @@
+[
+  {
+    "objectID": "education.html",
+    "href": "education.html",
+    "title": "Education",
+    "section": "",
+    "text": "2013-2017: University of Oxford, DPhil (PhD) Plant Sciences\nDuring my PhD I used machine learning, extensive computational modelling and advanced statistics to understand how plants save water under drought stress. I also studied the relationship between climatic variables and the distribution of species under existing climatic scenarios and under climate change scenarios. I used different approaches to test the differences between the “climatic niche” of water-saving and non-water-saving plants including Neural networks, XGBoost, Random Forest, and Clustering analysis. I also conducted A/B tests using bootstrapping and Bayesian statistics. These analyses were conducted using R and Python.\n\n2012: MSc Biology (1st place), Universidad de los Andes (Colombia)\nI used R to test different hypotheses concerning changes in the biochemistry of juvenile plants when they experienced drought.\n2010: BSc Biology, Universidad de los Andes (Colombia)\nI learned R in 2008 as part of my biostatistics course, used extensively in my dissertation and since then I have not stopped using it."
+  },
+  {
+    "objectID": "education.html#awards",
+    "href": "education.html#awards",
+    "title": "Education",
+    "section": "Awards",
+    "text": "Awards\n2013-2016: Weidenfeld Scholarship and Leadership Program for D.Phil. Funding at University of Oxford.\n2013-2017: Scholarship from Administrative Department of Science, Technology and Innovation (Colombia) for D.Phil. Funding at University of Oxford .\n2014: Winner of New Phytologist Poster Prize (1 st place), 34 th New Phytologist Symposium “Plant Systems Biology and Ecology of CAM plants”, California, U.S.A."
+  },
+  {
+    "objectID": "work.html",
+    "href": "work.html",
+    "title": "Work Experience",
+    "section": "",
+    "text": "At ECOM I am leading the data science team within the research department where we have created different data products (dashboards, automatic reports, web apps) and machine learning models to understand and predict key questions in the industry. For example, forecasting supply and demand of coffee, cotton and cocoa; forecasting productivity of cocoa farms in West Africa; forecasting the effects of climate change in the medium term on plantations of coffee and cocoa around the world; forecasting futures price dynamics in the market based on climatic and other market variables; and estimating crop yields using machine learning and satellite images. Most recently I developed a webapp that combines the historical deforestation and georeference location of farms into a a risk deforestation model for farms around the world. I have also been involved in the digital transformation of ECOM, promoting the use of data science approaches into different areas of the business.\n\n\nOct 2018–Nov 2019: Product Developer - Data Science, Decoded\nAt Decoded I designed and implemented more than 40% of the curriculum of the key product: the Data Academy. Our clients were blue-chip companies that were interested in integrating data science into their day-to-day activities. The programme focused on empowering and teaching their employees the latest techniques in data science. This programme was successfully delivered to banks such as Societe General, UBS and retailers such as Unilever, Nike, and M&S. I designed the materials to teach basic coding in Python or R, advanced statistics, implementation of supervised and unsupervised machine learning , time series analysis, and text analysis. The content contained detailed explanations of a great variety of techniques and general concepts in data science and data analytics such as supervised machine learning, bias-variance trade-off, and feature engineering. I wrote the R and Python modules of (1) Introduction to data analysis (using Pandas or Tidyverse); (2) Introduction to statistics (frequentist and Bayesian statistics); (3) Regression analysis (generalized linear models, general additive models, Lasso regression, Ridge regression, and elastic-net regression, Random Forest); (4) Classification methods (decision trees, Random Forest, XGBoost, Naive Bayes, Support Vector Machine); (5) Neural networks (using TensorFlow and Keras); (6) Big Data (using Apache Spark); (7) Time series analysis, and (8) SQL. I regularly delivered workshops where the above modules are taught to students at the companies, both in-person and in webinars. I was also responsible for training new facilitators to deliver the modules that I have created.\n\n2018 Jan–Oct : Research Associate - Data Science, Institute for Risk and Disaster Reduction, University College London\nAt UCL, I was responsible for creating a machine learning model to predict in real-time the location of potential mosquito breeding points in four different cities across Brazil (at ultra-fine resolutions). I used Python, TensorFlow and Keras to develop recurrent neural networks to model geospatially the occurrence of the virus and the mosquitoes in near real time. The results were displayed in a bokeh web app, (which I developed) used by health professionals in Brazil. During this position, I also developed a mobile app to gather data from the health professionals in Brazil."
+  },
+  {
+    "objectID": "publications.html",
+    "href": "publications.html",
+    "title": "Publications",
+    "section": "",
+    "text": "2017: Yang X, Hu R, Yin H, Jenkins J, Shu S, Tang H, Liu D, Weighill DA, Ha J, Heyduk K, Goodstein DM, Guo H, Moseley RC, Fitzek E, Jawdy S, Zhang Z, Xie M, Hartwell J, Grimwood J, Abraham PE, Mewalal R, Yim WC, Beltrán JD, Boxall SF, Dever LV, Palla KJ, Albion R, Garcia T, Mayer J, Lim SD, Wai CM, Van Buren R, De Paoli HC, Borland AM, Guo H, Chen J, Muchero W, Yin Y, Jacobson DA, Tschaplinski TJ, Hettich RL, Ming R , Winter K , Leebens-Mack JH, Smith JAC, Cushman J, Schmutz J, Tuskan GA.: Kalanchoë genome reveals convergent evolution of crassulacean acid metabolism. Nature Communications 8: 1899\n2015: Yang X, Cushman JC, Borland AM, Edwards EJ, Wullschleger SD, Tuskan GA, Owen NA, Griffiths H, Smith JAC, De Paoli HC, Weston DJ, Cottingham R, Hartwell J, Davis SC, Silvera K, Ming R, Schlauch K, Abraham P, Stewart JR, Guo H, Albion R, Ha J, Lim SD, Wone BWM, Yim WC, Garcia T, Mayer JA, Petereit J, Nair SS, Casey E, Hettich RL, Ceusters J, Ranjan P, Palla KP, Yin H, Reyes-García C, Andrade JL, Freschi L, Beltrán JD, Dever LV, Boxall SF,Waller J, Davies J, Bupphada P, Kadu N, Winter K, Sage RF, Aguilar CN, Schmutz J, Jenkins J, Holtum JAM. A roadmap for research on crassulacean acid metabolism (CAM) to enhance sustainable food and bioenergy production in a hotter, drier world. New Phytologist 207:491–504.\n2014: Poster presentation, “Evolutionary origins and ecophysiology of CAM photosynthesis in the montane genus Puya (Bromeliaceae)”, 34 th New Phytologist Symposium “Plant Systems Biology and Ecology of CAM plants”, Lake Tahoe, Tahoe City, CA, USA, 15–18 July 2014.\n2013: Beltrán JD., Lasso E., Madriñán S., Virgo A., Winter K.: Juvenile tank-bromeliads lacking tanks: Do they engage in CAM photosynthesis?, Photosynthetica 51: 55–62.\n2012: M.Sc. Thesis: CAM or not CAM: A study on juveniles of Guzmania lingulata, Guzmania monostachia and Werauhia sanguinolenta (Bromeliaceae), Universidad de los Andes.\n2010: B.Sc. Thesis: Evolution of xerophyte habit in the tribe Tillandsieae (Bromeliaceae): a phylogenetic approach, Universidad de los Andes."
+  },
+  {
+    "objectID": "juan.html",
+    "href": "juan.html",
+    "title": "Overview",
+    "section": "",
+    "text": "I have several years of experience working as a data scientist in different industries. Advanced knowledge of machine learning, time series analysis, and GIS. Significant experience programming in Python and R."
+  },
+  {
+    "objectID": "juan.html#project-management",
+    "href": "juan.html#project-management",
+    "title": "Overview",
+    "section": "Project Management",
+    "text": "Project Management\nI have experience establishing and working as a part of cross-functional teams. I have worked with Agile methodology and continuous integration/continuous delivery principles."
+  },
+  {
+    "objectID": "juan.html#presentation-data-visualisation",
+    "href": "juan.html#presentation-data-visualisation",
+    "title": "Overview",
+    "section": "Presentation & Data Visualisation",
+    "text": "Presentation & Data Visualisation\nI have strong experience building dashboards,reports and presentations for wider audiences using RMarkdown, Shiny and Bokeh. Recent experience using Quarto (which I used to build my CV). I have presenting my results in academic and commercial journals. I run a journal club in the research department.\n\nLeadership\nI have been mentoring juniors peers and acting as a data advocate across multiple teams in my current and previous roles. I have researched difficult problems with curiosity and rigour. I have been designing technical interviews and explaining complex concepts to stakeholders with clarity and empathy."
+  },
+  {
+    "objectID": "products.html#selected-projects-over-the-last-2-years",
+    "href": "products.html#selected-projects-over-the-last-2-years",
+    "title": "Projects",
+    "section": "Selected projects over the last 2 years",
+    "text": "Selected projects over the last 2 years\n\nAmex Default Prediction\nI have using this data to show the different methods to classify and also to extract value of large datasets. The data came from a Kaggle competition. I used gradient boosting decision trees. specifically, I trained and evaluated the LGBMClassifier, XGBClassifier and the CatBoostClassifier models. With gold standard results in the competition.\n\n\nPredicting Market Direction for Cocoa Futures\nBased on supply and demand data as well as key weather events I built a time series models in order to predict the direction of price change in the futures contracts of cocoa in London and New York. I used prophet library and Keras, using recurrent neural networks. This model is used by the traders in ECOM on a daily basis.\n\n\nPredicting Cocoa Production\nIn this project I used climatic variables to predict the two crop seasons of cocoa in Côte d’Ivore. The model was a series of ensemble models that weighted the anomalies for each week/month and adjust to the forecast. The predictions has been tested over the last 2 years (4 seasons) with accurate results, even with models with early information.\n\n\nPredicting loss of suitability of coffee and cocoa due to climate change\nClimate change is going to have a major impact on the suitability of cocoa and coffee farms around the world. I used several models (Random Forest, Neural Networks and XGBoost) to model the current suitability of cocoa and coffee using several climatic variables. Once the model was calibrated on current condition the predictions were applied to future conditions to understand either the expansion or contraction of the areas that are suitable today. The results of these models has help to develop the priorities to mitigate dramatic changes in the tropics."
+  },
+  {
+    "objectID": "skills.html",
+    "href": "skills.html",
+    "title": "Skils",
+    "section": "",
+    "text": "Python (Pandas, GeoPandas, prophet, SciKit-Learn, TensorFlow, Pytorch, keras, Matplotlib, NumPy, SciPy, SQLAlchemy, Seaborn, Bokeh, SciKit-Images),\nR (RStudio, Shiny, tidyverse, Parsnip, RandomForest, rethinking, rstanarm, bayestestR, ggplot2, sqldf, reshape2, sparklyr, dplyr, tidyr, keras, dygraph, forecast, lubridate)\n\n\n\n\nAdvanced skills in ArcGIS and QGIS\n\n\n\nProficient in SQL, MongoDB (NoSQL), Spark (pyspark and sparklyr)\n\n\n\nStrong background designing and implementing A/B tests, machine learning algorithms (supervised and unsupervised) and Bayesian statistics\nLanguages: Fluent in English and Spanish (native)"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Dr Juan D. Beltran",
+    "section": "",
+    "text": "I have been coding in R for the last 14 years and in Python for the last 8 years. I have designed, developed and maintained a wide range of data products which combine machine learning models and GIS analysis in the shape of stand alone models, dashboards, advanced visualisation, automatic reports, automatic emails, and web apps. I have extensive knowledge in statistical modelling, forecasting time series and geospatial analysis.\nWhen I am not coding I enjoy gardening, travelling, or sharing time with my husband and dog!\n***"
+  }
+]

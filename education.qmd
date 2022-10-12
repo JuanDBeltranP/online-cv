@@ -1,0 +1,25 @@
+---
+title: "Education"
+---
+
+## Education
+
+**2013-2017:** **University of Oxford, DPhil (PhD) Plant Sciences**
+
+During my PhD I used machine learning, extensive computational modelling and advanced statistics to understand how plants save water under drought stress. I also studied the relationship between climatic variables and the distribution of species under existing climatic scenarios and under climate change scenarios. I used different approaches to test the differences between the "climatic niche" of water-saving and non-water-saving plants including Neural networks, XGBoost, Random Forest, and Clustering analysis. I also conducted A/B tests using bootstrapping and Bayesian statistics. These analyses were conducted using R and Python.\
+
+**2012:** **MSc Biology (1st place), Universidad de los Andes (Colombia)**
+
+I used R to test different hypotheses concerning changes in the biochemistry of juvenile plants when they experienced drought.
+
+**2010:** **BSc Biology, Universidad de los Andes (Colombia)**
+
+I learned R in 2008 as part of my biostatistics course, used extensively in my dissertation and since then I have not stopped using it.
+
+## Awards
+
+**2013-2016:** Weidenfeld Scholarship and Leadership Program for D.Phil. Funding at University of Oxford.
+
+**2013-2017:** Scholarship from Administrative Department of Science, Technology and Innovation (Colombia) for D.Phil. Funding at University of Oxford .
+
+**2014:** Winner of New Phytologist Poster Prize (1 st place), 34 th New Phytologist Symposium "Plant Systems Biology and Ecology of CAM plants", California, U.S.A.

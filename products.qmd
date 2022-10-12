@@ -1,0 +1,23 @@
+---
+title: "Projects"
+---
+
+------------------------------------------------------------------------
+
+## Selected projects over the last 2 years
+
+### Amex Default Prediction
+
+I have using this data to show the different methods to classify and also to extract value of large datasets. The data came from a Kaggle competition. I used gradient boosting decision trees. specifically, I trained and evaluated the LGBMClassifier, XGBClassifier and the CatBoostClassifier models. With gold standard results in the competition.
+
+### Predicting Market Direction for Cocoa Futures
+
+Based on supply and demand data as well as key weather events I built a time series models in order to predict the direction of price change in the futures contracts of cocoa in London and New York. I used prophet library and Keras, using recurrent neural networks. This model is used by the traders in ECOM on a daily basis.
+
+### Predicting Cocoa Production
+
+In this project I used climatic variables to predict the two crop seasons of cocoa in Côte d'Ivore. The model was a series of ensemble models that weighted the anomalies for each week/month and adjust to the forecast. The predictions has been tested over the last 2 years (4 seasons) with accurate results, even with models with early information.
+
+### Predicting loss of suitability of coffee and cocoa due to climate change
+
+Climate change is going to have a major impact on the suitability of cocoa and coffee farms around the world. I used several models (Random Forest, Neural Networks and XGBoost) to model the current suitability of cocoa and coffee using several climatic variables. Once the model was calibrated on current condition the predictions were applied to future conditions to understand either the expansion or contraction of the areas that are suitable today. The results of these models has help to develop the priorities to mitigate dramatic changes in the tropics.

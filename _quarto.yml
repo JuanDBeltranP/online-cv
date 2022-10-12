@@ -1,0 +1,33 @@
+project:
+  type: website
+website:
+  page-navigation: true
+  title: "Dr Juan Beltran"
+  navbar:
+    background: '#F7DE3A'
+    right:
+      - sidebar:juan
+
+  sidebar:
+    - id: juan
+      title: "CV"
+      style: "docked"
+      background: '#F7DE3A'
+      collapse-level: 2
+      contents:
+        - juan.qmd
+        - skills.qmd
+        - products.qmd
+        - work.qmd
+        - education.qmd
+        - publications.qmd
+        
+ 
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+
+
+
