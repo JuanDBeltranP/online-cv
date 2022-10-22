@@ -3,7 +3,7 @@ project:
   output-dir: docs
 website:
   page-navigation: true
-  title: "Dr Juan Beltran"
+  title: "Overview"
   navbar:
     background: '#F7DE3A'
     right:

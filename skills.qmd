@@ -1,27 +1,29 @@
 ---
-title: "Skils"
+title: "Skills"
 ---
 
-## Technical skills 
 
-### Programming skills
+## Programming
 
 
-1. Python (Pandas, GeoPandas, prophet, SciKit-Learn, TensorFlow, Pytorch, keras, Matplotlib, NumPy, SciPy, SQLAlchemy, Seaborn, Bokeh, SciKit-Images), 
-2. R (RStudio, Shiny, tidyverse, Parsnip, RandomForest, rethinking, rstanarm, bayestestR, ggplot2, sqldf, reshape2, sparklyr, dplyr, tidyr, keras, dygraph, forecast, lubridate)
+1. **Python** (most used libraries: Pandas, GeoPandas, prophet, SciKit-Learn, TensorFlow, Pytorch, keras, Matplotlib, NumPy, SciPy, SQLAlchemy, Seaborn, Bokeh, SciKit-Images)
 
-### Geospatial analysis
+2. **R** (most used packages: RStudio, Shiny, tidyverse, Parsnip, bayestestR, sparklyr, keras, dygraph, forecast)
+
+## Geospatial analysis
 
 Advanced skills in ArcGIS and QGIS
 
-### Big Data & Databases
+## Big Data & Databases
 
 Proficient in SQL, MongoDB (NoSQL), Spark (pyspark and sparklyr) 
 
-### Experimental design
+## Experimental design
 
 Strong background designing and implementing A/B tests, machine learning algorithms (supervised and unsupervised) and Bayesian statistics
 
-Languages:
+## Languages
 Fluent in English and Spanish (native)
+
+
 

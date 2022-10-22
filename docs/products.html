@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Dr Juan Beltran - Projects</title>
+<title>Overview - Projects</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -67,7 +67,7 @@ ul.task-list{list-style: none;}
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
       <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">Dr Juan Beltran</span>
+    <span class="navbar-title">Overview</span>
   </a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
@@ -79,11 +79,11 @@ ul.task-list{list-style: none;}
     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-cv">    
         <li>
     <a class="dropdown-item" href="./juan.html">
- <span class="dropdown-text">Overview</span></a>
+ <span class="dropdown-text">Summary</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./skills.html">
- <span class="dropdown-text">Skils</span></a>
+ <span class="dropdown-text">Skills</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./products.html">
@@ -125,12 +125,12 @@ ul.task-list{list-style: none;}
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./juan.html" class="sidebar-item-text sidebar-link">Overview</a>
+  <a href="./juan.html" class="sidebar-item-text sidebar-link">Summary</a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./skills.html" class="sidebar-item-text sidebar-link">Skils</a>
+  <a href="./skills.html" class="sidebar-item-text sidebar-link">Skills</a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -164,10 +164,10 @@ ul.task-list{list-style: none;}
   <ul>
   <li><a href="#selected-projects-over-the-last-2-years" id="toc-selected-projects-over-the-last-2-years" class="nav-link active" data-scroll-target="#selected-projects-over-the-last-2-years">Selected projects over the last 2 years</a>
   <ul class="collapse">
-  <li><a href="#amex-default-prediction" id="toc-amex-default-prediction" class="nav-link" data-scroll-target="#amex-default-prediction">Amex Default Prediction</a></li>
   <li><a href="#predicting-market-direction-for-cocoa-futures" id="toc-predicting-market-direction-for-cocoa-futures" class="nav-link" data-scroll-target="#predicting-market-direction-for-cocoa-futures">Predicting Market Direction for Cocoa Futures</a></li>
   <li><a href="#predicting-cocoa-production" id="toc-predicting-cocoa-production" class="nav-link" data-scroll-target="#predicting-cocoa-production">Predicting Cocoa Production</a></li>
   <li><a href="#predicting-loss-of-suitability-of-coffee-and-cocoa-due-to-climate-change" id="toc-predicting-loss-of-suitability-of-coffee-and-cocoa-due-to-climate-change" class="nav-link" data-scroll-target="#predicting-loss-of-suitability-of-coffee-and-cocoa-due-to-climate-change">Predicting loss of suitability of coffee and cocoa due to climate change</a></li>
+  <li><a href="#amex-default-prediction" id="toc-amex-default-prediction" class="nav-link" data-scroll-target="#amex-default-prediction">Amex Default Prediction</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -194,10 +194,6 @@ ul.task-list{list-style: none;}
 <hr>
 <section id="selected-projects-over-the-last-2-years" class="level2">
 <h2 class="anchored" data-anchor-id="selected-projects-over-the-last-2-years">Selected projects over the last 2 years</h2>
-<section id="amex-default-prediction" class="level3">
-<h3 class="anchored" data-anchor-id="amex-default-prediction">Amex Default Prediction</h3>
-<p>I have using this data to show the different methods to classify and also to extract value of large datasets. The data came from a Kaggle competition. I used gradient boosting decision trees. specifically, I trained and evaluated the LGBMClassifier, XGBClassifier and the CatBoostClassifier models. With gold standard results in the competition.</p>
-</section>
 <section id="predicting-market-direction-for-cocoa-futures" class="level3">
 <h3 class="anchored" data-anchor-id="predicting-market-direction-for-cocoa-futures">Predicting Market Direction for Cocoa Futures</h3>
 <p>Based on supply and demand data as well as key weather events I built a time series models in order to predict the direction of price change in the futures contracts of cocoa in London and New York. I used prophet library and Keras, using recurrent neural networks. This model is used by the traders in ECOM on a daily basis.</p>
@@ -209,6 +205,10 @@ ul.task-list{list-style: none;}
 <section id="predicting-loss-of-suitability-of-coffee-and-cocoa-due-to-climate-change" class="level3">
 <h3 class="anchored" data-anchor-id="predicting-loss-of-suitability-of-coffee-and-cocoa-due-to-climate-change">Predicting loss of suitability of coffee and cocoa due to climate change</h3>
 <p>Climate change is going to have a major impact on the suitability of cocoa and coffee farms around the world. I used several models (Random Forest, Neural Networks and XGBoost) to model the current suitability of cocoa and coffee using several climatic variables. Once the model was calibrated on current condition the predictions were applied to future conditions to understand either the expansion or contraction of the areas that are suitable today. The results of these models has help to develop the priorities to mitigate dramatic changes in the tropics.</p>
+</section>
+<section id="amex-default-prediction" class="level3">
+<h3 class="anchored" data-anchor-id="amex-default-prediction">Amex Default Prediction</h3>
+<p>I used this data to train junior peers to show them how to use different classification methods to extract value of large datasets. The data came from a Kaggle competition. I used gradient boosting decision trees. Specifically, I trained and evaluated the LGBMClassifier, XGBClassifier and the CatBoostClassifier models with gold standard results in the context of the competition.</p>
 
 
 </section>
@@ -315,7 +315,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./skills.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Skils</span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Skills</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
