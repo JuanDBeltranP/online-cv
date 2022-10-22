@@ -2,7 +2,7 @@
 title: "Dr Juan D. Beltran"
 subtitle: "Senior Data Scientist"
 about:
-  image: juan.PNG
+  image: juan.png
   template: solana
 ---
 
