@@ -1,3 +1,132 @@
 ---
 title: "Tutorials"
 ---
+# Reinforcement Learning in Python and R: A Comprehensive Guide
+
+Reinforcement Learning (RL) is a subfield of machine learning that focuses on how an agent ought to take actions in an environment to maximize some notion of cumulative reward. In this tutorial, we will go over the fundamental principles of RL and how to implement them in Python and R.
+
+## 1. Understanding the Basics of Reinforcement Learning
+
+RL revolves around these main concepts:
+
+- **Agent**: The RL algorithm that learns from trial and error.
+- **Environment**: The context where the agent operates.
+- **State**: The current situation of the agent.
+- **Action**: All possible moves the agent can make.
+- **Reward**: Feedback from the environment.
+
+The agent learns by interacting with its environment, it takes actions, the environment returns the new state and gives a reward. The goal of the agent is to maximize the sum of rewards.
+
+## 2. Q-Learning: Introduction to a Simple Reinforcement Learning Algorithm
+
+One of the simplest ways to understand reinforcement learning is through Q-Learning. The objective of Q-Learning is to find a policy that is optimal in the sense that the expected value of the total reward over all successive steps is maximized.
+
+The Q-Learning algorithm uses a table (Q-table) where we have a row for each state (s) and a column for each action (a). The cell at the intersection of state (s) and action (a) represents the expected future reward that the agent will get if it takes action (a) while in state (s).
+
+Let's start with the Python implementation of Q-learning.
+
+## 3. Implementing Q-Learning in Python using OpenAI's Gym
+
+For our Python implementation, we will use the `OpenAI Gym` environment, which provides different game scenarios for training reinforcement learning agents. We'll work with the `FrozenLake-v0` game.
+
+```python
+import numpy as np
+import gym
+import random
+import time
+from IPython.display import clear_output
+
+# Create the environment
+env = gym.make("FrozenLake-v0")
+
+# Initialize Q-table with zero
+q_table = np.zeros([env.observation_space.n, env.action_space.n])
+
+# Hyperparameters
+num_episodes = 10000
+max_steps_per_episode = 100
+
+learning_rate = 0.1
+discount_rate = 0.99
+
+exploration_rate = 1
+max_exploration_rate = 1
+min_exploration_rate = 0.01
+exploration_decay_rate = 0.001
+
+rewards_all_episodes = []
+
+# Q-learning algorithm
+for episode in range(num_episodes):
+    state = env.reset()
+
+    done = False
+    rewards_current_episode = 0
+
+    for step in range(max_steps_per_episode): 
+        exploration_rate_threshold = random.uniform(0, 1)
+        if exploration_rate_threshold > exploration_rate:
+            action = np.argmax(q_table[state,:]) 
+        else:
+            action = env.action_space.sample()
+
+        new_state, reward, done, info = env.step(action)
+
+        # Update Q-table for Q(s,a)
+        q_table[state, action] = q_table[state, action] * (1 - learning_rate) + \
+            learning_rate * (reward + discount_rate * np.max(q_table[new_state, :]))
+
+        state = new_state
+        rewards_current_episode += reward 
+
+        if done == True: 
+            break
+
+    # Exploration rate decay
+    exploration_rate = min_exploration_rate + \
+        (max_exploration_rate - min_exploration_rate) * np.exp(-exploration_decay_rate*episode)
+
+    rewards_all_episodes.append(rewards_current_episode)
+```
+This code creates an agent that learns to play
+
+ the `FrozenLake-v0` game. The agent uses Q-Learning to learn how to play.
+
+## 4. Implementing Q-Learning in R
+
+Now let's implement the same Q-Learning in R. We're going to make a simple grid world with four cells, where the agent needs to find the terminal state to get a reward.
+
+```R
+library(MDPtoolbox)
+
+# Define transition and reward matrices
+S <- 4
+A <- 2
+T <- array(0, c(S, A, S))
+R <- matrix(0, S, A)
+
+# Define transitions
+T[1, 1, 2] <- 1
+T[2, 1, 3] <- 1
+T[3, 1, 4] <- 1
+T[4, 1, 4] <- 1
+
+T[1, 2, 1] <- 1
+T[2, 2, 1] <- 1
+T[3, 2, 2] <- 1
+T[4, 2, 3] <- 1
+
+# Define rewards
+R[3, 1] <- 1
+R[4, 1] <- 1
+
+# Run Q-Learning
+result <- mdp_example_qlearning(T, R, 0.9, 10000)
+```
+The code above creates a simple environment using the `MDPtoolbox` library. The environment is a simple four-state system where the agent learns to navigate to the terminal state using Q-Learning.
+
+## 5. Conclusions
+
+Reinforcement learning is a powerful approach for tasks that involve sequential decision-making. This tutorial presented the fundamental concepts of RL and walked through an example of how to implement Q-Learning, a simple but powerful RL algorithm, in Python and R. Remember that the RL field is vast and complex, this is just the tip of the iceberg!
+
+This tutorial is intended as a starting point. I encourage you to continue exploring more complex environments, policies, and algorithms as you continue your journey in reinforcement learning. Happy learning!
