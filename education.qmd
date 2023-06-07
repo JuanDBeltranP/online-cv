@@ -2,24 +2,32 @@
 title: "Education"
 ---
 
-## Education
+**Dr Juan D Beltran:**
 
-**2013-2017:** **University of Oxford, DPhil (PhD) Plant Sciences**
+**Contact Information:** - Email: jd.beltran43\@gmail.com - Phone: 07922857788 - LinkedIn: https://www.linkedin.com/in/jdbeltran/
 
-During my PhD I used machine learning, extensive computational modelling and advanced statistics to understand how plants save water under drought stress. I also studied the relationship between climatic variables and the distribution of species under existing climatic scenarios and under climate change scenarios. I used different approaches to test the differences between the "climatic niche" of water-saving and non-water-saving plants including Neural networks, XGBoost, Random Forest, and Clustering analysis. I also conducted A/B tests using bootstrapping and Bayesian statistics. These analyses were conducted using R and Python.\
+**Objective:** A seasoned Lead Data Scientist adept in translating complex data into actionable insights that underpin strategic business decisions. With extensive experience across a wide range of data science tools and methodologies, I seek to apply my expertise and innovative approach to data to drive organizational success and digital transformation.
 
-**2012:** **MSc Biology (1st place), Universidad de los Andes (Colombia)**
+**Skills:** - Machine Learning - Python, R, SQL, Apache Spark, TensorFlow, Keras - GIS Analysis - Project Management - Curriculum Development - Stakeholder Engagement
 
-I used R to test different hypotheses concerning changes in the biochemistry of juvenile plants when they experienced drought.
+**Experience:**
 
-**2010:** **BSc Biology, Universidad de los Andes (Colombia)**
+**Lead Data Scientist, ECOM Trading** \| Dec 2022 - Present - Lead the data science team within the research department, developing and maintaining various data products and machine learning models. - Developed a global deforestation risk model by integrating historical deforestation data and georeferenced farm locations. - Established an automated email alert system for potential anomalies in cotton/coffee/cocoa prices. - Championed ECOM's digital transformation by fostering the adoption of data science approaches across different business areas.
 
-I learned R in 2008 as part of my biostatistics course, used extensively in my dissertation and since then I have not stopped using it.
+**Senior Data Scientist, ECOM Trading** \| Dec 2019 - Nov 2022 - Successfully forecasted supply and demand trends for coffee, cotton, and cocoa. - Developed models predicting the productivity of cocoa farms in West Africa and the future impact of climate change on coffee and cocoa plantations worldwide. - Utilized machine learning and satellite images to estimate crop yields.
 
-## Awards
+**Product Developer - Data Science, Decoded** \| Oct 2018 - Nov 2019 - Designed over 40% of the Data Academy curriculum, teaching blue-chip clients advanced data science techniques. - Authored various Python and R modules covering a wide spectrum of data science concepts. - Regularly conducted workshops and webinars to teach modules to students across various companies. - Trained new facilitators to deliver the created modules.
 
-**2013-2016:** Weidenfeld Scholarship and Leadership Program for D.Phil. Funding at University of Oxford.
+**Research Associate - Data Science, Institute for Risk and Disaster Reduction, University College London** \| Jan 2018 - Oct 2018 - Developed a machine learning model to predict mosquito breeding points across four cities in Brazil in real time. - Displayed the results in a bokeh web app, used by health professionals in Brazil. - Developed a mobile app to collect data from health professionals in Brazil.
 
-**2013-2017:** Scholarship from Administrative Department of Science, Technology and Innovation (Colombia) for D.Phil. Funding at University of Oxford .
+**Education:**
 
-**2014:** Winner of New Phytologist Poster Prize (1 st place), 34 th New Phytologist Symposium "Plant Systems Biology and Ecology of CAM plants", California, U.S.A.
+**PhD (DPhil), Plant Sciences, University of Oxford** \| 2013 - 2017 - Utilized machine learning, computational modelling, and advanced statistics to study plant behavior under drought stress and the impact of climate change on plant species distribution. - Employed Neural Networks, XGBoost, Random Forest, Clustering analysis, A/B tests using bootstrapping and Bayesian statistics.
+
+**MSc, Biology (1st place), Universidad de los Andes (Colombia)** \| 2012 - Leveraged R to test hypotheses concerning biochemical changes in juvenile plants under drought conditions.
+
+**BSc, Biology, Universidad de los Andes (Colombia)** \| 2010 - Gained proficiency in R during biostatistics coursework and applied it extensively in my dissertation and subsequent work.
+
+**Awards:** - Weidenfeld Scholarship and Leadership Program for D.Phil. Funding, University of Oxford \| 2013-2016 - Scholarship from Administrative Department of Science, Technology and Innovation (Colombia) for D.Phil. Funding, University of Oxford \| 2013-2017 - Winner of New Phytologist Poster Prize (1st place), 34th New Phytologist Symposium "Plant Systems Biology and Ecology of CAM plants", California, U.S.A. \| 2014
+
+## 
