@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Overview - Introduction to MLOps</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Overview</span>
+  </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-cv" role="button" data-bs-toggle="dropdown" aria-expanded="false">CV</a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-cv">    
+        <li>
+    <a class="dropdown-item" href="../juan.html">
+ <span class="dropdown-text">Summary</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../skills.html">
+ <span class="dropdown-text">Skills</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../products.html">
+ <span class="dropdown-text">Projects</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../work.html">
+ <span class="dropdown-text">Work Experience</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../education.html">
+ <span class="dropdown-text">Education</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../publications.html">
+ <span class="dropdown-text">Publications</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">Introduction to MLOps</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../juan.html" class="sidebar-item-text sidebar-link">Summary</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../skills.html" class="sidebar-item-text sidebar-link">Skills</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../products.html" class="sidebar-item-text sidebar-link">Projects</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../work.html" class="sidebar-item-text sidebar-link">Work Experience</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  Forecasting.qmd
+  </li>
+        <li class="sidebar-item">
+  IntroMLOps.qmd
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../education.html" class="sidebar-item-text sidebar-link">Education</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../publications.html" class="sidebar-item-text sidebar-link">Publications</a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction-to-mlops" id="toc-introduction-to-mlops" class="nav-link active" data-scroll-target="#introduction-to-mlops">Introduction to MLOps</a>
+  <ul class="collapse">
+  <li><a href="#what-is-mlops" id="toc-what-is-mlops" class="nav-link" data-scroll-target="#what-is-mlops">1. What is MLOps?</a></li>
+  <li><a href="#key-components-of-mlops" id="toc-key-components-of-mlops" class="nav-link" data-scroll-target="#key-components-of-mlops">2. Key Components of MLOps</a>
+  <ul class="collapse">
+  <li><a href="#version-control" id="toc-version-control" class="nav-link" data-scroll-target="#version-control">2.1 Version Control</a></li>
+  <li><a href="#automated-testing" id="toc-automated-testing" class="nav-link" data-scroll-target="#automated-testing">2.2 Automated Testing</a></li>
+  <li><a href="#continuous-integration-ci" id="toc-continuous-integration-ci" class="nav-link" data-scroll-target="#continuous-integration-ci">2.3 Continuous Integration (CI)</a></li>
+  <li><a href="#continuous-deployment-cd" id="toc-continuous-deployment-cd" class="nav-link" data-scroll-target="#continuous-deployment-cd">2.4 Continuous Deployment (CD)</a></li>
+  <li><a href="#monitoring-logging" id="toc-monitoring-logging" class="nav-link" data-scroll-target="#monitoring-logging">2.5 Monitoring &amp; Logging</a></li>
+  <li><a href="#reproducibility" id="toc-reproducibility" class="nav-link" data-scroll-target="#reproducibility">2.6 Reproducibility</a></li>
+  </ul></li>
+  <li><a href="#mlops-tools" id="toc-mlops-tools" class="nav-link" data-scroll-target="#mlops-tools">3. MLOps Tools</a></li>
+  <li><a href="#benefits-of-mlops" id="toc-benefits-of-mlops" class="nav-link" data-scroll-target="#benefits-of-mlops">4. Benefits of MLOps</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">Introduction to MLOps</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+<section id="introduction-to-mlops" class="level1">
+<h1>Introduction to MLOps</h1>
+<p>In today’s blog, I will discuss a pivotal concept in modern machine learning architectures: <strong>MLOps</strong>, short for Machine Learning Operations.</p>
+<section id="what-is-mlops" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-mlops">1. What is MLOps?</h2>
+<p>MLOps is a set of best practices combining Machine Learning (ML), Data Engineering, and DevOps. The goal of MLOps is to streamline and standardize the machine learning lifecycle, from development and deployment to maintenance.</p>
+<p>MLOps aims to address various challenges in operationalizing ML models, such as managing data dependencies, maintaining code quality, ensuring model reproducibility, and monitoring model performance over time.</p>
+</section>
+<section id="key-components-of-mlops" class="level2">
+<h2 class="anchored" data-anchor-id="key-components-of-mlops">2. Key Components of MLOps</h2>
+<p>Let’s dive deeper into the various components that constitute MLOps:</p>
+<section id="version-control" class="level3">
+<h3 class="anchored" data-anchor-id="version-control">2.1 Version Control</h3>
+<p>Version control is essential for tracking changes to code, data, parameters, and environment configuration. Git is often used for code, but tools like DVC (Data Version Control) can help manage data and model versions.</p>
+</section>
+<section id="automated-testing" class="level3">
+<h3 class="anchored" data-anchor-id="automated-testing">2.2 Automated Testing</h3>
+<p>Testing ensures the stability and reliability of the code, including model code and infrastructure code. Types of tests include unit tests, integration tests, and end-to-end tests. Additionally, data validation tests are crucial to ensure the quality of the data feeding into the models.</p>
+</section>
+<section id="continuous-integration-ci" class="level3">
+<h3 class="anchored" data-anchor-id="continuous-integration-ci">2.3 Continuous Integration (CI)</h3>
+<p>CI is a practice where developers frequently merge their code changes into a central repository. After each merge, automated builds and tests are run. In the context of MLOps, this includes integration tests of ML code, infrastructure, and data pipelines.</p>
+</section>
+<section id="continuous-deployment-cd" class="level3">
+<h3 class="anchored" data-anchor-id="continuous-deployment-cd">2.4 Continuous Deployment (CD)</h3>
+<p>Continuous Deployment is the practice of automatically deploying the code to production after passing the build and test stages. For ML, this also includes model training, validation, and deployment.</p>
+</section>
+<section id="monitoring-logging" class="level3">
+<h3 class="anchored" data-anchor-id="monitoring-logging">2.5 Monitoring &amp; Logging</h3>
+<p>Model performance needs to be monitored over time to ensure it doesn’t degrade. Monitoring systems can track model performance metrics and provide alerts for any significant changes. Logging systems keep detailed records of data inputs and outputs, model predictions, and any errors or exceptions.</p>
+</section>
+<section id="reproducibility" class="level3">
+<h3 class="anchored" data-anchor-id="reproducibility">2.6 Reproducibility</h3>
+<p>Ensuring the same results can be achieved if a past version of the model is re-run with the same data and parameters is key. This includes versioning data, code, and environment, as Ill as tracking all experiments.</p>
+</section>
+</section>
+<section id="mlops-tools" class="level2">
+<h2 class="anchored" data-anchor-id="mlops-tools">3. MLOps Tools</h2>
+<p>Several tools and platforms help facilitate MLOps, including:</p>
+<ul>
+<li><p><strong>MLflow</strong>: An open-source platform for managing the end-to-end ML lifecycle, including experimentation, reproducibility, and deployment.</p></li>
+<li><p><strong>TFX (TensorFlow Extended)</strong>: A Google-production-scale ML platform that provides a configuration framework and shared libraries to integrate common components needed to define, launch, and monitor ML systems.</p></li>
+<li><p><strong>Kubeflow</strong>: An open-source project dedicated to making deployments of machine learning workflows on Kubernetes simple, portable, and scalable.</p></li>
+<li><p><strong>Seldon</strong>: An open-source platform that enables businesses to deploy, scale, and optimize machine learning models in production.</p></li>
+</ul>
+</section>
+<section id="benefits-of-mlops" class="level2">
+<h2 class="anchored" data-anchor-id="benefits-of-mlops">4. Benefits of MLOps</h2>
+<p>MLOps brings several benefits, including:</p>
+<ul>
+<li><p><strong>Efficiency</strong>: By automating many steps in the ML lifecycle.</p></li>
+<li><p><strong>Reproducibility</strong>: By tracking every experiment with its data, code, and parameters.</p></li>
+<li><p><strong>Collaboration</strong>: By enabling data scientists, data engineers, and DevOps to work together effectively.</p></li>
+<li><p><strong>Monitoring</strong>: By continuously monitoring model performance and data quality.</p></li>
+<li><p><strong>Governance and regulatory compliance</strong>: By maintaining detailed logs of data, model predictions, and model changes.</p></li>
+</ul>
+<p>The ultimate goal of MLOps is to accelerate the ML lifecycle and make ML models more valuable to the organization. Having a firm grasp of MLOps principles has been invaluable in my professional journey.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
