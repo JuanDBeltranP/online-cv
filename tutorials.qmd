@@ -130,3 +130,4 @@ The code above creates a simple environment using the `MDPtoolbox` library. The 
 Reinforcement learning is a powerful approach for tasks that involve sequential decision-making. This tutorial presented the fundamental concepts of RL and walked through an example of how to implement Q-Learning, a simple but powerful RL algorithm, in Python and R. Remember that the RL field is vast and complex, this is just the tip of the iceberg!
 
 This tutorial is intended as a starting point. I encourage you to continue exploring more complex environments, policies, and algorithms as you continue your journey in reinforcement learning. Happy learning!
+
