@@ -20,6 +20,8 @@ website:
         - skills.qmd
         - products.qmd
         - work.qmd
+        - Forecasting.qmd
+        - IntroMLOps.qmd
         - education.qmd
         - publications.qmd
         
