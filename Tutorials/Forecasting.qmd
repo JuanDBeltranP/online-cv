@@ -1,7 +1,3 @@
----
-title: "Forecasting with Time Series Methods: A Comparative Approach using R and Python"
----
-
 # Forecasting with Time Series Methods: A Comparative Approach using R and Python
 
 When it comes to predicting future trends, events, or quantities---known as forecasting---time series methods are some of the most commonly used approaches. By definition, a time series is a sequence of data points recorded at successive, equally spaced intervals. Given the unique traits of time series data, specialized analysis techniques have been developed over time, and these methods can be used to forecast future data points.

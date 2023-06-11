@@ -4,7 +4,9 @@ title: "Work Experience"
 
 **Lead Data Scientist \| ECOM Trading \| Nov 2022 - Present**
 
--   Currently leading the data science team at the Research department in ECOM, my journey has been marked by pivotal contributions to our core product offerings.
+-   Currently leading the data science team at the Research department in ECOM Trading, one of the world’s largest traders of coffee, cotton and cocoa. I started at ECOM Trading in 2019 as a Senior Data Scientist, I was promoted to the role of Lead Data Scientist in November 2022.
+
+-   My career at ECOM has been marked by pivotal contributions to our core product offerings. These contributions span the realms of data infrastructure and data centralisation as well as the creation, deployment and maintenance of machine learning models, which I describe in further detail below.
 
 -   I've played a significant role in the development and maintenance of advanced trading signal models that leverage Supply & Demand dynamics, weather data, and historical price trends. This unique blend of information allows us to predict market behaviour with high precision, creating a strategic advantage in our trading operations.
 
@@ -14,7 +16,7 @@ title: "Work Experience"
 
 **Senior Data Scientist \| ECOM Trading \| Dec 2019 - Nov 2022**
 
--   Led the developments of a comprehensive suite of data products, encompassing dashboards, automatic reports, and web applications in the research department as a senior data scientist.
+-   Led the development of a comprehensive suite of data products, encompassing dashboards, automatic reports, and web applications in the research department as a senior data scientist.
 
 -   Developed an array of machine learning models to tackle key industry questions, from predicting the supply and demand of commodities like coffee, cotton, and cocoa to estimating crop yields using satellite imagery.
 
@@ -40,4 +42,4 @@ title: "Work Experience"
 
 -   Complimenting this, I also created a mobile application to streamline data collection from health professionals on the ground.
 
-\
+

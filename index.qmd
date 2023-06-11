@@ -6,6 +6,12 @@ about:
   template: solana
 ---
 
-Hi! I am a lead data scientist passionate about developing useful, effective and practical data science products to solve commercial problems in different industries. I have a strong academic background and I build my data solutions following rigorous and pragmatic data science principles. I love analysing and solving complex problems that involve data analysis. I am always eager to learn new techniques and knowledge to incorporate them into my data science toolbox.
+Hi and welcome to my website! 
+
+Here you can find my cv and more information about my data science journey! As well as some tutorials and notes that I share regularly with my team!
+
+I am a lead data scientist passionate about developing useful, effective and practical data science products to solve commercial problems in different industries. I have a strong academic background and I build my data solutions following rigorous and pragmatic data science principles. I love analysing and solving complex problems that involve data analysis. I am always eager to learn new techniques and knowledge to incorporate them into my data science toolbox.
 
 I have been coding in R for the last 15 years and in Python for the last 9 years. I have designed, developed and maintained a wide range of data products which combine machine learning models and GIS analysis in the shape of stand alone models, dashboards, advanced visualisation, automatic reports, and web apps. I have extensive knowledge in statistical modelling, forecasting time series and geospatial analysis.
+
+When I am not coding I really enjoy going to the gym, hiking outdoors or drinking cocktails!

@@ -1,0 +1,91 @@
+**Neural Networks and Deep Learning Theory**
+
+Introduction:
+
+Neural networks and deep learning have revolutionized numerous fields, including image recognition, natural language processing, and autonomous vehicles. This series of tutorial notes will provide a foundational understanding of these topics.
+
+---
+
+**Part I: Introduction to Neural Networks**
+
+**1.1: What is a Neural Network?**
+
+A neural network is a computing system inspired by the human brain's neural network. It's composed of interconnected processing nodes, called neurons or nodes. These nodes are organized in layers: an input layer, one or more hidden layers, and an output layer.
+
+**1.2: The Neuron**
+
+The basic computational unit of a neural network is the neuron. It receives input from other neurons, processes it, and sends its output to other neurons in the network. Each input is weighted, and these weights get adjusted during the learning process.
+
+**1.3: Activation Functions**
+
+An activation function defines the output of a neuron given a set of inputs. It transforms the weighted sum of the inputs into the output of the neuron. Common activation functions include sigmoid, ReLU (Rectified Linear Unit), and tanh.
+
+---
+
+**Part II: The Learning Process in Neural Networks**
+
+**2.1: Forward Propagation**
+
+During forward propagation, data flows from the input layer through the hidden layers to the output layer. Each neuron performs a weighted sum of inputs and passes the result through an activation function.
+
+**2.2: Backward Propagation (Backpropagation)**
+
+Backpropagation is a method to adjust the weights of the neurons based on the error of the network's output. The network calculates the gradient of the loss function concerning each weight and adjusts the weights to minimize the loss.
+
+**2.3: Gradient Descent and Optimizers**
+
+Gradient descent is an optimization algorithm that iteratively moves in the direction of steepest descent to minimize a function, in our case, the loss function. Optimizers like Stochastic Gradient Descent (SGD), Adam, RMSprop use different techniques to speed up this process.
+
+---
+
+**Part III: Introduction to Deep Learning**
+
+**3.1: What is Deep Learning?**
+
+Deep Learning is a subfield of machine learning concerned with algorithms inspired by the structure and function of the brain's neural networks. It uses multiple layers of neural networks to model complex patterns in data.
+
+**3.2: Convolutional Neural Networks (CNNs)**
+
+CNNs are a type of deep learning model particularly effective for image recognition tasks. They employ a mathematical operation called convolution to process data from the image pixels.
+
+**3.3: Recurrent Neural Networks (RNNs) and Long Short-Term Memory (LSTM)**
+
+RNNs are a class of neural networks for processing sequential data. LSTM is a type of RNN that can learn and remember over long sequences and is less likely to suffer from the vanishing gradient problem.
+
+---
+
+**Part IV: Regularization, Overfitting, and Underfitting**
+
+**4.1: Understanding Overfitting and Underfitting**
+
+Overfitting occurs when a model learns the training data too well, including noise and outliers, leading to poor generalization to new data. Underfitting is when the model does not learn enough from the training data, resulting in poor performance on both training and test data.
+
+**4.2: Regularization Techniques**
+
+Regularization helps prevent overfitting by adding a penalty to the loss function based on the complexity of the model. Techniques include L1 and L2 regularization, dropout, and early stopping.
+
+---
+
+**Part V: Evaluation Metrics and Model Tuning**
+
+**5.1: Loss Functions**
+
+Loss functions quantify how well the model's predictions match the true values. Common loss functions include mean
+
+ squared error for regression tasks and cross-entropy for classification tasks.
+
+**5.2: Evaluation Metrics**
+
+Evaluation metrics help assess model performance. For classification tasks, these include accuracy, precision, recall, and F1-score. For regression tasks, common metrics include mean absolute error and root mean squared error.
+
+**5.3: Hyperparameter Tuning**
+
+Hyperparameters are the parameters of the learning process, not learned from the data. Tuning them can significantly improve model performance. Techniques include grid search, random search, and Bayesian optimization.
+
+---
+
+Conclusion:
+
+Neural networks and deep learning represent a vast and rapidly evolving field. Understanding the foundational theory and principles equips you with the ability to effectively apply these tools, continue learning about new developments, and even contribute to pushing the boundaries of what's possible.
+
+For extra material go to the tutorial section

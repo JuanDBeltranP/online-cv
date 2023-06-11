@@ -1,4 +1,4 @@
-Sure, while a full end-to-end example with code would be quite lengthy for this format, I can provide simplified examples for each of the key steps we discussed in the previous lecture. These examples will use Python and some popular libraries for each task.
+Sure, while a full end-to-end example with code would be quite lengthy for this format, I can provide simplified examples for each of the key steps we discussed in the previous tutorial. These examples will use Python and some popular libraries for each task.
 
 ## 1. Setting up the Environment
 

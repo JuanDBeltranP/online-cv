@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Dr Juan Beltran – dokervskubernets</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Dr Juan Beltran</span>
+  </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-sections" role="button" data-bs-toggle="dropdown" aria-expanded="false">Sections</a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-sections">    
+        <li class="dropdown-header">CV</li>
+        <li>
+    <a class="dropdown-item" href="../juan.html">
+ <span class="dropdown-text">Brief Description</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../skills.html">
+ <span class="dropdown-text">Skills</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../work.html">
+ <span class="dropdown-text">Work Experience</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../education.html">
+ <span class="dropdown-text">Education</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../products.html">
+ <span class="dropdown-text">Projects</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../publications.html">
+ <span class="dropdown-text">Publications and Awards</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../CV.html">
+ <span class="dropdown-text">Full CV</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li class="dropdown-header">Notes</li>
+        <li>
+    <a class="dropdown-item" href="../Notes/PythonvsR.html">
+ <span class="dropdown-text">Python or R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Notes/Newenvs.html">
+ <span class="dropdown-text">The importance of environments</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Notes/commenting.html">
+ <span class="dropdown-text">Why do we need to comment the code?</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Notes/MLOPS0.html">
+ <span class="dropdown-text">MLOps Notes 1</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Notes/MLOPS1.html">
+ <span class="dropdown-text">MLOps Notes 2</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Notes/MLOPS2.html">
+ <span class="dropdown-text">MLOps Notes 3</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Notes/MLOPS3.html">
+ <span class="dropdown-text">MLOps Notes 4</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Notes/timeseries.html">
+ <span class="dropdown-text">Time series analysis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Notes/NeuralNetworks.html">
+ <span class="dropdown-text">Neural Networks</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li class="dropdown-header">Tutorials</li>
+        <li>
+    <a class="dropdown-item" href="../Tutorials/SQL.html">
+ <span class="dropdown-text">SQL 101</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Tutorials/advSQL.html">
+ <span class="dropdown-text">Advance SQL</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Tutorials/Regression.html">
+ <span class="dropdown-text">Regression analysis 101</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Tutorials/Regression2.html">
+ <span class="dropdown-text">Hyperparameters in regression analysis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Tutorials/RF.html">
+ <span class="dropdown-text">Random Forest 101</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Tutorials/xgboost.html">
+ <span class="dropdown-text">XGboost 101</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Tutorials/NeuralNetworks.html">
+ <span class="dropdown-text">Deep Learning for Time Series Analysis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Tutorials/ImageClassification.html">
+ <span class="dropdown-text">Image Classification with Deep Learning</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Tutorials/RL.html">
+ <span class="dropdown-text">Reinforcement Learning</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Tutorials/GoogleEarth.html">
+ <span class="dropdown-text">Google Earth</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/JuanDBeltranP"><i class="bi bi-github" role="img">
+</i> 
+ </a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.linkedin.com/in/jdbeltran/"><i class="bi bi-linkedin" role="img">
+</i> 
+ </a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">(Untitled)</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false">CV</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../juan.html" class="sidebar-item-text sidebar-link">Brief Description</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../skills.html" class="sidebar-item-text sidebar-link">Skills</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../work.html" class="sidebar-item-text sidebar-link">Work Experience</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../education.html" class="sidebar-item-text sidebar-link">Education</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../products.html" class="sidebar-item-text sidebar-link">Projects</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../publications.html" class="sidebar-item-text sidebar-link">Publications and Awards</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../CV.html" class="sidebar-item-text sidebar-link">Full CV</a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">Notes</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Notes/PythonvsR.html" class="sidebar-item-text sidebar-link">Python or R</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Notes/Newenvs.html" class="sidebar-item-text sidebar-link">The importance of environments</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Notes/commenting.html" class="sidebar-item-text sidebar-link">Why do we need to comment the code?</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Notes/MLOPS0.html" class="sidebar-item-text sidebar-link">MLOps Notes 1</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Notes/MLOPS1.html" class="sidebar-item-text sidebar-link">MLOps Notes 2</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Notes/MLOPS2.html" class="sidebar-item-text sidebar-link">MLOps Notes 3</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Notes/MLOPS3.html" class="sidebar-item-text sidebar-link">MLOps Notes 4</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Notes/timeseries.html" class="sidebar-item-text sidebar-link">Time series analysis</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Notes/NeuralNetworks.html" class="sidebar-item-text sidebar-link">Neural Networks</a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">Tutorials</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorials/SQL.html" class="sidebar-item-text sidebar-link">SQL 101</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorials/advSQL.html" class="sidebar-item-text sidebar-link">Advance SQL</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorials/Regression.html" class="sidebar-item-text sidebar-link">Regression analysis 101</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorials/Regression2.html" class="sidebar-item-text sidebar-link">Hyperparameters in regression analysis</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorials/RF.html" class="sidebar-item-text sidebar-link">Random Forest 101</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorials/xgboost.html" class="sidebar-item-text sidebar-link">XGboost 101</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorials/NeuralNetworks.html" class="sidebar-item-text sidebar-link">Deep Learning for Time Series Analysis</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorials/ImageClassification.html" class="sidebar-item-text sidebar-link">Image Classification with Deep Learning</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorials/RL.html" class="sidebar-item-text sidebar-link">Reinforcement Learning</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorials/GoogleEarth.html" class="sidebar-item-text sidebar-link">Google Earth</a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+
+<p><strong>Understanding the Differences Between Docker and Kubernetes</strong></p>
+<p>Introduction:</p>
+<p>Docker and Kubernetes are two prominent tools used in deploying and managing applications in a modern development pipeline. Although they are often discussed together, they serve different, albeit complementary, roles. It’s crucial to understand the unique functions of Docker and Kubernetes and how they can work together.</p>
+<hr>
+<p><strong>Part I: Overview of Docker and Kubernetes</strong></p>
+<p><strong>1.1: What is Docker?</strong></p>
+<p>Docker is an open-source platform that automates the deployment, scaling, and management of applications by encapsulating them into containers. A Docker container packages an application along with all of its dependencies, ensuring that it will run uniformly regardless of the host environment.</p>
+<p><strong>1.2: What is Kubernetes?</strong></p>
+<p>Kubernetes (also known as K8s) is an open-source platform for automating the deployment, scaling, and managing of containerized applications. It groups containers into “pods” (the smallest deployable unit in Kubernetes) and manages these pods across multiple host machines.</p>
+<hr>
+<p><strong>Part II: Comparing Docker and Kubernetes</strong></p>
+<p><strong>2.1: Scope</strong></p>
+<p>Docker focuses on automating application deployment within containers, ensuring consistency across environments. Kubernetes, on the other hand, manages clusters of containers across multiple machines, handling tasks like load balancing, network traffic distribution, and service discovery.</p>
+<p><strong>2.2: Scalability</strong></p>
+<p>While Docker can scale applications, its capacity is limited. Kubernetes excels at managing and scaling large clusters of containers, making it more suitable for large-scale applications.</p>
+<p><strong>2.3: Networking</strong></p>
+<p>In Docker, each container has its unique IP, with linking allowing containers to communicate. Kubernetes uses a flat network model, allowing all pods to communicate with each other without needing to map ports.</p>
+<p><strong>2.4: Data Storage</strong></p>
+<p>Docker volumes can be used for persistent data storage. Kubernetes, while also supporting Docker volumes, provides its volume abstraction layer, making it compatible with numerous cloud storage options.</p>
+<p><strong>2.5: Load Balancing</strong></p>
+<p>Docker uses a simple DNS-based round-robin method for load balancing. Kubernetes, however, provides more advanced load balancing features, including the distribution of network traffic to maintain stable application performance.</p>
+<hr>
+<p><strong>Part III: Docker and Kubernetes Working Together</strong></p>
+<p>Docker and Kubernetes are not mutually exclusive; instead, they complement each other. Docker provides the containerization technology, and Kubernetes provides orchestration capabilities for managing large clusters of Docker containers.</p>
+<hr>
+<p><strong>Part IV: When to Use Docker or Kubernetes</strong></p>
+<p><strong>4.1: Use Docker When:</strong></p>
+<ul>
+<li>You are containerizing applications and ensuring consistent behavior across environments.</li>
+<li>Your application is relatively simple and does not require advanced orchestration or scaling features.</li>
+<li>You want a simpler learning curve. Docker is generally easier to learn and implement.</li>
+</ul>
+<p><strong>4.2: Use Kubernetes When:</strong></p>
+<ul>
+<li>You need to manage and scale large clusters of containers across multiple machines.</li>
+<li>Your application requires advanced orchestration features, such as load balancing, service discovery, and automated rollouts and rollbacks.</li>
+<li>You are deploying microservices architecture at a large scale.</li>
+</ul>
+<hr>
+<p>Conclusion:</p>
+<p>Understanding Docker and Kubernetes and their respective strengths can help you make informed decisions when deploying and managing your applications. While Docker provides an excellent platform for containerizing applications, Kubernetes offers powerful tools for managing and scaling those containers. Choosing the right tool depends on your specific use case, the complexity and scale of your application, and your infrastructure needs.</p>
+
+
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

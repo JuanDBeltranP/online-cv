@@ -1,6 +1,3 @@
----
-title: "Tutorials"
----
 # Reinforcement Learning in Python and R: A Comprehensive Guide
 
 Reinforcement Learning (RL) is a subfield of machine learning that focuses on how an agent ought to take actions in an environment to maximize some notion of cumulative reward. In this tutorial, we will go over the fundamental principles of RL and how to implement them in Python and R.

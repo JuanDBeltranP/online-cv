@@ -2,33 +2,83 @@ project:
   type: website
   output-dir: docs
 website:
-  page-navigation: true
-  title: "CV"
+  page-navigation: false
+  title: "Dr Juan Beltran"
   navbar:
-    background: '#F7DE3A'
+    background: '#002147'
     right:
       - sidebar:juan
+    tools: 
+      - icon: github
+        href:  https://github.com/JuanDBeltranP
+      - icon: linkedin
+        href:  https://www.linkedin.com/in/jdbeltran/
 
   sidebar:
     - id: juan
-      title: "CV"
+      title: "Sections"
       style: "docked"
-      background: '#F7DE3A'
-      collapse-level: 2
-      contents:
-        - juan.qmd
-        - skills.qmd
-        - products.qmd
-        - work.qmd
-        - Forecasting.qmd
-        - IntroMLOps.qmd
-        - education.qmd
-        - publications.qmd
+      background: '#002147'
+      collapse-level: 1
+      contents: 
+      - section: "CV"
+        contents:
+          - juan.qmd
+          - skills.qmd
+          - work.qmd
+          - education.qmd
+          - products.qmd
+          - publications.qmd
+          - CV.qmd
+      - section: "Notes"
+        contents:
+          - href: Notes/PythonvsR.qmd
+            text: Python or R
+          - href: Notes/Newenvs.qmd
+            text: The importance of environments
+          - href: Notes/commenting.qmd
+            text: Why do we need to comment the code?
+          - href: Notes/MLOPS0.qmd
+            text: MLOps Notes 1
+          - href: Notes/MLOPS1.qmd
+            text: MLOps Notes 2
+          - href: Notes/MLOPS2.qmd
+            text: MLOps Notes 3
+          - href: Notes/MLOPS3.qmd
+            text: MLOps Notes 4
+          - href: Notes/timeseries.qmd
+            text: Time series analysis
+          - href: Notes/NeuralNetworks.qmd
+            text: Neural Networks 
+      - section: "Tutorials"
+        contents:
+          - href: Tutorials/SQL.qmd
+            text: SQL 101
+          - href: Tutorials/advSQL.qmd
+            text: Advance SQL
+          - href: Tutorials/Regression.qmd
+            text: Regression analysis 101
+          - href: Tutorials/Regression2.qmd
+            text: Hyperparameters in regression analysis            
+          - href: Tutorials/RF.qmd
+            text: Random Forest 101
+          - href: Tutorials/xgboost.qmd
+            text: XGboost 101
+          - href: Tutorials/NeuralNetworks.qmd
+            text: Deep Learning for Time Series Analysis
+          - href: Tutorials/ImageClassification.qmd
+            text: Image Classification with Deep Learning
+          - href: Tutorials/RL.qmd
+            text: Reinforcement Learning
+          - href: Tutorials/GoogleEarth.qmd
+            text: Google Earth           
         
  
 format:
   html:
     theme: cosmo
+    mainfont: "Baskervville" 
+    fontsize: 1.3em
     css: styles.css
     toc: true
 

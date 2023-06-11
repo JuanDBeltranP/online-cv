@@ -1,6 +1,7 @@
 ---
-title: "Publications"
+title: "Publications and Awards"
 ---
+## Publications 
 
 2020: **Beltrán JD** and Puddifoot R: ECOM research into global warming and its effect on suitability for cocoa production. 'AGEFI Commodities, special edition, Disruption in a Disrupted World. April: 22
 
@@ -15,3 +16,8 @@ title: "Publications"
 2012: M.Sc. Thesis: CAM or not CAM: A study on juveniles of *Guzmania lingulata*, *Guzmania monostachia* and *Werauhia sanguinolenta* (Bromeliaceae), Universidad de los Andes.
 
 2010: B.Sc. Thesis: Evolution of xerophyte habit in the tribe Tillandsieae (Bromeliaceae): a phylogenetic approach, Universidad de los Andes.
+
+## Awards
+• Weidenfeld Scholarship and Leadership Program for D.Phil. Funding, University of Oxford (2013-2016)
+• Scholarship from Administrative Department of Science, Technology and Innovation (Colombia) for D.Phil. Funding, University of Oxford (2013-2017)
+• Winner of New Phytologist Poster Prize (1st place), 34th New Phytologist Symposium "Plant Systems Biology and Ecology of CAM plants", California, U.S.A. (2014)

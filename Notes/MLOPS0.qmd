@@ -1,7 +1,3 @@
----
-title: "Introduction to MLOps"
----
-
 # Introduction to MLOps
 
 In today's blog, I will discuss a pivotal concept in modern machine learning architectures: **MLOps**, short for Machine Learning Operations.

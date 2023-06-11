@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Dr Juan Beltran – pythonvsr</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Dr Juan Beltran</span>
+  </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-sections" role="button" data-bs-toggle="dropdown" aria-expanded="false">Sections</a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-sections">    
+        <li class="dropdown-header">CV</li>
+        <li>
+    <a class="dropdown-item" href="../juan.html">
+ <span class="dropdown-text">Brief Description</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../skills.html">
+ <span class="dropdown-text">Skills</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../work.html">
+ <span class="dropdown-text">Work Experience</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../education.html">
+ <span class="dropdown-text">Education</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../products.html">
+ <span class="dropdown-text">Projects</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../publications.html">
+ <span class="dropdown-text">Publications and Awards</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../CV.html">
+ <span class="dropdown-text">Full CV</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li class="dropdown-header">Notes</li>
+        <li>
+    <a class="dropdown-item" href="../Notes/PythonvsR.html">
+ <span class="dropdown-text">Python or R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Notes/Newenvs.html">
+ <span class="dropdown-text">The importance of environments</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Notes/commenting.html">
+ <span class="dropdown-text">Why do we need to comment the code?</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Notes/MLOPS0.html">
+ <span class="dropdown-text">MLOps Notes 1</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Notes/MLOPS1.html">
+ <span class="dropdown-text">MLOps Notes 2</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Notes/MLOPS2.html">
+ <span class="dropdown-text">MLOps Notes 3</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Notes/MLOPS3.html">
+ <span class="dropdown-text">MLOps Notes 4</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Notes/timeseries.html">
+ <span class="dropdown-text">Time series analysis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Notes/NeuralNetworks.html">
+ <span class="dropdown-text">Neural Networks</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li class="dropdown-header">Tutorials</li>
+        <li>
+    <a class="dropdown-item" href="../Tutorials/SQL.html">
+ <span class="dropdown-text">SQL 101</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Tutorials/advSQL.html">
+ <span class="dropdown-text">Advance SQL</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Tutorials/Regression.html">
+ <span class="dropdown-text">Regression analysis 101</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Tutorials/Regression2.html">
+ <span class="dropdown-text">Hyperparameters in regression analysis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Tutorials/RF.html">
+ <span class="dropdown-text">Random Forest 101</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Tutorials/xgboost.html">
+ <span class="dropdown-text">XGboost 101</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Tutorials/NeuralNetworks.html">
+ <span class="dropdown-text">Deep Learning for Time Series Analysis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Tutorials/ImageClassification.html">
+ <span class="dropdown-text">Image Classification with Deep Learning</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Tutorials/RL.html">
+ <span class="dropdown-text">Reinforcement Learning</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Tutorials/GoogleEarth.html">
+ <span class="dropdown-text">Google Earth</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/JuanDBeltranP"><i class="bi bi-github" role="img">
+</i> 
+ </a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.linkedin.com/in/jdbeltran/"><i class="bi bi-linkedin" role="img">
+</i> 
+ </a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">(Untitled)</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false">CV</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../juan.html" class="sidebar-item-text sidebar-link">Brief Description</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../skills.html" class="sidebar-item-text sidebar-link">Skills</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../work.html" class="sidebar-item-text sidebar-link">Work Experience</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../education.html" class="sidebar-item-text sidebar-link">Education</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../products.html" class="sidebar-item-text sidebar-link">Projects</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../publications.html" class="sidebar-item-text sidebar-link">Publications and Awards</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../CV.html" class="sidebar-item-text sidebar-link">Full CV</a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Notes</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Notes/PythonvsR.html" class="sidebar-item-text sidebar-link active">Python or R</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Notes/Newenvs.html" class="sidebar-item-text sidebar-link">The importance of environments</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Notes/commenting.html" class="sidebar-item-text sidebar-link">Why do we need to comment the code?</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Notes/MLOPS0.html" class="sidebar-item-text sidebar-link">MLOps Notes 1</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Notes/MLOPS1.html" class="sidebar-item-text sidebar-link">MLOps Notes 2</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Notes/MLOPS2.html" class="sidebar-item-text sidebar-link">MLOps Notes 3</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Notes/MLOPS3.html" class="sidebar-item-text sidebar-link">MLOps Notes 4</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Notes/timeseries.html" class="sidebar-item-text sidebar-link">Time series analysis</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Notes/NeuralNetworks.html" class="sidebar-item-text sidebar-link">Neural Networks</a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">Tutorials</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorials/SQL.html" class="sidebar-item-text sidebar-link">SQL 101</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorials/advSQL.html" class="sidebar-item-text sidebar-link">Advance SQL</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorials/Regression.html" class="sidebar-item-text sidebar-link">Regression analysis 101</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorials/Regression2.html" class="sidebar-item-text sidebar-link">Hyperparameters in regression analysis</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorials/RF.html" class="sidebar-item-text sidebar-link">Random Forest 101</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorials/xgboost.html" class="sidebar-item-text sidebar-link">XGboost 101</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorials/NeuralNetworks.html" class="sidebar-item-text sidebar-link">Deep Learning for Time Series Analysis</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorials/ImageClassification.html" class="sidebar-item-text sidebar-link">Image Classification with Deep Learning</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorials/RL.html" class="sidebar-item-text sidebar-link">Reinforcement Learning</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorials/GoogleEarth.html" class="sidebar-item-text sidebar-link">Google Earth</a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+
+<p><strong>The Power of R and Python for Data Science</strong></p>
+<p>Introduction:</p>
+<p>One of the most common discussions in the data science world revolves around the choice between Python and R. Both languages have unique strengths and they are powerful tools when used effectively. A proficient data scientist can and often does, use both in their toolkit. These languages are not mutually exclusive, and each language can be the perfect tool for specific tasks. It’s all about understanding their unique strengths and leveraging them accordingly.</p>
+<hr>
+<p><strong>Part I: Understanding Python and R</strong></p>
+<p><strong>1.1: Overview of Python</strong></p>
+<p>Python is a general-purpose language noted for its simplicity and readability. This makes it a fantastic choice for beginners in programming and data science. Python’s robustness comes from its extensive libraries and packages, which cover almost every aspect of data science.</p>
+<p><strong>1.2: Overview of R</strong></p>
+<p>R is a statistical programming language that was specifically designed for data analysis, making it a go-to language for statisticians and researchers. It’s well-respected for its comprehensive statistical and graphical capabilities. R also has a wealth of packages for specialized scientific computation tasks.</p>
+<hr>
+<p><strong>Part II: Strengths of Python in Data Science</strong></p>
+<p><strong>2.1: Machine Learning</strong></p>
+<p>Python’s major strength lies in machine learning. Libraries like scikit-learn, TensorFlow, and PyTorch offer tools for predictive modeling, neural networks, natural language processing, and more.</p>
+<p><strong>2.2: General Programming &amp; Scripting</strong></p>
+<p>Python shines in general-purpose programming tasks. This makes it perfect for building data pipelines, web scraping, automation, web development, and more.</p>
+<p><strong>2.3: Community &amp; Learning Resources</strong></p>
+<p>Python boasts a larger user community than R, leading to more resources for learning and troubleshooting. Websites like Stack Overflow have a massive amount of content related to Python, making it easier for new data scientists to find help.</p>
+<hr>
+<p><strong>Part III: Strengths of R in Data Science</strong></p>
+<p><strong>3.1: Statistical Analysis</strong></p>
+<p>R is unparalleled in its statistical analysis capabilities. It has a wide range of in-built functions for testing statistical hypotheses and conducting complex data analyses.</p>
+<p><strong>3.2: Data Visualization</strong></p>
+<p>Although Python has Matplotlib, Seaborn, and Plotly, R’s ggplot2 package is considered one of the most sophisticated data visualization tools. It has a high level of flexibility and enables detailed layering and thematic customization.</p>
+<p><strong>3.3: Reporting and Reproducible Research</strong></p>
+<p>With tools like R Markdown, Shiny, and Knitr, R excels at creating reports and interactive web applications, allowing others to reproduce your analysis with the original data and code.</p>
+<hr>
+<p><strong>Part IV: Python vs R: A Comparative Summary</strong></p>
+<ul>
+<li><p><strong>Ease of Learning</strong>: Python’s syntax is straightforward, making it easier for beginners to learn. However, R has a steeper learning curve but provides more statistical power.</p></li>
+<li><p><strong>Data Handling Capabilities</strong>: Python is preferred for large datasets and big data analysis due to its speed and efficiency, while R is better suited for dataset manipulation and statistical modeling.</p></li>
+<li><p><strong>Visualization</strong>: Python has several good visualization libraries, but many data scientists agree that R’s ggplot2 offers superior control and complexity.</p></li>
+<li><p><strong>Machine Learning</strong>: Python has a better machine learning ecosystem, which includes libraries like TensorFlow and PyTorch. R also has machine learning libraries like caret and mlr, but they are less developed compared to Python’s ecosystem.</p></li>
+<li><p><strong>Community Support</strong>: Python has a wider community, resulting in faster package development and troubleshooting assistance. However, R has strong support in academia and research-oriented industries.</p></li>
+<li><p><strong>Job Market</strong>: Python is generally more in demand in the industry. However, R is favored in specific sectors like biostatistics, bioinformatics, and academic research.</p></li>
+</ul>
+<hr>
+<p><strong>Part V: The Convergence - Python and R in Data Science</strong></p>
+<p>One shouldn’t have to choose between Python and R; instead, the focus should be on learning to use both effectively. Many professionals use both languages in their work - Python for data manipulation and machine learning, and R for data analysis and visualization.</p>
+<p><strong>5.1: Tools for Interoperability</strong></p>
+<p>Tools like Jupyter notebooks, Rpy2, and reticulate make it possible to use both languages interchangeably in the same project.</p>
+<p><strong>5.2: Building a Polyglot Data Science Toolkit</strong></p>
+<p>Data scientists can and should develop a toolkit that takes advantage of the strengths of both languages. For example, you might use Python’s scikit-learn for machine learning, R’s ggplot2 for advanced visualizations, and Python’s pandas for data manipulation.</p>
+<hr>
+<p><strong>Conclusion:</strong></p>
+<p>The “Python vs.&nbsp;R” debate is less about choosing one over the other and more about understanding the strengths of each language and using them to your advantage. Both languages have a significant role to play in the data science landscape and knowing when to use each one is a skill every data scientist should cultivate.</p>
+<p>Remember, the best tool for the job often depends on the specific task, the industry you’re in, and your team’s capabilities and preferences. Always choose the right tool for the task and keep learning and adapting. After all, data science is a field that’s always evolving.</p>
+
+
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

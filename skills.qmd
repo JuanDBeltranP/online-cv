@@ -2,28 +2,12 @@
 title: "Skills"
 ---
 
-
-## Programming
-
-
-1. **Python** (most used libraries: Pandas, GeoPandas, prophet, SciKit-Learn, TensorFlow, Pytorch, keras, Matplotlib, NumPy, SciPy, SQLAlchemy, Seaborn, Bokeh, SciKit-Images)
-
-2. **R** (most used packages: RStudio, Shiny, tidyverse, Parsnip, bayestestR, sparklyr, keras, dygraph, forecast)
-
-## Geospatial analysis
-
-Advanced skills in ArcGIS and QGIS
-
-## Big Data & Databases
-
-Proficient in SQL, MongoDB (NoSQL), Spark (pyspark and sparklyr) 
-
-## Experimental design
-
-Strong background designing and implementing A/B tests, machine learning algorithms (supervised and unsupervised) and Bayesian statistics
-
-## Languages
-Fluent in English and Spanish (native)
-
-
-
+|  ||
+|:-------------------------|:---------------------------------------------|
+| **Programming Python**   | Advanced proficiency in Pandas, GeoPandas, SciKit-Learn, TensorFlow, Pytorch, keras, Matplotlib, NumPy, SciPy, SQLAlchemy, Seaborn, Bokeh, SciKit-Image                                  |
+| **Programming R**        | Advanced proficiency in RStudio, Shiny, tidyverse, Parsnip, bayestestR, sparklyr, keras, dygraph, forecast                                                                               |
+| **Modelling**            | Advanced experience in statistical modelling, time series analysis, supervised and unsupervised machine learning algorithms, currently implementing solutions in reinforcement learning (intermediate)|
+| **Geospatial Analysis**  | Advanced skills in geospatial machine learning, professional proficiency in ArcGIS, QGIS and OpenGeos (Python)|
+| **Big Data & Databases** | Proficient in SQL, MongoDB (NoSQL), Spark (pyspark and sparklyr)                                                                                                               |
+| **Experimental Design**  | Strong background in designing and implementing A/B tests, and Bayesian statistics                                                                                             |
+| **Languages**            | Fluent in English and Spanish (native)                                                                                                                                         |

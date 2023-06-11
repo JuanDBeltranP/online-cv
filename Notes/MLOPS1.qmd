@@ -1,6 +1,5 @@
-# Lecture Notes: Diving Deeper into MLOps
+# Diving Deeper into MLOps
 
-Dear Students,
 
 Following our introductory session on MLOps, today we will delve deeper into each component of the MLOps lifecycle and understand their practical applications.
 
@@ -43,6 +42,3 @@ In many industries, there are regulations requiring that models be explainable, 
 
 We'll continue exploring these components in our hands-on session where we'll walk through the lifecycle of an ML project using popular MLOps tools.
 
-Best regards,
-
-\[Your Name\] Oxford University, Department of Computer Science

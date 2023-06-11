@@ -1,0 +1,128 @@
+**Tutorial: SQL from Basics to Advanced Topics**
+
+Introduction:
+
+SQL (Structured Query Language) is a standard language for managing and manipulating relational databases. This tutorial will introduce you to SQL, starting with the basics and advancing to more complex topics.
+
+---
+
+**Part I: SQL Basics**
+
+**1.1: Creating a Database**
+
+Creating a database is the first step in SQL. The `CREATE DATABASE` statement is used to do this.
+
+```sql
+CREATE DATABASE myDatabase;
+```
+
+**1.2: Creating a Table**
+
+Tables are created within a database to store data. The `CREATE TABLE` statement is used, followed by the columns' names and data types.
+
+```sql
+CREATE TABLE Employees (
+    ID INT PRIMARY KEY,
+    FirstName VARCHAR(100),
+    LastName VARCHAR(100),
+    Email VARCHAR(50),
+    Age INT
+);
+```
+
+**1.3: Inserting Data**
+
+The `INSERT INTO` statement is used to insert data into a table.
+
+```sql
+INSERT INTO Employees (ID, FirstName, LastName, Email, Age)
+VALUES (1, 'John', 'Doe', 'john.doe@example.com', 30);
+```
+
+**1.4: Querying Data**
+
+The `SELECT` statement is used to select data from a database.
+
+```sql
+SELECT * FROM Employees;
+```
+
+---
+
+**Part II: SQL Intermediate**
+
+**2.1: WHERE Clause**
+
+The `WHERE` clause is used to filter records.
+
+```sql
+SELECT * FROM Employees WHERE Age > 30;
+```
+
+**2.2: UPDATE Statement**
+
+The `UPDATE` statement is used to modify existing records in a table.
+
+```sql
+UPDATE Employees SET Email = 'j.doe@example.com' WHERE ID = 1;
+```
+
+**2.3: DELETE Statement**
+
+The `DELETE` statement is used to delete existing records in a table.
+
+```sql
+DELETE FROM Employees WHERE ID = 1;
+```
+
+---
+
+**Part III: SQL Advanced**
+
+**3.1: JOIN**
+
+A `JOIN` clause is used to combine rows from two or more tables, based on a related column.
+
+```sql
+SELECT Orders.OrderID, Customers.CustomerName
+FROM Orders
+INNER JOIN Customers
+ON Orders.CustomerID = Customers.CustomerID;
+```
+
+**3.2: GROUP BY**
+
+The `GROUP BY` statement groups rows that have the same values in specified columns into aggregated data.
+
+```sql
+SELECT COUNT(ID), Age
+FROM Employees
+GROUP BY Age;
+```
+
+**3.3: Subqueries**
+
+A subquery is a query nested inside another query and can be used in SELECT, INSERT, UPDATE, or DELETE statements.
+
+```sql
+SELECT FirstName, LastName
+FROM Employees
+WHERE Age > (SELECT AVG(Age) FROM Employees);
+```
+
+**3.4: Views**
+
+A view is a virtual table based on the result-set of an SQL statement. A view contains rows and columns, just like a real table.
+
+```sql
+CREATE VIEW [Old Employees] AS
+SELECT FirstName, LastName
+FROM Employees
+WHERE Age > 60;
+```
+
+---
+
+Conclusion:
+
+SQL is a powerful language that's essential for any data professional. Understanding SQL from basics to advanced topics will enable you to work efficiently with databases, an essential skill in today's data-driven world. Always remember to practice regularly to become proficient.

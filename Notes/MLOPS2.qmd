@@ -1,4 +1,4 @@
-# Lecture Notes: Practical MLOps – Implementing an End-to-End Machine Learning Project
+# Practical MLOps – Implementing an End-to-End Machine Learning Project
 
 Following our detailed discussion on MLOps components, it's now time to put theory into practice. Today's session will focus on implementing an end-to-end machine learning project using the MLOps principles we've learned. 
 
@@ -35,8 +35,3 @@ MLOps is not a one-time setup; it's a continuous process. We'll set up alerts to
 Remember, MLOps is about managing the lifecycle of machine learning projects in a way that promotes collaboration, efficiency, and reliability. The tools and techniques we're learning in this course will serve you well in your future data science endeavors.
 
 In the next session, we'll get hands-on with these tools, and you'll have the opportunity to set up your own MLOps pipelines.
-
-Best regards,
-
-[Your Name]
-Oxford University, Department of Computer Science

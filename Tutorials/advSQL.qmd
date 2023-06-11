@@ -1,0 +1,110 @@
+**Advanced SQL Topics**
+
+Introduction:
+
+Building on our SQL basics and intermediate knowledge, this tutorial will delve deeper into advanced SQL techniques, which can help in managing and manipulating complex relational databases.
+
+---
+
+**Part I: Advanced Querying**
+
+**1.1: Self Joins**
+
+Self join is a regular join, but the table is joined with itself.
+
+```sql
+SELECT A.FirstName, B.FirstName, A.Age
+FROM Employees A, Employees B
+WHERE A.Age = B.Age
+```
+
+**1.2: Union and Union All**
+
+`UNION` is used to combine the result-set of two or more `SELECT` statements. `UNION` removes duplicate records, `UNION ALL` includes duplicates.
+
+```sql
+SELECT column_name(s) FROM table1
+UNION
+SELECT column_name(s) FROM table2;
+```
+
+**1.3: INTERSECT and EXCEPT**
+
+`INTERSECT` returns the common records in both `SELECT` statement results. `EXCEPT` returns the difference between the first and second `SELECT` statement.
+
+```sql
+SELECT column_name(s) FROM table1
+INTERSECT
+SELECT column_name(s) FROM table2;
+```
+
+---
+
+**Part II: Stored Procedures and Functions**
+
+**2.1: Stored Procedures**
+
+Stored procedures are a prepared SQL code that can be saved and reused. It can take parameters, and can also have complex logic with control statements like `IF`, `WHILE`, etc.
+
+```sql
+CREATE PROCEDURE SelectAllEmployees
+AS
+SELECT * FROM Employees;
+GO
+```
+
+**2.2: Functions**
+
+Functions are compiled SQL statements that can return a value. They can take parameters, and are used to encapsulate reusable computations.
+
+```sql
+CREATE FUNCTION GetTotalEmployees()
+RETURNS INT AS
+BEGIN
+  RETURN (SELECT COUNT(*) FROM Employees);
+END;
+```
+
+---
+
+**Part III: Transactions and Indexing**
+
+**3.1: Transactions**
+
+A transaction is a unit of work that is performed against a database. `COMMIT` saves the transaction; `ROLLBACK` ends the transaction and undoes any changes.
+
+```sql
+BEGIN TRANSACTION;
+UPDATE Employees SET Age = Age + 1;
+COMMIT;
+```
+
+**3.2: Indexing**
+
+Indexes are used to retrieve data from the database more quickly. They are particularly useful in large databases.
+
+```sql
+CREATE INDEX idx_Employees
+ON Employees (LastName);
+```
+
+---
+
+**Part IV: Triggers**
+
+Triggers are automatic actions that are performed when insert, update or delete commands are executed on a database table.
+
+```sql
+CREATE TRIGGER trg_AfterInsert
+AFTER INSERT ON Employees
+FOR EACH ROW
+   BEGIN
+   INSERT INTO AuditTable SET action = 'insert', employeeName = NEW.FirstName;
+   END;
+```
+
+---
+
+Conclusion:
+
+Advanced SQL provides you with the tools to handle complex data manipulation and management tasks. Understanding these concepts is essential for anyone working extensively with relational databases. Remember, practice is key in mastering SQL.
