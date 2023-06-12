@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Dr Juan Beltran – googleearth</title>
+<title>Dr Juan Beltran – rlstocks</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -447,12 +447,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Tutorials/RLStocks.html" class="sidebar-item-text sidebar-link">RL and trading in financial markets 101</a>
+  <a href="../Tutorials/RLStocks.html" class="sidebar-item-text sidebar-link active">RL and trading in financial markets 101</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Tutorials/GoogleEarth.html" class="sidebar-item-text sidebar-link active">Google Earth</a>
+  <a href="../Tutorials/GoogleEarth.html" class="sidebar-item-text sidebar-link">Google Earth</a>
   </div>
 </li>
       </ul>
@@ -462,71 +462,143 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </nav>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#rl-and-trading-in-financial-markets-101" id="toc-rl-and-trading-in-financial-markets-101" class="nav-link active" data-scroll-target="#rl-and-trading-in-financial-markets-101">RL and trading in financial markets 101</a>
+  <ul class="collapse">
+  <li><a href="#part-1-setting-up-the-trading-environment" id="toc-part-1-setting-up-the-trading-environment" class="nav-link" data-scroll-target="#part-1-setting-up-the-trading-environment">Part 1: Setting Up the Trading Environment</a></li>
+  <li><a href="#part-2-implementing-the-reinforcement-learning-agent" id="toc-part-2-implementing-the-reinforcement-learning-agent" class="nav-link" data-scroll-target="#part-2-implementing-the-reinforcement-learning-agent">Part 2: Implementing the Reinforcement Learning Agent</a></li>
+  <li><a href="#part-3-training-the-agent" id="toc-part-3-training-the-agent" class="nav-link" data-scroll-target="#part-3-training-the-agent">Part 3: Training the Agent</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 
 
-<p><strong>Introduction to Google Earth Engine</strong></p>
-<p>Introduction:</p>
-<p>Google Earth Engine is a cloud-based platform for planetary-scale environmental data analysis. It combines a multi-petabyte catalog of satellite imagery and geospatial datasets with computational capabilities to analyze and extract insights. In this blog, we will explore how to use Google Earth Engine, access its data, what types of analysis are possible, and how to produce composite images and measure deforestation.</p>
-<hr>
-<p><strong>Part I: Getting Started with Google Earth Engine</strong></p>
-<p><strong>1.1: Setting Up</strong></p>
-<p>To begin, you will need to sign up for a Google Earth Engine account. Once approved, you can access the Code Editor at https://code.earthengine.google.com/.</p>
-<p><strong>1.2: Navigating the Interface</strong></p>
-<p>The Google Earth Engine Code Editor is divided into several panels:</p>
-<ul>
-<li><strong>Scripts panel</strong>: where you can create, save, and manage your scripts.</li>
-<li><strong>Code Editor panel</strong>: where you enter JavaScript code.</li>
-<li><strong>Map panel</strong>: where results are displayed.</li>
-<li><strong>Inspector panel</strong>: to query map results.</li>
-</ul>
-<hr>
-<p><strong>Part II: Accessing Data</strong></p>
-<p><strong>2.1: Image and ImageCollection</strong></p>
-<p>In Google Earth Engine, raster data are represented as <code>Image</code> objects. A collection of images is an <code>ImageCollection</code>. You can access satellite imagery and other raster datasets from the Earth Engine Data Catalog.</p>
-<p><strong>2.2: Example - Accessing Landsat Imagery</strong></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> image <span class="op">=</span> ee<span class="op">.</span><span class="fu">Image</span>(<span class="st">'LANDSAT/LC08/C01/T1_TOA/LC08_044034_20140318'</span>)<span class="op">;</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">Map</span><span class="op">.</span><span class="fu">addLayer</span>(image<span class="op">,</span> {<span class="dt">bands</span><span class="op">:</span> [<span class="st">'B4'</span><span class="op">,</span> <span class="st">'B3'</span><span class="op">,</span> <span class="st">'B2'</span>]<span class="op">,</span> <span class="dt">max</span><span class="op">:</span> <span class="fl">0.3</span>}<span class="op">,</span> <span class="st">'true color image'</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<hr>
-<p><strong>Part III: Types of Analysis</strong></p>
-<p><strong>3.1: Basic Operations</strong></p>
-<p>You can perform arithmetic operations on images, compute spectral indices, and extract statistics.</p>
-<p><strong>3.2: Example - NDVI Calculation</strong></p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> ndvi <span class="op">=</span> image<span class="op">.</span><span class="fu">normalizedDifference</span>([<span class="st">'B5'</span><span class="op">,</span> <span class="st">'B4'</span>])<span class="op">;</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="bu">Map</span><span class="op">.</span><span class="fu">addLayer</span>(ndvi<span class="op">,</span> {<span class="dt">min</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">max</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">palette</span><span class="op">:</span> [<span class="st">'white'</span><span class="op">,</span> <span class="st">'green'</span>]}<span class="op">,</span> <span class="st">'NDVI'</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<hr>
-<p><strong>Part IV: Creating Composite Images</strong></p>
-<p>Creating a composite image involves combining several images into one. In the context of Google Earth Engine, you can create a composite image from an <code>ImageCollection</code>.</p>
-<p><strong>4.1: Example - Median Composite</strong></p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> collection <span class="op">=</span> ee<span class="op">.</span><span class="fu">ImageCollection</span>(<span class="st">'LANDSAT/LC08/C01/T1_TOA'</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">filterDate</span>(<span class="st">'2019-01-01'</span><span class="op">,</span> <span class="st">'2019-12-31'</span>)<span class="op">;</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> composite <span class="op">=</span> collection<span class="op">.</span><span class="fu">median</span>()<span class="op">;</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="bu">Map</span><span class="op">.</span><span class="fu">addLayer</span>(composite<span class="op">,</span> {<span class="dt">bands</span><span class="op">:</span> [<span class="st">'B4'</span><span class="op">,</span> <span class="st">'B3'</span><span class="op">,</span> <span class="st">'B2'</span>]<span class="op">,</span> <span class="dt">max</span><span class="op">:</span> <span class="fl">0.3</span>}<span class="op">,</span> <span class="st">'composite image'</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<hr>
-<p><strong>Part V: Measuring Deforestation with Google Earth Engine</strong></p>
-<p>Google Earth Engine can be used to monitor and measure deforestation. You can compute the difference between two images or track changes over time.</p>
-<p><strong>5.1: Example - Difference in NDVI</strong></p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> image1 <span class="op">=</span> ee<span class="op">.</span><span class="fu">Image</span>(<span class="st">'LANDSAT/LC08/C01/T1_TOA/LC08_044034_20140101'</span>)<span class="op">;</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> image2 <span class="op">=</span> ee<span class="op">.</span><span class="fu">Image</span>(<span class="st">'LANDSAT/LC08/C01/T1_TOA/LC08_044034_20141231'</span>)<span class="op">;</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> ndvi1 <span class="op">=</span> image1<span class="op">.</span><span class="fu">normalizedDifference</span>([<span class="st">'B5'</span><span class="op">,</span> <span class="st">'B4'</span>])<span class="op">;</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> ndvi2 <span class="op">=</span> image2<span class="op">.</span><span class="fu">normalizedDifference</span>([<span class="st">'B5'</span><span class="op">,</span> <span class="st">'B4'</span>])<span class="op">;</span></span>
+<section id="rl-and-trading-in-financial-markets-101" class="level1">
+<h1>RL and trading in financial markets 101</h1>
+<p>In this tutorial we will focus on using machine learning techniques, particularly reinforcement learning, for trading in financial markets. The goal will be to build a trading agent that learns to maximize total profit over a given period.</p>
+<p>We will be using the OpenAI Gym’s environment model, so if you are not already familiar with it, you can check the previous tutorials.</p>
+<section id="part-1-setting-up-the-trading-environment" class="level2">
+<h2 class="anchored" data-anchor-id="part-1-setting-up-the-trading-environment">Part 1: Setting Up the Trading Environment</h2>
+<p>Before we can train an agent, we need to set up the trading environment. We’ll use pandas_datareader to download historical stock price data from Yahoo Finance.</p>
+<p>First, let’s install the required libraries.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pip install gym pandas_datareader yfinance</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Next, we can import the required libraries:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> gym</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> gym <span class="im">import</span> spaces</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pandas_datareader <span class="im">import</span> data <span class="im">as</span> pdr</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> yfinance <span class="im">as</span> yf</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>yf.pdr_override()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Next, let’s define our custom trading environment. The environment will have a continuous action space representing the proportion of our portfolio to invest in the stock. A positive action value indicates a long position, while a negative action value indicates a short position. The state will be the latest stock price and the current portfolio value.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> TradingEnv(gym.Env):</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, stock_symbol, start_date, end_date, initial_balance<span class="op">=</span><span class="dv">10000</span>):</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>(TradingEnv, <span class="va">self</span>).<span class="fu">__init__</span>()</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Load data</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.stock_data <span class="op">=</span> pdr.get_data_yahoo(stock_symbol, start<span class="op">=</span>start_date, end<span class="op">=</span>end_date)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.stock_prices <span class="op">=</span> <span class="va">self</span>.stock_data[<span class="st">'Adj Close'</span>].values</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.initial_balance <span class="op">=</span> initial_balance</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.n_steps <span class="op">=</span> <span class="bu">len</span>(<span class="va">self</span>.stock_prices)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Define action and state space</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>        <span class="co"># They must be gym.spaces objects</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Example when using discrete actions:</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>        <span class="co"># self.action_space = spaces.Discrete(N_DISCRETE_ACTIONS)</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.action_space <span class="op">=</span> spaces.Box(low<span class="op">=-</span><span class="dv">1</span>, high<span class="op">=</span><span class="dv">1</span>, shape<span class="op">=</span>(<span class="dv">1</span>,))</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.observation_space <span class="op">=</span> spaces.Box(low<span class="op">=</span><span class="dv">0</span>, shape<span class="op">=</span>(<span class="dv">2</span>,))</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> step(<span class="va">self</span>, action):</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Execute one time step within the environment</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">pass</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> reset(<span class="va">self</span>):</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Reset the state of the environment to an initial state</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>        <span class="cf">pass</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> render(<span class="va">self</span>, mode<span class="op">=</span><span class="st">'human'</span>):</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Render the environment to the screen</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>        <span class="cf">pass</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="part-2-implementing-the-reinforcement-learning-agent" class="level2">
+<h2 class="anchored" data-anchor-id="part-2-implementing-the-reinforcement-learning-agent">Part 2: Implementing the Reinforcement Learning Agent</h2>
+<p>The trading agent will be implemented using a DQN (Deep Q-Network) similar to the one we used for playing the CartPole game. The agent will be trained to maximize the total rewards, which are defined as the change in portfolio value.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> random</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> keras.models <span class="im">import</span> Sequential</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> keras.layers <span class="im">import</span> Dense</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> keras.optimizers <span class="im">import</span> Adam</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collections <span class="im">import</span> deque</span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> difference <span class="op">=</span> ndvi2<span class="op">.</span><span class="fu">subtract</span>(ndvi1)<span class="op">;</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="bu">Map</span><span class="op">.</span><span class="fu">addLayer</span>(difference<span class="op">,</span> {<span class="dt">min</span><span class="op">:</span> <span class="op">-</span><span class="dv">1</span><span class="op">,</span> <span class="dt">max</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">palette</span><span class="op">:</span> [<span class="st">'blue'</span><span class="op">,</span> <span class="st">'white'</span><span class="op">,</span> <span class="st">'green</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="st">']}, '</span>NDVI difference<span class="st">');</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<hr>
-<p>Conclusion:</p>
-<p>Google Earth Engine is a powerful platform for large-scale geospatial data analysis. It provides an accessible interface for both accessing vast amounts of data and applying complex analyses to generate meaningful insights. As we’ve seen in the blog, it can be used to monitor and measure environmental phenomena such as deforestation. While we’ve only scratched the surface, I encourage you to explore the platform further, as the range of applications is vast.</p>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> DQNAgent:</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, state_size, action_size):</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.state_size <span class="op">=</span> state_size</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.action_size <span class="op">=</span> action_size</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.memory <span class="op">=</span> deque(maxlen<span class="op">=</span><span class="dv">2000</span>)</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.gamma <span class="op">=</span> <span class="fl">0.95</span>  <span class="co"># discount rate</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.epsilon <span class="op">=</span> <span class="fl">1.0</span>  <span class="co"># exploration rate</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.epsilon_min <span class="op">=</span> <span class="fl">0.01</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.epsilon_decay <span class="op">=</span> <span class="fl">0.995</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.learning_rate <span class="op">=</span> <span class="fl">0.001</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.model <span class="op">=</span> <span class="va">self</span>._build_model()</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> _build_model(<span class="va">self</span>):</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Neural network for Deep-Q learning Model</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>        model <span class="op">=</span> Sequential()</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>        model.add(Dense(<span class="dv">24</span>, input_dim<span class="op">=</span><span class="va">self</span>.state_size, activation<span class="op">=</span><span class="st">'relu'</span>))</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>        model.add(Dense(<span class="dv">24</span>, activation<span class="op">=</span><span class="st">'relu'</span>))</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>        model.add(Dense(<span class="va">self</span>.action_size, activation<span class="op">=</span><span class="st">'linear'</span>))</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>        model</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>.<span class="bu">compile</span>(loss<span class="op">=</span><span class="st">'mse'</span>, optimizer<span class="op">=</span>Adam(lr<span class="op">=</span><span class="va">self</span>.learning_rate))</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> model</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Other methods like `remember`, `act`, `replay` would be similar to what we defined earlier in the CartPole example</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="part-3-training-the-agent" class="level2">
+<h2 class="anchored" data-anchor-id="part-3-training-the-agent">Part 3: Training the Agent</h2>
+<p>Finally, we can create an instance of our trading environment and our DQN agent, and train the agent using historical data. The agent learns by observing the outcome of its actions, remembering them, and learning from the experiences.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Specify the stock symbol and date range</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>stock_symbol <span class="op">=</span> <span class="st">'AAPL'</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>start_date <span class="op">=</span> <span class="st">'2015-01-01'</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>end_date <span class="op">=</span> <span class="st">'2020-12-31'</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the trading environment</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>env <span class="op">=</span> TradingEnv(stock_symbol, start_date, end_date)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the DQN agent</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>agent <span class="op">=</span> DQNAgent(env.observation_space.shape[<span class="dv">0</span>], env.action_space.shape[<span class="dv">0</span>])</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Training the agent</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>episodes <span class="op">=</span> <span class="dv">100</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> e <span class="kw">in</span> <span class="bu">range</span>(episodes):</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    state <span class="op">=</span> env.reset()</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    state <span class="op">=</span> np.reshape(state, [<span class="dv">1</span>, agent.state_size])</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> time <span class="kw">in</span> <span class="bu">range</span>(env.n_steps):</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>        action <span class="op">=</span> agent.act(state)</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>        next_state, reward, done, _ <span class="op">=</span> env.step(action)</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>        reward <span class="op">=</span> reward <span class="cf">if</span> <span class="kw">not</span> done <span class="cf">else</span> <span class="op">-</span><span class="dv">10</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>        next_state <span class="op">=</span> np.reshape(next_state, [<span class="dv">1</span>, agent.state_size])</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>        agent.remember(state, action, reward, next_state, done)</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>        state <span class="op">=</span> next_state</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> done:</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="st">"episode: </span><span class="sc">{}</span><span class="st">/</span><span class="sc">{}</span><span class="st">, score: </span><span class="sc">{}</span><span class="st">"</span>.<span class="bu">format</span>(e, episodes, time))</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="bu">len</span>(agent.memory) <span class="op">&gt;</span> batch_size:</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>            agent.replay(batch_size)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Note that the trading environment and DQN agent are not fully implemented in this tutorial. The <code>step</code>, <code>reset</code>, and <code>render</code> methods in the <code>TradingEnv</code> class and the <code>remember</code>, <code>act</code>, and <code>replay</code> methods in the <code>DQNAgent</code> class need to be implemented similar to the CartPole example.</p>
+<p>Also, note that this is a very simplified model that doesn’t take into account transaction costs, uses only the price data to make decisions, and assumes that the agent can trade any fractional amount of the stock, which might not be possible in real-world trading scenarios.</p>
+<p>Finally, remember that this model is trained entirely on historical data, and as the common saying in finance goes, “past performance is not indicative of future results”. Therefore, caution should be taken when using reinforcement learning models for actual trading.</p>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

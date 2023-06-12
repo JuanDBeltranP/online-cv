@@ -1,0 +1,138 @@
+# RL and trading in financial markets 101
+
+In this tutorial we will focus on using machine learning techniques, particularly reinforcement learning, for trading in financial markets. The goal will be to build a trading agent that learns to maximize total profit over a given period.
+
+We will be using the OpenAI Gym's environment model, so if you are not already familiar with it, you can check the previous tutorials.
+
+## Part 1: Setting Up the Trading Environment
+
+Before we can train an agent, we need to set up the trading environment. We'll use pandas_datareader to download historical stock price data from Yahoo Finance.
+
+First, let's install the required libraries.
+
+```python
+pip install gym pandas_datareader yfinance
+```
+
+Next, we can import the required libraries:
+
+```python
+import gym
+from gym import spaces
+import numpy as np
+import pandas as pd
+from pandas_datareader import data as pdr
+import yfinance as yf
+yf.pdr_override()
+```
+
+Next, let's define our custom trading environment. The environment will have a continuous action space representing the proportion of our portfolio to invest in the stock. A positive action value indicates a long position, while a negative action value indicates a short position. The state will be the latest stock price and the current portfolio value.
+
+```python
+class TradingEnv(gym.Env):
+    def __init__(self, stock_symbol, start_date, end_date, initial_balance=10000):
+        super(TradingEnv, self).__init__()
+
+        # Load data
+        self.stock_data = pdr.get_data_yahoo(stock_symbol, start=start_date, end=end_date)
+        self.stock_prices = self.stock_data['Adj Close'].values
+        self.initial_balance = initial_balance
+        self.n_steps = len(self.stock_prices)
+
+        # Define action and state space
+        # They must be gym.spaces objects
+        # Example when using discrete actions:
+        # self.action_space = spaces.Discrete(N_DISCRETE_ACTIONS)
+        self.action_space = spaces.Box(low=-1, high=1, shape=(1,))
+        self.observation_space = spaces.Box(low=0, shape=(2,))
+
+    def step(self, action):
+        # Execute one time step within the environment
+        pass
+
+    def reset(self):
+        # Reset the state of the environment to an initial state
+        pass
+
+    def render(self, mode='human'):
+        # Render the environment to the screen
+        pass
+```
+
+## Part 2: Implementing the Reinforcement Learning Agent
+
+The trading agent will be implemented using a DQN (Deep Q-Network) similar to the one we used for playing the CartPole game. The agent will be trained to maximize the total rewards, which are defined as the change in portfolio value.
+
+```python
+import random
+from keras.models import Sequential
+from keras.layers import Dense
+from keras.optimizers import Adam
+from collections import deque
+
+class DQNAgent:
+    def __init__(self, state_size, action_size):
+        self.state_size = state_size
+        self.action_size = action_size
+        self.memory = deque(maxlen=2000)
+        self.gamma = 0.95  # discount rate
+        self.epsilon = 1.0  # exploration rate
+        self.epsilon_min = 0.01
+        self.epsilon_decay = 0.995
+        self.learning_rate = 0.001
+        self.model = self._build_model()
+
+    def _build_model(self):
+        # Neural network for Deep-Q learning Model
+        model = Sequential()
+        model.add(Dense(24, input_dim=self.state_size, activation='relu'))
+        model.add(Dense(24, activation='relu'))
+        model.add(Dense(self.action_size, activation='linear'))
+        model
+
+.compile(loss='mse', optimizer=Adam(lr=self.learning_rate))
+        return model
+
+    # Other methods like `remember`, `act`, `replay` would be similar to what we defined earlier in the CartPole example
+```
+
+## Part 3: Training the Agent
+
+Finally, we can create an instance of our trading environment and our DQN agent, and train the agent using historical data. The agent learns by observing the outcome of its actions, remembering them, and learning from the experiences. 
+
+```python
+# Specify the stock symbol and date range
+stock_symbol = 'AAPL'
+start_date = '2015-01-01'
+end_date = '2020-12-31'
+
+# Create the trading environment
+env = TradingEnv(stock_symbol, start_date, end_date)
+
+# Create the DQN agent
+agent = DQNAgent(env.observation_space.shape[0], env.action_space.shape[0])
+
+# Training the agent
+episodes = 100
+for e in range(episodes):
+    state = env.reset()
+    state = np.reshape(state, [1, agent.state_size])
+    for time in range(env.n_steps):
+        action = agent.act(state)
+        next_state, reward, done, _ = env.step(action)
+        reward = reward if not done else -10
+        next_state = np.reshape(next_state, [1, agent.state_size])
+        agent.remember(state, action, reward, next_state, done)
+        state = next_state
+        if done:
+            print("episode: {}/{}, score: {}".format(e, episodes, time))
+            break
+        if len(agent.memory) > batch_size:
+            agent.replay(batch_size)
+```
+
+Note that the trading environment and DQN agent are not fully implemented in this tutorial. The `step`, `reset`, and `render` methods in the `TradingEnv` class and the `remember`, `act`, and `replay` methods in the `DQNAgent` class need to be implemented similar to the CartPole example.
+
+Also, note that this is a very simplified model that doesn't take into account transaction costs, uses only the price data to make decisions, and assumes that the agent can trade any fractional amount of the stock, which might not be possible in real-world trading scenarios.
+
+Finally, remember that this model is trained entirely on historical data, and as the common saying in finance goes, "past performance is not indicative of future results". Therefore, caution should be taken when using reinforcement learning models for actual trading.

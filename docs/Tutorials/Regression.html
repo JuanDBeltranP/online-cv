@@ -221,7 +221,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </li>  
         <li>
     <a class="dropdown-item" href="../Tutorials/Regression2.html">
- <span class="dropdown-text">Hyperparameters in regression analysis</span></a>
+ <span class="dropdown-text">Hyperparameters in regression P1</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Tutorials/Regression3.html">
+ <span class="dropdown-text">Hyperparameters in regression P2</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../Tutorials/RF.html">
@@ -242,6 +246,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         <li>
     <a class="dropdown-item" href="../Tutorials/RL.html">
  <span class="dropdown-text">Reinforcement Learning</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Tutorials/RLStocks.html">
+ <span class="dropdown-text">RL and trading in financial markets 101</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../Tutorials/GoogleEarth.html">
@@ -404,7 +412,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Tutorials/Regression2.html" class="sidebar-item-text sidebar-link">Hyperparameters in regression analysis</a>
+  <a href="../Tutorials/Regression2.html" class="sidebar-item-text sidebar-link">Hyperparameters in regression P1</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorials/Regression3.html" class="sidebar-item-text sidebar-link">Hyperparameters in regression P2</a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -434,6 +447,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../Tutorials/RLStocks.html" class="sidebar-item-text sidebar-link">RL and trading in financial markets 101</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../Tutorials/GoogleEarth.html" class="sidebar-item-text sidebar-link">Google Earth</a>
   </div>
 </li>
@@ -451,63 +469,113 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 
-<p><strong>Regression Analysis - Lasso, Ridge, and Elastic Net</strong></p>
-<p>Introduction:</p>
-<p>Regression analysis is a statistical technique that models the relationship between a dependent variable and one or more independent variables. In this blog, we will explore three types of regression analysis: Lasso, Ridge, and Elastic Net.</p>
+<p><strong>Tutorial: Regression Models in Python – From Basics to Advanced</strong></p>
+<p><strong>Introduction</strong></p>
+<p>Regression analysis is a powerful statistical method that allows you to examine the relationship between two or more variables. In this tutorial, we’ll explore several types of regression models using Python, including Linear Regression, Lasso, Ridge, Elastic Net, Bayesian Regression, and Decision Trees.</p>
+<p>We’ll be using real-world data from the Our World in Data repository.</p>
 <hr>
-<p><strong>Part I: Understanding Regression</strong></p>
-<p><strong>1.1: Linear Regression</strong></p>
-<p>Linear regression is a simple and commonly used regression method. It assumes a linear relationship between the dependent and independent variables.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create linear regression object</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>reg <span class="op">=</span> LinearRegression()</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Train the model using the training sets</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>reg.fit(X_train, y_train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Part I: Setting Up Your Environment</strong></p>
+<p>To get started, we first need to install some necessary libraries. If you don’t have them installed already, you can do so by running the following commands:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install pandas numpy sklearn matplotlib seaborn</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><code>pandas</code> and <code>numpy</code> will help us handle the data, <code>sklearn</code> will provide the regression models, and <code>matplotlib</code> and <code>seaborn</code> will help us visualize the data.</p>
 <hr>
-<p><strong>Part II: Regularization in Regression</strong></p>
-<p><strong>2.1: Understanding Regularization</strong></p>
-<p>Regularization adds a penalty term to the objective function and controls the model complexity using that penalty term. Regularization techniques used in linear regression are Lasso, Ridge, and Elastic Net.</p>
+<p><strong>Part II: Importing the Data</strong></p>
+<p>We’re going to use the Our World in Data’s CO2 and GDP dataset. This dataset includes information about countries’ CO2 emissions and their GDP.</p>
+<p>First, let’s import our libraries and load our data.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the data</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://raw.githubusercontent.com/owid/co2-data/master/owid-co2-data.csv"</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> pd.read_csv(url)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Check the data</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>data.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>We use <code>pandas</code>’ <code>read_csv</code> function to load our data. <code>data.head()</code> prints the first 5 rows of our dataframe.</p>
 <hr>
-<p><strong>Part III: Lasso Regression</strong></p>
-<p><strong>3.1: Understanding Lasso Regression</strong></p>
-<p>Lasso regression (Least Absolute Shrinkage and Selection Operator) performs L1 regularization, which adds a penalty equal to the absolute value of the magnitude of coefficients.</p>
-<p><strong>3.2: Implementing Lasso Regression in Python</strong></p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> Lasso</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create lasso regression object</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>lasso <span class="op">=</span> Lasso(alpha<span class="op">=</span><span class="fl">0.1</span>)</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Train the model using the training sets</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>lasso.fit(X_train, y_train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Part III: Preprocessing the Data</strong></p>
+<p>Before we start modeling, we need to preprocess our data. We will deal with missing values and scale our data.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Drop missing values</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> data[[<span class="st">'year'</span>, <span class="st">'co2'</span>, <span class="st">'gdp'</span>]].dropna()</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Define our inputs and target</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> data[[<span class="st">'year'</span>, <span class="st">'gdp'</span>]]</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> data[<span class="st">'co2'</span>]</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Split the data into train and test sets</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X, y, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Scale the data</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>scaler <span class="op">=</span> StandardScaler()</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>X_train <span class="op">=</span> scaler.fit_transform(X_train)</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>X_test <span class="op">=</span> scaler.transform(X_test)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>We use <code>dropna()</code> to drop missing values, and <code>train_test_split()</code> to split our data into a training set and a test set. The <code>StandardScaler()</code> standardizes our data to have a mean of 0 and a standard deviation of 1.</p>
 <hr>
-<p><strong>Part IV: Ridge Regression</strong></p>
-<p><strong>4.1: Understanding Ridge Regression</strong></p>
-<p>Ridge regression performs L2 regularization, which adds a penalty equal to the square of the magnitude of coefficients.</p>
-<p><strong>4.2: Implementing Ridge Regression in Python</strong></p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> Ridge</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create ridge regression object</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>ridge <span class="op">=</span> Ridge(alpha<span class="op">=</span><span class="fl">0.1</span>)</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Train the model using the training sets</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>ridge.fit(X_train, y_train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Part IV: Linear Regression</strong></p>
+<p>Linear regression is a basic and commonly used type of predictive analysis.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_squared_error</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize the model</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>lr <span class="op">=</span> LinearRegression()</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit the model</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>lr.fit(X_train, y_train)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Predict the test set</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> lr.predict(X_test)</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Evaluate the model</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>mse <span class="op">=</span> mean_squared_error(y_test, y_pred)</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'MSE: '</span>, mse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>We initialize our model with <code>LinearRegression()</code>, fit it to our training data with <code>lr.fit()</code>, and make predictions with <code>lr.predict()</code>. Finally, we evaluate our model by calculating the Mean Squared Error.</p>
 <hr>
-<p><strong>Part V: Elastic Net Regression</strong></p>
-<p><strong>5.1: Understanding Elastic Net Regression</strong></p>
-<p>Elastic Net regression is a combination of both L1 and L2 regularization. It has a hyperparameter to control the balance between them.</p>
-<p><strong>5.2: Implementing Elastic Net Regression in Python</strong></p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> ElasticNet</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create elastic net regression object</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>enet <span class="op">=</span> ElasticNet(alpha<span class="op">=</span><span class="fl">0.1</span>, l1_ratio<span class="op">=</span><span class="fl">0.5</span>)</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Train the model using the training sets</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>enet.fit(X_train, y_train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Part V: Lasso, Ridge and Elastic Net Regression</strong></p>
+<p>These are extensions of linear regression that have regularizations.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> Lasso, Ridge, ElasticNet</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Lasso</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>lasso <span class="op">=</span> Lasso(alpha<span class="op">=</span><span class="fl">0.1</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>lasso.fit(X_train, y_train)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> lasso.predict(X_test)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>(<span class="st">'Lasso MSE: '</span>, mean_squared_error(y_test, y_pred))</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Ridge</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>ridge <span class="op">=</span> Ridge(alpha<span class="op">=</span><span class="fl">0.1</span>)</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>ridge.fit(X_train, y_train)</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> ridge.predict(X_test)</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Ridge MSE: '</span>, mean_squared_error(y_test, y_pred))</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Elastic Net</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>elastic <span class="op">=</span> ElasticNet(alpha<span class="op">=</span><span class="fl">0.1</span>, l1_ratio<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>elastic.fit(X_train, y_train)</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> elastic.predict(X_test)</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'ElasticNet MSE: '</span>, mean_squared_error(y_test, y_pred))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>For each model, we initialize it (with the appropriate hyperparameters), fit it, make predictions, and evaluate it. The <code>alpha</code> hyperparameter controls the strength of the penalty, and <code>l1_ratio</code> controls the mixture of L1 and L2 penalties for Elastic Net.</p>
 <hr>
-<p>Conclusion:</p>
-<p>Regularization is a powerful technique to prevent overfitting in regression models. Lasso, Ridge, and Elastic Net are key regularization techniques that each have their strengths and use-cases. Python, with its powerful libraries such as Scikit-Learn, provides straightforward methods to implement these techniques.</p>
+<p><strong>Part VI: Bayesian Regression and Decision Trees</strong></p>
+<p>Bayesian regression uses Bayes’ theorem to update the probability of a hypothesis as more evidence or information becomes available. Decision Trees split the data into branches to make predictions.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.tree <span class="im">import</span> DecisionTreeRegressor</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> BayesianRidge</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Bayesian Ridge Regression</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>bayesian <span class="op">=</span> BayesianRidge()</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>bayesian.fit(X_train, y_train)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> bayesian.predict(X_test)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'BayesianRidge MSE: '</span>, mean_squared_error(y_test, y_pred))</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Decision Tree Regression</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>tree <span class="op">=</span> DecisionTreeRegressor(max_depth<span class="op">=</span><span class="dv">5</span>)</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>tree.fit(X_train, y_train)</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> tree.predict(X_test)</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'DecisionTree MSE: '</span>, mean_squared_error(y_test, y_pred))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The procedure for Bayesian Ridge and Decision Tree Regression is the same as before. For Decision Trees, the <code>max_depth</code> hyperparameter controls the maximum depth of the tree.</p>
+<hr>
+<p><strong>Conclusion</strong></p>
+<p>In this tutorial, we have covered various types of regression models in Python, including linear regression, lasso, ridge, elastic net, Bayesian regression, and decision trees. We have also demonstrated how to import and preprocess real-world data, fit models, make predictions, and evaluate model performance. By understanding these fundamental concepts, you’re now well equipped to explore more complex predictive modeling techniques.</p>
 
 
 

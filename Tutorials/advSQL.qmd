@@ -1,110 +1,127 @@
-**Advanced SQL Topics**
+**Advanced SQL**
 
 Introduction:
 
-Building on our SQL basics and intermediate knowledge, this tutorial will delve deeper into advanced SQL techniques, which can help in managing and manipulating complex relational databases.
+Building on our SQL basics and intermediate knowledge, this tutorial, is the second part of SQL 101, here we will delve deeper into advanced SQL techniques, which can help in managing and manipulating complex relational databases.
+
+
+**Part IV: SQL Constraints**
+
+**4.1 Understanding SQL Constraints**
+
+SQL Constraints are used to specify rules for the data in a table. Constraints ensure the reliability and accuracy of the data in the table. 
+
+**4.2 Primary Key**
+
+A primary key is used to uniquely identify each record in a table.
+
+```SQL
+CREATE TABLE Employees (
+    ID int PRIMARY KEY,
+    Name text,
+    Age int,
+    Salary real
+);
+```
+The `PRIMARY KEY` constraint uniquely identifies each record in the `Employees` table. This means that the `ID` field is unique for each record and cannot be `NULL`.
+
+**4.3 Foreign Key**
+
+A foreign key is used to link two tables together.
+
+```SQL
+CREATE TABLE Orders (
+    OrderID int PRIMARY KEY,
+    OrderNumber int,
+    EmployeeID int,
+    FOREIGN KEY (EmployeeID) REFERENCES Employees(ID)
+);
+```
+Here, `EmployeeID` in the `Orders` table is a foreign key that refers to `ID` in the `Employees` table.
+
+**4.4 Unique**
+
+The `UNIQUE` constraint ensures that all values in a column are different.
+
+```SQL
+CREATE TABLE Employees (
+    ID int PRIMARY KEY,
+    Name text UNIQUE,
+    Age int,
+    Salary real
+);
+```
+This ensures that the `Name` is unique for each record.
 
 ---
 
-**Part I: Advanced Querying**
+**Part V: Advanced SQL Queries**
 
-**1.1: Self Joins**
+**5.1 Using Alias**
 
-Self join is a regular join, but the table is joined with itself.
+SQL aliases are used to give a table or a column a temporary name. They make column names more readable.
 
-```sql
-SELECT A.FirstName, B.FirstName, A.Age
-FROM Employees A, Employees B
-WHERE A.Age = B.Age
+```SQL
+SELECT e.Name AS Employee, e.Salary AS Income 
+FROM Employees AS e;
 ```
+This command selects all `Name` and `Salary` from the `Employees` table but results will be displayed as `Employee` and `Income` respectively.
 
-**1.2: Union and Union All**
+**5.2 Conditional Selection**
 
-`UNION` is used to combine the result-set of two or more `SELECT` statements. `UNION` removes duplicate records, `UNION ALL` includes duplicates.
+The `CASE` statement goes through conditions and returns a value when the first condition is met.
 
-```sql
-SELECT column_name(s) FROM table1
-UNION
-SELECT column_name(s) FROM table2;
+```SQL
+SELECT Name, Salary,
+CASE 
+    WHEN Salary > 50000 THEN 'Above Average'
+    ELSE 'Below Average' 
+END AS SalaryStatus
+FROM Employees;
 ```
+This command adds a new column `SalaryStatus` that categorizes employees based on their salary.
 
-**1.3: INTERSECT and EXCEPT**
+**5.3 IN Operator**
 
-`INTERSECT` returns the common records in both `SELECT` statement results. `EXCEPT` returns the difference between the first and second `SELECT` statement.
+The `IN` operator allows you to specify multiple values in a `WHERE` clause.
 
-```sql
-SELECT column_name(s) FROM table1
-INTERSECT
-SELECT column_name(s) FROM table2;
+```SQL
+SELECT * FROM Employees
+WHERE Name IN ('John Doe', 'Jane Doe');
 ```
+This command selects all fields from `Employees` where the `Name` is either 'John Doe' or 'Jane Doe'.
 
 ---
 
-**Part II: Stored Procedures and Functions**
+**Part VI: Stored Procedures**
 
-**2.1: Stored Procedures**
+**6.1 What is a Stored Procedure?**
 
-Stored procedures are a prepared SQL code that can be saved and reused. It can take parameters, and can also have complex logic with control statements like `IF`, `WHILE`, etc.
+A stored procedure is a prepared SQL code that you can save so the code can be reused over and over again. 
 
-```sql
-CREATE PROCEDURE SelectAllEmployees
+**6.2 Creating a Stored Procedure**
+
+Let's assume we frequently need to fetch all employees with a salary above a certain value. Instead of writing this query every time, we can create a stored procedure.
+
+```SQL
+CREATE PROCEDURE SelectHighlyPaid @Salary real
 AS
-SELECT * FROM Employees;
-GO
+SELECT * FROM Employees WHERE Salary > @Salary;
+GO;
 ```
 
-**2.2: Functions**
+**6.3 Calling a Stored Procedure**
 
-Functions are compiled SQL statements that can return a value. They can take parameters, and are used to encapsulate reusable computations.
+Now that we have our stored procedure, we can execute it.
 
-```sql
-CREATE FUNCTION GetTotalEmployees()
-RETURNS INT AS
-BEGIN
-  RETURN (SELECT COUNT(*) FROM Employees);
-END;
+```SQL
+EXEC SelectHighlyPaid 50000;
 ```
+
+This command calls the `SelectHighlyPaid` stored procedure and retrieves employees earning more than 50000.
 
 ---
 
-**Part III: Transactions and Indexing**
+**Conclusion**
 
-**3.1: Transactions**
-
-A transaction is a unit of work that is performed against a database. `COMMIT` saves the transaction; `ROLLBACK` ends the transaction and undoes any changes.
-
-```sql
-BEGIN TRANSACTION;
-UPDATE Employees SET Age = Age + 1;
-COMMIT;
-```
-
-**3.2: Indexing**
-
-Indexes are used to retrieve data from the database more quickly. They are particularly useful in large databases.
-
-```sql
-CREATE INDEX idx_Employees
-ON Employees (LastName);
-```
-
----
-
-**Part IV: Triggers**
-
-Triggers are automatic actions that are performed when insert, update or delete commands are executed on a database table.
-
-```sql
-CREATE TRIGGER trg_AfterInsert
-AFTER INSERT ON Employees
-FOR EACH ROW
-   BEGIN
-   INSERT INTO AuditTable SET action = 'insert', employeeName = NEW.FirstName;
-   END;
-```
-
----
-
-Conclusion:
-
-Advanced SQL provides you with the tools to handle complex data manipulation and management tasks. Understanding these concepts is essential for anyone working extensively with relational databases. Remember, practice is key in mastering SQL.
+From basic commands to advanced procedures, SQL is a versatile tool that can handle complex queries with ease. By mastering these advanced concepts and continually practicing, you're well on your way to becoming an SQL expert!

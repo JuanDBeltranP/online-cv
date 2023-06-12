@@ -1,30 +1,49 @@
 # Reinforcement Learning in Python and R: A Comprehensive Guide
 
 Reinforcement Learning (RL) is a subfield of machine learning that focuses on how an agent ought to take actions in an environment to maximize some notion of cumulative reward. In this tutorial, we will go over the fundamental principles of RL and how to implement them in Python and R.
+Absolutely! Let's delve deeper into the concepts and code.
 
 ## 1. Understanding the Basics of Reinforcement Learning
 
-RL revolves around these main concepts:
+Reinforcement Learning is a dynamic process that uses rewards and punishments to train an agent. It consists of several elements:
 
-- **Agent**: The RL algorithm that learns from trial and error.
-- **Environment**: The context where the agent operates.
-- **State**: The current situation of the agent.
-- **Action**: All possible moves the agent can make.
-- **Reward**: Feedback from the environment.
+- **Agent**: This is the learner or decision-maker. It takes actions based on the state it's in and the policy it has learned.
+- **Environment**: This is the context in which the agent operates. It could be a maze for a robotic agent or a board game for a game-playing agent.
+- **State**: This is the current situation the agent is in. The state will be presented to the agent as an input, and it is the agent's representation of the environment at a given time.
+- **Action**: These are the possible steps or decisions that the agent can make.
+- **Reward**: These are the feedback signals that guide the agent to the goal. A reward can be positive (for good actions) or negative (for bad actions).
 
-The agent learns by interacting with its environment, it takes actions, the environment returns the new state and gives a reward. The goal of the agent is to maximize the sum of rewards.
+The agent learns from the consequences of its actions, rather than from being taught explicitly. It selects actions based on its past experiences (exploitation) and also by new choices (exploration), which is essentially the dilemma between choosing a known best action and trying out a new action to see if it's better.
 
 ## 2. Q-Learning: Introduction to a Simple Reinforcement Learning Algorithm
 
-One of the simplest ways to understand reinforcement learning is through Q-Learning. The objective of Q-Learning is to find a policy that is optimal in the sense that the expected value of the total reward over all successive steps is maximized.
+Q-Learning is a values iteration algorithm in RL. In Q-Learning, we define a Q-function (Q stands for quality) that the agent learns. The Q-function Q(s,a) gives the expected future reward if action a is taken in state s.
 
-The Q-Learning algorithm uses a table (Q-table) where we have a row for each state (s) and a column for each action (a). The cell at the intersection of state (s) and action (a) represents the expected future reward that the agent will get if it takes action (a) while in state (s).
-
-Let's start with the Python implementation of Q-learning.
+The Q-Learning algorithm uses a table to store the Q-values for each (state-action) pair. This table guides the agent to the best action at each state.
 
 ## 3. Implementing Q-Learning in Python using OpenAI's Gym
 
-For our Python implementation, we will use the `OpenAI Gym` environment, which provides different game scenarios for training reinforcement learning agents. We'll work with the `FrozenLake-v0` game.
+We will use the OpenAI Gym library, which is a popular Python library for developing and comparing RL algorithms. It provides several pre-defined environments where we can test our agents.
+
+One such environment is the FrozenLake-v0 game. In the FrozenLake game, the agent controls the movement of a character in a grid world. The agent's goal is to go from the starting state (S) to the goal state (G) by walking only on frozen tiles (F) and avoid holes (H). The catch is that the ice is slippery, so the agent won't always move in the direction it intends to.
+
+Here's an example of a FrozenLake environment:
+
+```
+SFFF       (S: starting point, safe)
+FHFH       (F: frozen surface, safe)
+FFFH       (H: hole, fall to your doom)
+HFFG       (G: goal, where the frisbee is located)
+```
+
+This Python code implements the Q-Learning algorithm:
+
+To start, we should install the necessary dependencies, including TensorFlow and Keras for building neural networks, and Gym for the reinforcement learning environment.
+
+```python
+pip install gym tensorflow keras numpy matplotlib
+```
+The implementation is the following:
 
 ```python
 import numpy as np
@@ -35,10 +54,16 @@ from IPython.display import clear_output
 
 # Create the environment
 env = gym.make("FrozenLake-v0")
+```
+Here we import the necessary libraries and create the FrozenLake-v0 environment.
 
+```python
 # Initialize Q-table with zero
 q_table = np.zeros([env.observation_space.n, env.action_space.n])
+```
+The Q-table is initialized with zeros and has a size of (number_of_states x number_of_actions).
 
+```python
 # Hyperparameters
 num_episodes = 10000
 max_steps_per_episode = 100
@@ -49,10 +74,15 @@ discount_rate = 0.99
 exploration_rate = 1
 max_exploration_rate = 1
 min_exploration_rate = 0.01
-exploration_decay_rate = 0.001
+exploration_decay_rate = 
+
+0.001
 
 rewards_all_episodes = []
+```
+These are the hyperparameters. The number of episodes is the number of games we want the agent to play during the training. In each episode, the agent can make a fixed number of steps (max_steps_per_episode). The learning_rate is the rate at which the AI agent should learn, the discount_rate is the importance of future rewards. The exploration rate is the rate at which the agent should explore the environment randomly, instead of using the already computed Q-values.
 
+```python
 # Q-learning algorithm
 for episode in range(num_episodes):
     state = env.reset()
@@ -61,12 +91,19 @@ for episode in range(num_episodes):
     rewards_current_episode = 0
 
     for step in range(max_steps_per_episode): 
+```
+Here we start to play the episodes. At the start of each episode, we reset the environment to its initial state. `done` is a flag used to indicate if the episode has ended. `rewards_current_episode` is used to sum up all the rewards the agent has received in the current episode.
+
+```python
         exploration_rate_threshold = random.uniform(0, 1)
         if exploration_rate_threshold > exploration_rate:
             action = np.argmax(q_table[state,:]) 
         else:
             action = env.action_space.sample()
+```
+Here the agent decides whether to explore or exploit. A random number is chosen. If it is greater than the exploration rate, the agent exploits the environment and chooses the action with the highest Q-value in the current state (exploit). Otherwise, it explores the environment, and the action is chosen randomly (explore).
 
+```python
         new_state, reward, done, info = env.step(action)
 
         # Update Q-table for Q(s,a)
@@ -78,16 +115,17 @@ for episode in range(num_episodes):
 
         if done == True: 
             break
+```
+The agent performs the action and moves to the new state, and receives the reward. The Q-value of the (state-action) pair is updated using the Q-learning update rule.
 
+```python
     # Exploration rate decay
     exploration_rate = min_exploration_rate + \
         (max_exploration_rate - min_exploration_rate) * np.exp(-exploration_decay_rate*episode)
 
     rewards_all_episodes.append(rewards_current_episode)
 ```
-This code creates an agent that learns to play
-
- the `FrozenLake-v0` game. The agent uses Q-Learning to learn how to play.
+After each episode, we decrease the exploration rate. We want our agent to explore less as it learns more about the environment. The `rewards_all_episodes` list keeps track of the total rewards in each episode.
 
 ## 4. Implementing Q-Learning in R
 
@@ -122,7 +160,226 @@ result <- mdp_example_qlearning(T, R, 0.9, 10000)
 ```
 The code above creates a simple environment using the `MDPtoolbox` library. The environment is a simple four-state system where the agent learns to navigate to the terminal state using Q-Learning.
 
-## 5. Conclusions
+Let's now dive deeper into more advanced concepts of reinforcement learning with Python, including Policy Gradients and Deep Q-Networks (DQNs). 
+
+## 6. Policy Gradients
+
+Policy Gradients are a type of reinforcement learning algorithms that are more advanced than Q-Learning. They learn a parameterized policy that can choose actions without consulting a value function. One popular algorithm in this family is the REINFORCE algorithm.
+
+### Understanding Policy Gradient
+
+Instead of learning a value function that tells us what is the expected sum of rewards given a state and an action (as in Q-Learning), we're going to learn directly a policy function. The policy is a distribution over actions given states.
+
+In Policy Gradient methods, we typically use a simple function approximator such as a neural network to approximate the policy function.
+
+The REINFORCE algorithm works as follows:
+
+1. Initialize the policy parameters θ at random.
+2. Generate an episode following π(⋅|⋅;θ), and let R_t be the return from time step t.
+3. For each time step t of the episode, compute the gradient ∇_θ log π(A_t|S_t;θ) and update the parameters using stochastic gradient ascent:
+    θ ← θ + αR_t ∇_θ log π(A_t|S_t;θ)
+
+### Implementing Policy Gradients
+
+Let's implement a simple version of the REINFORCE algorithm using the CartPole environment from Gym. This environment consists of a pole connected to a cart moving along a frictionless track. The pole starts upright, and the goal is to prevent it from falling over by applying a force of +1 or -1 to the cart. 
+
+```python
+import gym
+import numpy as np
+from keras.models import Sequential
+from keras.layers import Dense, Reshape, Flatten
+from keras.optimizers import Adam
+
+def create_model():
+    model = Sequential()
+    model.add(Dense(24, input_dim=4, activation='relu')) # input is the state
+    model.add(Dense(24, activation='relu'))
+    model.add(Dense(2, activation='softmax')) # output is the probability distribution over actions
+    model.compile(loss='categorical_crossentropy', optimizer=Adam())
+    return model
+```
+This function creates our policy network. It takes a state as input and outputs a probability distribution over actions.
+
+```python
+def generate_episode(policy, env):
+    states, actions, rewards = [], [], []
+    state = env.reset()
+    done = False
+    while not done:
+        state = state.reshape([1, state.size])
+        prob = policy.predict(state)[0]
+        action = np.random.choice(env.action_space.n, p=prob)
+        next_state, reward, done, _ = env.step(action)
+
+        states.append(state)
+        actions.append(action)
+        rewards.append(reward)
+
+        state = next_state
+
+    return states, actions, rewards
+```
+This function generates an episode by running the policy in the environment. It returns the list of states, actions, and rewards encountered during the episode.
+
+```python
+def compute_returns(rewards, gamma=0.99):
+    R = 0
+    returns = []
+    for r in reversed(rewards):
+        R = r + gamma * R
+        returns.insert(0, R)
+    return np.array(returns)
+```
+This function computes the returns for each time step in an episode, using the rewards and a discount factor gamma.
+
+```python
+def train_policy(policy, episodes):
+   
+
+ env = gym.make('CartPole-v0')
+    for episode in range(episodes):
+        states, actions, rewards = generate_episode(policy, env)
+        returns = compute_returns(rewards)
+        X = np.squeeze(np.vstack(states))
+        y = np.zeros([len(actions), env.action_space.n])
+        for i, action in enumerate(actions):
+            y[i, action] = returns[i]
+        policy.train_on_batch(X, y)
+    env.close()
+```
+This function trains the policy for a given number of episodes. For each episode, it generates an episode, computes the returns, and updates the policy parameters using the returns as weight for the actions taken.
+
+Now we can create our policy and train it:
+
+```python
+policy = create_model()
+train_policy(policy, 1000)
+```
+
+## 7. Deep Q-Networks (DQNs)
+
+Deep Q-Networks (DQNs) are a type of Q-Learning algorithm that uses a neural network as a function approximator for the Q-function. It was introduced by DeepMind in their groundbreaking paper "Playing Atari with Deep Reinforcement Learning" in 2013.
+
+### Understanding DQN
+
+DQN is essentially Q-Learning with function approximation, but with a few key differences:
+
+1. **Experience Replay**: To break the correlation between consecutive samples, DQN stores the agent's experiences in a replay buffer. During training, it samples mini-batches of experiences from the replay buffer to update the Q-network.
+
+2. **Target Network**: To stabilize the training, DQN uses two networks: a Q-network for selecting actions, and a target network (a clone of the Q-network) for generating the Q-learning targets. The weights of the target network are updated less frequently (usually, every few thousand steps) to keep the targets stable.
+
+### Implementing DQNs
+
+Now let's implement a DQN for the CartPole environment.
+
+```python
+import gym
+import random
+import numpy as np
+from keras.models import Sequential
+from keras.layers import Dense
+from keras.optimizers import Adam
+from collections import deque
+
+class DQNAgent:
+    def __init__(self, state_size, action_size):
+        self.state_size = state_size
+        self.action_size = action_size
+        self.memory = deque(maxlen=2000)
+        self.gamma = 0.95  # discount rate
+        self.epsilon = 1.0  # exploration rate
+        self.epsilon_min = 0.01
+        self.epsilon_decay = 0.995
+        self.learning_rate = 0.001
+        self.model = self._build_model()
+```
+This class defines our DQN agent. It has a memory for storing experiences, parameters for the epsilon-greedy policy (epsilon is the probability of choosing a random action), and a neural network model for approximating the Q-function.
+
+```python
+def _build_model(self):
+    model = Sequential()
+    model.add(Dense(24, input_dim=self.state_size, activation='relu'))
+    model.add(Dense(24, activation='relu'))
+    model.add(Dense(self.action_size, activation='linear'))
+    model.compile(loss='mse', optimizer=Adam(lr=self.learning_rate))
+    return model
+```
+
+This function builds a simple 2-layer fully connected neural network. The input size is the size of the state space, and the output size is the size of the action space. The model uses mean squared error (MSE) for loss as we're dealing with a regression problem (predicting the Q-values), and the Adam optimizer for training the model.
+
+Next, we define a method for the agent to remember the experiences.
+
+```python
+def remember(self, state, action, reward, next_state, done):
+    self.memory.append((state, action, reward, next_state, done))
+```
+
+This function simply adds an experience to the agent's memory. The experience is a tuple of state, action, reward, next state, and done (which tells whether the episode ended after this step).
+
+Now, let's implement the action selection policy.
+
+```python
+def act(self, state):
+    if np.random.rand() <= self.epsilon:
+        return random.randrange(self.action_size)
+    act_values = self.model.predict(state)
+    return np.argmax(act_values[0])  # returns action
+```
+
+This function implements an epsilon-greedy policy. With probability epsilon, it chooses a random action (for exploration), and with probability 1 - epsilon, it chooses the best action according to the current Q-value estimates (for exploitation).
+
+The core of the DQN algorithm is in the learning phase, where it updates the Q-value estimates.
+
+```python
+def replay(self, batch_size):
+    minibatch = random.sample(self.memory, batch_size)
+    for state, action, reward, next_state, done in minibatch:
+        target = self.model.predict(state)
+        if done:
+            target[0][action] = reward
+        else:
+            Q_future = max(self.model.predict(next_state)[0])
+            target[0][action] = reward + self.gamma * Q_future
+        self.model.fit(state, target, epochs=1, verbose=0)
+    if self.epsilon > self.epsilon_min:
+        self.epsilon *= self.epsilon_decay
+```
+
+In this function, a mini-batch of experiences is sampled from the memory, and for each experience, the Q-value target for the action taken is updated, and the network's weights are updated to fit this target value. If the episode ended (`done` is True), the target is simply the reward, else it's the reward plus the discounted estimated maximum future Q-value.
+
+Finally, we create an instance of the DQNAgent and train it to balance the pole in the CartPole environment.
+
+```python
+env = gym.make('CartPole-v1')
+agent = DQNAgent(env.observation_space.shape[0], env.action_space.n)
+episodes = 500
+batch_size = 32
+
+for e in range(episodes):
+    state = env.reset()
+    state = np.reshape(state, [1, agent.state_size])
+    for time in range(500):
+        action = agent.act(state)
+        next_state, reward, done, _ = env.step(action)
+        reward = reward if not done else -10
+        next_state = np.reshape(next_state, [1, agent.state_size])
+        agent.remember(state, action, reward, next_state, done)
+        state = next_state
+        if done:
+            print("episode: {}/{}, score: {}".format(e, episodes, time))
+            break
+
+
+        if len(agent.memory) > batch_size:
+            agent.replay(batch_size)
+```
+
+The agent plays a number of episodes of the game, choosing actions via its `act` method, remembering the resulting experiences, and learning from its memory by replaying experiences. The game resets when the pole falls over, giving the agent negative rewards as a penalty.
+
+In this tutorial, we went over a more advanced concept in reinforcement learning, including policy gradient methods like REINFORCE and value-based methods like DQN. These methods use neural networks to learn directly from high-dimensional sensory inputs, and have achieved superhuman performance in complex tasks like playing video games and controlling robots.
+
+
+## 8. Conclusions
 
 Reinforcement learning is a powerful approach for tasks that involve sequential decision-making. This tutorial presented the fundamental concepts of RL and walked through an example of how to implement Q-Learning, a simple but powerful RL algorithm, in Python and R. Remember that the RL field is vast and complex, this is just the tip of the iceberg!
 

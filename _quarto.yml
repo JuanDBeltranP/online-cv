@@ -59,7 +59,9 @@ website:
           - href: Tutorials/Regression.qmd
             text: Regression analysis 101
           - href: Tutorials/Regression2.qmd
-            text: Hyperparameters in regression analysis            
+            text: Hyperparameters in regression P1
+          - href: Tutorials/Regression3.qmd
+            text: Hyperparameters in regression P2            
           - href: Tutorials/RF.qmd
             text: Random Forest 101
           - href: Tutorials/xgboost.qmd
@@ -70,6 +72,8 @@ website:
             text: Image Classification with Deep Learning
           - href: Tutorials/RL.qmd
             text: Reinforcement Learning
+          - href: Tutorials/RLStocks.qmd
+            text: RL and trading in financial markets 101
           - href: Tutorials/GoogleEarth.qmd
             text: Google Earth           
         

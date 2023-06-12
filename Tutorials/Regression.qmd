@@ -1,97 +1,156 @@
-**Regression Analysis - Lasso, Ridge, and Elastic Net**
+**Tutorial: Regression Models in Python – From Basics to Advanced**
 
-Introduction:
+**Introduction**
 
-Regression analysis is a statistical technique that models the relationship between a dependent variable and one or more independent variables. In this blog, we will explore three types of regression analysis: Lasso, Ridge, and Elastic Net.
+Regression analysis is a powerful statistical method that allows you to examine the relationship between two or more variables. In this tutorial, we'll explore several types of regression models using Python, including Linear Regression, Lasso, Ridge, Elastic Net, Bayesian Regression, and Decision Trees. 
+
+We'll be using real-world data from the Our World in Data repository.
 
 ---
 
-**Part I: Understanding Regression**
+**Part I: Setting Up Your Environment**
 
-**1.1: Linear Regression**
+To get started, we first need to install some necessary libraries. If you don't have them installed already, you can do so by running the following commands:
 
-Linear regression is a simple and commonly used regression method. It assumes a linear relationship between the dependent and independent variables.
+```Python
+!pip install pandas numpy sklearn matplotlib seaborn
+```
 
-```python
+`pandas` and `numpy` will help us handle the data, `sklearn` will provide the regression models, and `matplotlib` and `seaborn` will help us visualize the data.
+
+---
+
+**Part II: Importing the Data**
+
+We're going to use the Our World in Data's CO2 and GDP dataset. This dataset includes information about countries' CO2 emissions and their GDP.
+
+First, let's import our libraries and load our data.
+
+```Python
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+
+# Load the data
+url = "https://raw.githubusercontent.com/owid/co2-data/master/owid-co2-data.csv"
+data = pd.read_csv(url)
+
+# Check the data
+data.head()
+```
+
+We use `pandas`' `read_csv` function to load our data. `data.head()` prints the first 5 rows of our dataframe.
+
+---
+
+**Part III: Preprocessing the Data**
+
+Before we start modeling, we need to preprocess our data. We will deal with missing values and scale our data.
+
+```Python
+# Drop missing values
+data = data[['year', 'co2', 'gdp']].dropna()
+
+# Define our inputs and target
+X = data[['year', 'gdp']]
+y = data['co2']
+
+# Split the data into train and test sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Scale the data
+scaler = StandardScaler()
+X_train = scaler.fit_transform(X_train)
+X_test = scaler.transform(X_test)
+```
+
+We use `dropna()` to drop missing values, and `train_test_split()` to split our data into a training set and a test set. The `StandardScaler()` standardizes our data to have a mean of 0 and a standard deviation of 1.
+
+---
+
+**Part IV: Linear Regression**
+
+Linear regression is a basic and commonly used type of predictive analysis.
+
+```Python
 from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error
 
-# Create linear regression object
-reg = LinearRegression()
+# Initialize the model
+lr = LinearRegression()
 
-# Train the model using the training sets
-reg.fit(X_train, y_train)
+# Fit the model
+lr.fit(X_train, y_train)
+
+# Predict the test set
+y_pred = lr.predict(X_test)
+
+# Evaluate the model
+mse = mean_squared_error(y_test, y_pred)
+print('MSE: ', mse)
 ```
 
----
-
-**Part II: Regularization in Regression**
-
-**2.1: Understanding Regularization**
-
-Regularization adds a penalty term to the objective function and controls the model complexity using that penalty term. Regularization techniques used in linear regression are Lasso, Ridge, and Elastic Net.
+We initialize our model with `LinearRegression()`, fit it to our training data with `lr.fit()`, and make predictions with `lr.predict()`. Finally, we evaluate our model by calculating the Mean Squared Error.
 
 ---
 
-**Part III: Lasso Regression**
+**Part V: Lasso, Ridge and Elastic Net Regression**
 
-**3.1: Understanding Lasso Regression**
+These are extensions of linear regression that have regularizations.
 
-Lasso regression (Least Absolute Shrinkage and Selection Operator) performs L1 regularization, which adds a penalty equal to the absolute value of the magnitude of coefficients.
+```Python
+from sklearn.linear_model import Lasso, Ridge, ElasticNet
 
-**3.2: Implementing Lasso Regression in Python**
-
-```python
-from sklearn.linear_model import Lasso
-
-# Create lasso regression object
+# Lasso
 lasso = Lasso(alpha=0.1)
-
-# Train the model using the training sets
 lasso.fit(X_train, y_train)
-```
+y_pred = lasso.predict(X_test)
+print
 
----
+('Lasso MSE: ', mean_squared_error(y_test, y_pred))
 
-**Part IV: Ridge Regression**
-
-**4.1: Understanding Ridge Regression**
-
-Ridge regression performs L2 regularization, which adds a penalty equal to the square of the magnitude of coefficients.
-
-**4.2: Implementing Ridge Regression in Python**
-
-```python
-from sklearn.linear_model import Ridge
-
-# Create ridge regression object
+# Ridge
 ridge = Ridge(alpha=0.1)
-
-# Train the model using the training sets
 ridge.fit(X_train, y_train)
+y_pred = ridge.predict(X_test)
+print('Ridge MSE: ', mean_squared_error(y_test, y_pred))
+
+# Elastic Net
+elastic = ElasticNet(alpha=0.1, l1_ratio=0.5)
+elastic.fit(X_train, y_train)
+y_pred = elastic.predict(X_test)
+print('ElasticNet MSE: ', mean_squared_error(y_test, y_pred))
 ```
+
+For each model, we initialize it (with the appropriate hyperparameters), fit it, make predictions, and evaluate it. The `alpha` hyperparameter controls the strength of the penalty, and `l1_ratio` controls the mixture of L1 and L2 penalties for Elastic Net.
 
 ---
 
-**Part V: Elastic Net Regression**
+**Part VI: Bayesian Regression and Decision Trees**
 
-**5.1: Understanding Elastic Net Regression**
+Bayesian regression uses Bayes' theorem to update the probability of a hypothesis as more evidence or information becomes available. Decision Trees split the data into branches to make predictions.
 
-Elastic Net regression is a combination of both L1 and L2 regularization. It has a hyperparameter to control the balance between them.
+```Python
+from sklearn.tree import DecisionTreeRegressor
+from sklearn.linear_model import BayesianRidge
 
-**5.2: Implementing Elastic Net Regression in Python**
+# Bayesian Ridge Regression
+bayesian = BayesianRidge()
+bayesian.fit(X_train, y_train)
+y_pred = bayesian.predict(X_test)
+print('BayesianRidge MSE: ', mean_squared_error(y_test, y_pred))
 
-```python
-from sklearn.linear_model import ElasticNet
-
-# Create elastic net regression object
-enet = ElasticNet(alpha=0.1, l1_ratio=0.5)
-
-# Train the model using the training sets
-enet.fit(X_train, y_train)
+# Decision Tree Regression
+tree = DecisionTreeRegressor(max_depth=5)
+tree.fit(X_train, y_train)
+y_pred = tree.predict(X_test)
+print('DecisionTree MSE: ', mean_squared_error(y_test, y_pred))
 ```
+
+The procedure for Bayesian Ridge and Decision Tree Regression is the same as before. For Decision Trees, the `max_depth` hyperparameter controls the maximum depth of the tree.
 
 ---
 
-Conclusion:
+**Conclusion**
 
-Regularization is a powerful technique to prevent overfitting in regression models. Lasso, Ridge, and Elastic Net are key regularization techniques that each have their strengths and use-cases. Python, with its powerful libraries such as Scikit-Learn, provides straightforward methods to implement these techniques.
+In this tutorial, we have covered various types of regression models in Python, including linear regression, lasso, ridge, elastic net, Bayesian regression, and decision trees. We have also demonstrated how to import and preprocess real-world data, fit models, make predictions, and evaluate model performance. By understanding these fundamental concepts, you're now well equipped to explore more complex predictive modeling techniques.

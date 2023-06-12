@@ -1,128 +1,155 @@
-**Tutorial: SQL from Basics to Advanced Topics**
+**SQL 101**
 
-Introduction:
+**Introduction**
 
-SQL (Structured Query Language) is a standard language for managing and manipulating relational databases. This tutorial will introduce you to SQL, starting with the basics and advancing to more complex topics.
+Structured Query Language (SQL) is a standardized programming language used for managing relational databases and performing various operations on the data in them. This tutorial will guide you through the basics to advanced SQL commands.
 
 ---
 
 **Part I: SQL Basics**
 
-**1.1: Creating a Database**
+**1.1 Setting Up**
 
-Creating a database is the first step in SQL. The `CREATE DATABASE` statement is used to do this.
+First, we need to set up a database. For this tutorial, we'll be using SQLite, a software library that provides a relational database management system.
 
-```sql
-CREATE DATABASE myDatabase;
+You can install SQLite from its [official website](https://www.sqlite.org/download.html). After installation, you can interact with SQLite via the command-line shell.
+
+**1.2 Creating a Database**
+
+To create a database in SQLite, you use the following command:
+
+```SQL
+sqlite3 TestDB.db
 ```
 
-**1.2: Creating a Table**
+This command creates a new database named `TestDB.db`. If the database exists, it opens the database.
 
-Tables are created within a database to store data. The `CREATE TABLE` statement is used, followed by the columns' names and data types.
+**1.3 Creating a Table**
 
-```sql
+To create a table in SQL, we use the `CREATE TABLE` statement. 
+
+```SQL
 CREATE TABLE Employees (
-    ID INT PRIMARY KEY,
-    FirstName VARCHAR(100),
-    LastName VARCHAR(100),
-    Email VARCHAR(50),
-    Age INT
+    ID int,
+    Name text,
+    Age int,
+    Salary real
 );
 ```
 
-**1.3: Inserting Data**
+This creates a table named `Employees` with four columns: `ID`, `Name`, `Age`, and `Salary`.
 
-The `INSERT INTO` statement is used to insert data into a table.
+**1.4 Inserting Data**
 
-```sql
-INSERT INTO Employees (ID, FirstName, LastName, Email, Age)
-VALUES (1, 'John', 'Doe', 'john.doe@example.com', 30);
+We can insert data into the table using the `INSERT INTO` statement.
+
+```SQL
+INSERT INTO Employees (ID, Name, Age, Salary) 
+VALUES (1, 'John Doe', 30, 50000.00 );
 ```
 
-**1.4: Querying Data**
+This command inserts a new row into the `Employees` table.
 
-The `SELECT` statement is used to select data from a database.
+**1.5 Querying Data**
 
-```sql
+You can retrieve data using the `SELECT` statement.
+
+```SQL
 SELECT * FROM Employees;
 ```
 
+This command selects all records from the `Employees` table.
+
 ---
 
-**Part II: SQL Intermediate**
+**Part II: Intermediate SQL**
 
-**2.1: WHERE Clause**
+**2.1 Updating Data**
 
-The `WHERE` clause is used to filter records.
+You can update existing records using the `UPDATE` statement.
 
-```sql
-SELECT * FROM Employees WHERE Age > 30;
+```SQL
+UPDATE Employees
+SET Salary = 55000.00
+WHERE ID = 1;
 ```
 
-**2.2: UPDATE Statement**
+This command updates the salary of the employee with `ID` 1.
 
-The `UPDATE` statement is used to modify existing records in a table.
+**2.2 Deleting Data**
 
-```sql
-UPDATE Employees SET Email = 'j.doe@example.com' WHERE ID = 1;
-```
+You can delete records using the `DELETE` statement.
 
-**2.3: DELETE Statement**
-
-The `DELETE` statement is used to delete existing records in a table.
-
-```sql
+```SQL
 DELETE FROM Employees WHERE ID = 1;
 ```
 
----
+This command deletes the employee with `ID` 1.
 
-**Part III: SQL Advanced**
+**2.3 Ordering Data**
 
-**3.1: JOIN**
+You can sort the result set using the `ORDER BY` keyword.
 
-A `JOIN` clause is used to combine rows from two or more tables, based on a related column.
-
-```sql
-SELECT Orders.OrderID, Customers.CustomerName
-FROM Orders
-INNER JOIN Customers
-ON Orders.CustomerID = Customers.CustomerID;
+```SQL
+SELECT * FROM Employees ORDER BY Salary DESC;
 ```
 
-**3.2: GROUP BY**
+This command selects all employees and orders them by `Salary` in descending order.
+
+---
+
+**Part III: Advanced SQL**
+
+**3.1 Joins**
+
+SQL joins are used to combine rows from two or more tables.
+
+```SQL
+SELECT Employees.Name, Orders.OrderID
+FROM Employees
+INNER JOIN Orders ON Employees.ID = Orders.EmployeeID;
+```
+
+This `INNER JOIN` keyword selects records that have matching values in both tables.
+
+**3.2 Aggregate Functions**
+
+SQL aggregate functions return a single value, calculated from values in a column. 
+
+```SQL
+SELECT AVG(Salary) AS AverageSalary FROM Employees;
+```
+
+This command calculates the average salary of all employees.
+
+**3.3 Group By**
 
 The `GROUP BY` statement groups rows that have the same values in specified columns into aggregated data.
 
-```sql
+```SQL
 SELECT COUNT(ID), Age
 FROM Employees
 GROUP BY Age;
 ```
 
-**3.3: Subqueries**
+This command counts the number of employees of each age.
 
-A subquery is a query nested inside another query and can be used in SELECT, INSERT, UPDATE, or DELETE statements.
+**3.4 Subquery**
 
-```sql
-SELECT FirstName, LastName
+A Subquery or Inner query or Nested query is a query within another SQL query.
+
+```SQL
+SELECT Name 
 FROM Employees
-WHERE Age > (SELECT AVG(Age) FROM Employees);
+WHERE Salary > (SELECT AVG(Salary) FROM Employees);
 ```
 
-**3.4: Views**
+This command finds employees who earn more than the average
 
-A view is a virtual table based on the result-set of an SQL statement. A view contains rows and columns, just like a real table.
-
-```sql
-CREATE VIEW [Old Employees] AS
-SELECT FirstName, LastName
-FROM Employees
-WHERE Age > 60;
-```
+ salary.
 
 ---
 
-Conclusion:
+**Conclusion**
 
-SQL is a powerful language that's essential for any data professional. Understanding SQL from basics to advanced topics will enable you to work efficiently with databases, an essential skill in today's data-driven world. Always remember to practice regularly to become proficient.
+SQL is a powerful language with vast capabilities in managing and manipulating data in relational databases. With a solid understanding of SQL, from basics to advanced topics, you'll be well-equipped to handle any data thrown your way!

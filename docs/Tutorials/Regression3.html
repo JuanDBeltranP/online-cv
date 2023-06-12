@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Dr Juan Beltran – googleearth</title>
+<title>Dr Juan Beltran – regression3</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -417,7 +417,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Tutorials/Regression3.html" class="sidebar-item-text sidebar-link">Hyperparameters in regression P2</a>
+  <a href="../Tutorials/Regression3.html" class="sidebar-item-text sidebar-link active">Hyperparameters in regression P2</a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -452,7 +452,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Tutorials/GoogleEarth.html" class="sidebar-item-text sidebar-link active">Google Earth</a>
+  <a href="../Tutorials/GoogleEarth.html" class="sidebar-item-text sidebar-link">Google Earth</a>
   </div>
 </li>
       </ul>
@@ -469,62 +469,63 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 
-<p><strong>Introduction to Google Earth Engine</strong></p>
-<p>Introduction:</p>
-<p>Google Earth Engine is a cloud-based platform for planetary-scale environmental data analysis. It combines a multi-petabyte catalog of satellite imagery and geospatial datasets with computational capabilities to analyze and extract insights. In this blog, we will explore how to use Google Earth Engine, access its data, what types of analysis are possible, and how to produce composite images and measure deforestation.</p>
+<p><strong>Hyperparameter Optimization in Python – Mastering Hyperopt and Sklearn</strong></p>
 <hr>
-<p><strong>Part I: Getting Started with Google Earth Engine</strong></p>
-<p><strong>1.1: Setting Up</strong></p>
-<p>To begin, you will need to sign up for a Google Earth Engine account. Once approved, you can access the Code Editor at https://code.earthengine.google.com/.</p>
-<p><strong>1.2: Navigating the Interface</strong></p>
-<p>The Google Earth Engine Code Editor is divided into several panels:</p>
-<ul>
-<li><strong>Scripts panel</strong>: where you can create, save, and manage your scripts.</li>
-<li><strong>Code Editor panel</strong>: where you enter JavaScript code.</li>
-<li><strong>Map panel</strong>: where results are displayed.</li>
-<li><strong>Inspector panel</strong>: to query map results.</li>
-</ul>
+<p><strong>Introduction</strong></p>
+<p>In the previous two tutorials we have cover the basics of linear models and some of the hyperparameters.</p>
+<p>As you know, hyperparameters are parameters that are not learned from the data, and they need to be set before the learning process begins. In this tutorial, we will focus on hyperparameter optimization using Hyperopt and Sklearn in Python.</p>
+<p>We will continue with the data and models from the first part of the tutorial.</p>
 <hr>
-<p><strong>Part II: Accessing Data</strong></p>
-<p><strong>2.1: Image and ImageCollection</strong></p>
-<p>In Google Earth Engine, raster data are represented as <code>Image</code> objects. A collection of images is an <code>ImageCollection</code>. You can access satellite imagery and other raster datasets from the Earth Engine Data Catalog.</p>
-<p><strong>2.2: Example - Accessing Landsat Imagery</strong></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> image <span class="op">=</span> ee<span class="op">.</span><span class="fu">Image</span>(<span class="st">'LANDSAT/LC08/C01/T1_TOA/LC08_044034_20140318'</span>)<span class="op">;</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">Map</span><span class="op">.</span><span class="fu">addLayer</span>(image<span class="op">,</span> {<span class="dt">bands</span><span class="op">:</span> [<span class="st">'B4'</span><span class="op">,</span> <span class="st">'B3'</span><span class="op">,</span> <span class="st">'B2'</span>]<span class="op">,</span> <span class="dt">max</span><span class="op">:</span> <span class="fl">0.3</span>}<span class="op">,</span> <span class="st">'true color image'</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Part I: Setting Up Your Environment</strong></p>
+<p>Firstly, we need to install <code>hyperopt</code> if it’s not already installed. You can install it by running the following command:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install hyperopt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Now, let’s import all the libraries we are going to use.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> cross_val_score</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> hyperopt <span class="im">import</span> fmin, tpe, hp, STATUS_OK, Trials</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> Ridge</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <hr>
-<p><strong>Part III: Types of Analysis</strong></p>
-<p><strong>3.1: Basic Operations</strong></p>
-<p>You can perform arithmetic operations on images, compute spectral indices, and extract statistics.</p>
-<p><strong>3.2: Example - NDVI Calculation</strong></p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> ndvi <span class="op">=</span> image<span class="op">.</span><span class="fu">normalizedDifference</span>([<span class="st">'B5'</span><span class="op">,</span> <span class="st">'B4'</span>])<span class="op">;</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="bu">Map</span><span class="op">.</span><span class="fu">addLayer</span>(ndvi<span class="op">,</span> {<span class="dt">min</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">max</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">palette</span><span class="op">:</span> [<span class="st">'white'</span><span class="op">,</span> <span class="st">'green'</span>]}<span class="op">,</span> <span class="st">'NDVI'</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Part II: Defining the Objective Function</strong></p>
+<p>We will start by defining our objective function. This function should take in the hyperparameters and return the value that we want to minimize, which in our case is the cross-validation mean squared error of our model.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> objective(hyperparameters):</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    model <span class="op">=</span> Ridge(<span class="op">**</span>hyperparameters)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    mse <span class="op">=</span> cross_val_score(model, X_train, y_train, scoring<span class="op">=</span><span class="st">'neg_mean_squared_error'</span>).mean()</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> {<span class="st">'loss'</span>: <span class="op">-</span>mse, <span class="st">'status'</span>: STATUS_OK}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Here, we’re creating a Ridge regression model with the given hyperparameters, computing the cross-validation mean squared error, and returning it as the loss to be minimized.</p>
 <hr>
-<p><strong>Part IV: Creating Composite Images</strong></p>
-<p>Creating a composite image involves combining several images into one. In the context of Google Earth Engine, you can create a composite image from an <code>ImageCollection</code>.</p>
-<p><strong>4.1: Example - Median Composite</strong></p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> collection <span class="op">=</span> ee<span class="op">.</span><span class="fu">ImageCollection</span>(<span class="st">'LANDSAT/LC08/C01/T1_TOA'</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">filterDate</span>(<span class="st">'2019-01-01'</span><span class="op">,</span> <span class="st">'2019-12-31'</span>)<span class="op">;</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> composite <span class="op">=</span> collection<span class="op">.</span><span class="fu">median</span>()<span class="op">;</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="bu">Map</span><span class="op">.</span><span class="fu">addLayer</span>(composite<span class="op">,</span> {<span class="dt">bands</span><span class="op">:</span> [<span class="st">'B4'</span><span class="op">,</span> <span class="st">'B3'</span><span class="op">,</span> <span class="st">'B2'</span>]<span class="op">,</span> <span class="dt">max</span><span class="op">:</span> <span class="fl">0.3</span>}<span class="op">,</span> <span class="st">'composite image'</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Part III: Setting Up the Search Space</strong></p>
+<p>Now we will define the search space for our hyperparameters. We will search for the optimal <code>alpha</code> value, which is a regularization strength parameter for Ridge regression.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>space <span class="op">=</span> {</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">'alpha'</span>: hp.uniform(<span class="st">'alpha'</span>, <span class="fl">0.0</span>, <span class="fl">2.0</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>We’re telling Hyperopt that we want to find an <code>alpha</code> between 0.0 and 2.0. <code>hp.uniform</code> specifies that any value within the range is equally likely to be selected as a candidate.</p>
 <hr>
-<p><strong>Part V: Measuring Deforestation with Google Earth Engine</strong></p>
-<p>Google Earth Engine can be used to monitor and measure deforestation. You can compute the difference between two images or track changes over time.</p>
-<p><strong>5.1: Example - Difference in NDVI</strong></p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> image1 <span class="op">=</span> ee<span class="op">.</span><span class="fu">Image</span>(<span class="st">'LANDSAT/LC08/C01/T1_TOA/LC08_044034_20140101'</span>)<span class="op">;</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> image2 <span class="op">=</span> ee<span class="op">.</span><span class="fu">Image</span>(<span class="st">'LANDSAT/LC08/C01/T1_TOA/LC08_044034_20141231'</span>)<span class="op">;</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> ndvi1 <span class="op">=</span> image1<span class="op">.</span><span class="fu">normalizedDifference</span>([<span class="st">'B5'</span><span class="op">,</span> <span class="st">'B4'</span>])<span class="op">;</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> ndvi2 <span class="op">=</span> image2<span class="op">.</span><span class="fu">normalizedDifference</span>([<span class="st">'B5'</span><span class="op">,</span> <span class="st">'B4'</span>])<span class="op">;</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> difference <span class="op">=</span> ndvi2<span class="op">.</span><span class="fu">subtract</span>(ndvi1)<span class="op">;</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="bu">Map</span><span class="op">.</span><span class="fu">addLayer</span>(difference<span class="op">,</span> {<span class="dt">min</span><span class="op">:</span> <span class="op">-</span><span class="dv">1</span><span class="op">,</span> <span class="dt">max</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">palette</span><span class="op">:</span> [<span class="st">'blue'</span><span class="op">,</span> <span class="st">'white'</span><span class="op">,</span> <span class="st">'green</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="st">']}, '</span>NDVI difference<span class="st">');</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Part IV: Running the Optimization</strong></p>
+<p>We are now ready to start our hyperparameter optimization!</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>trials <span class="op">=</span> Trials()</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>best <span class="op">=</span> fmin(fn<span class="op">=</span>objective,</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>            space<span class="op">=</span>space,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>            algo<span class="op">=</span>tpe.suggest,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>            max_evals<span class="op">=</span><span class="dv">50</span>,</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>            trials<span class="op">=</span>trials)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The <code>fmin</code> function performs the optimization. We pass in our objective function, the search space, the optimization algorithm (Tree-structured Parzen Estimator), and the number of evaluations to perform.</p>
 <hr>
-<p>Conclusion:</p>
-<p>Google Earth Engine is a powerful platform for large-scale geospatial data analysis. It provides an accessible interface for both accessing vast amounts of data and applying complex analyses to generate meaningful insights. As we’ve seen in the blog, it can be used to monitor and measure environmental phenomena such as deforestation. While we’ve only scratched the surface, I encourage you to explore the platform further, as the range of applications is vast.</p>
+<p><strong>Part V: Visualizing the Results</strong></p>
+<p>Finally, let’s visualize the process of optimization.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>loss <span class="op">=</span> [x[<span class="st">'result'</span>][<span class="st">'loss'</span>] <span class="cf">for</span> x <span class="kw">in</span> trials.trials]</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">6</span>))</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>plt.plot(loss)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Hyperopt Optimization Process'</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Iteration'</span>)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Mean Squared Error'</span>)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This script creates a plot of mean squared error over each iteration, which can give you an idea of how the optimization progressed.</p>
+<hr>
+<p><strong>Conclusion</strong></p>
+<p>Hyperparameter optimization is a crucial step in tuning machine learning models, and libraries like Hyperopt provide powerful tools for this purpose. By understanding these techniques, you can train models that perform better and utilize resources more efficiently. Happy modeling!</p>
 
 
 

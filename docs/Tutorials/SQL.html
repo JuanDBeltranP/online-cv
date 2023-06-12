@@ -221,7 +221,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </li>  
         <li>
     <a class="dropdown-item" href="../Tutorials/Regression2.html">
- <span class="dropdown-text">Hyperparameters in regression analysis</span></a>
+ <span class="dropdown-text">Hyperparameters in regression P1</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Tutorials/Regression3.html">
+ <span class="dropdown-text">Hyperparameters in regression P2</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../Tutorials/RF.html">
@@ -242,6 +246,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         <li>
     <a class="dropdown-item" href="../Tutorials/RL.html">
  <span class="dropdown-text">Reinforcement Learning</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Tutorials/RLStocks.html">
+ <span class="dropdown-text">RL and trading in financial markets 101</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../Tutorials/GoogleEarth.html">
@@ -404,7 +412,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Tutorials/Regression2.html" class="sidebar-item-text sidebar-link">Hyperparameters in regression analysis</a>
+  <a href="../Tutorials/Regression2.html" class="sidebar-item-text sidebar-link">Hyperparameters in regression P1</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorials/Regression3.html" class="sidebar-item-text sidebar-link">Hyperparameters in regression P2</a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -434,6 +447,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../Tutorials/RLStocks.html" class="sidebar-item-text sidebar-link">RL and trading in financial markets 101</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../Tutorials/GoogleEarth.html" class="sidebar-item-text sidebar-link">Google Earth</a>
   </div>
 </li>
@@ -451,68 +469,80 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 
-<p><strong>Tutorial: SQL from Basics to Advanced Topics</strong></p>
-<p>Introduction:</p>
-<p>SQL (Structured Query Language) is a standard language for managing and manipulating relational databases. This tutorial will introduce you to SQL, starting with the basics and advancing to more complex topics.</p>
+<p><strong>SQL 101</strong></p>
+<p><strong>Introduction</strong></p>
+<p>Structured Query Language (SQL) is a standardized programming language used for managing relational databases and performing various operations on the data in them. This tutorial will guide you through the basics to advanced SQL commands.</p>
 <hr>
 <p><strong>Part I: SQL Basics</strong></p>
-<p><strong>1.1: Creating a Database</strong></p>
-<p>Creating a database is the first step in SQL. The <code>CREATE DATABASE</code> statement is used to do this.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">DATABASE</span> myDatabase;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><strong>1.2: Creating a Table</strong></p>
-<p>Tables are created within a database to store data. The <code>CREATE TABLE</code> statement is used, followed by the columns’ names and data types.</p>
+<p><strong>1.1 Setting Up</strong></p>
+<p>First, we need to set up a database. For this tutorial, we’ll be using SQLite, a software library that provides a relational database management system.</p>
+<p>You can install SQLite from its <a href="https://www.sqlite.org/download.html">official website</a>. After installation, you can interact with SQLite via the command-line shell.</p>
+<p><strong>1.2 Creating a Database</strong></p>
+<p>To create a database in SQLite, you use the following command:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>sqlite3 TestDB.db</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This command creates a new database named <code>TestDB.db</code>. If the database exists, it opens the database.</p>
+<p><strong>1.3 Creating a Table</strong></p>
+<p>To create a table in SQL, we use the <code>CREATE TABLE</code> statement.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> Employees (</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">ID</span> <span class="dt">INT</span> <span class="kw">PRIMARY</span> <span class="kw">KEY</span>,</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    FirstName <span class="dt">VARCHAR</span>(<span class="dv">100</span>),</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    LastName <span class="dt">VARCHAR</span>(<span class="dv">100</span>),</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    Email <span class="dt">VARCHAR</span>(<span class="dv">50</span>),</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    Age <span class="dt">INT</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>);</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><strong>1.3: Inserting Data</strong></p>
-<p>The <code>INSERT INTO</code> statement is used to insert data into a table.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> Employees (<span class="kw">ID</span>, FirstName, LastName, Email, Age)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">VALUES</span> (<span class="dv">1</span>, <span class="st">'John'</span>, <span class="st">'Doe'</span>, <span class="st">'john.doe@example.com'</span>, <span class="dv">30</span>);</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><strong>1.4: Querying Data</strong></p>
-<p>The <code>SELECT</code> statement is used to select data from a database.</p>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">ID</span> <span class="dt">int</span>,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    Name text,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    Age <span class="dt">int</span>,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    Salary <span class="dt">real</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>);</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This creates a table named <code>Employees</code> with four columns: <code>ID</code>, <code>Name</code>, <code>Age</code>, and <code>Salary</code>.</p>
+<p><strong>1.4 Inserting Data</strong></p>
+<p>We can insert data into the table using the <code>INSERT INTO</code> statement.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> Employees (<span class="kw">ID</span>, Name, Age, Salary) </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">VALUES</span> (<span class="dv">1</span>, <span class="st">'John Doe'</span>, <span class="dv">30</span>, <span class="fl">50000.00</span> );</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This command inserts a new row into the <code>Employees</code> table.</p>
+<p><strong>1.5 Querying Data</strong></p>
+<p>You can retrieve data using the <code>SELECT</code> statement.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> Employees;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This command selects all records from the <code>Employees</code> table.</p>
 <hr>
-<p><strong>Part II: SQL Intermediate</strong></p>
-<p><strong>2.1: WHERE Clause</strong></p>
-<p>The <code>WHERE</code> clause is used to filter records.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> Employees <span class="kw">WHERE</span> Age <span class="op">&gt;</span> <span class="dv">30</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><strong>2.2: UPDATE Statement</strong></p>
-<p>The <code>UPDATE</code> statement is used to modify existing records in a table.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">UPDATE</span> Employees <span class="kw">SET</span> Email <span class="op">=</span> <span class="st">'j.doe@example.com'</span> <span class="kw">WHERE</span> <span class="kw">ID</span> <span class="op">=</span> <span class="dv">1</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><strong>2.3: DELETE Statement</strong></p>
-<p>The <code>DELETE</code> statement is used to delete existing records in a table.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">DELETE</span> <span class="kw">FROM</span> Employees <span class="kw">WHERE</span> <span class="kw">ID</span> <span class="op">=</span> <span class="dv">1</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Part II: Intermediate SQL</strong></p>
+<p><strong>2.1 Updating Data</strong></p>
+<p>You can update existing records using the <code>UPDATE</code> statement.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">UPDATE</span> Employees</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SET</span> Salary <span class="op">=</span> <span class="fl">55000.00</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> <span class="kw">ID</span> <span class="op">=</span> <span class="dv">1</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This command updates the salary of the employee with <code>ID</code> 1.</p>
+<p><strong>2.2 Deleting Data</strong></p>
+<p>You can delete records using the <code>DELETE</code> statement.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">DELETE</span> <span class="kw">FROM</span> Employees <span class="kw">WHERE</span> <span class="kw">ID</span> <span class="op">=</span> <span class="dv">1</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This command deletes the employee with <code>ID</code> 1.</p>
+<p><strong>2.3 Ordering Data</strong></p>
+<p>You can sort the result set using the <code>ORDER BY</code> keyword.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> Employees <span class="kw">ORDER</span> <span class="kw">BY</span> Salary <span class="kw">DESC</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This command selects all employees and orders them by <code>Salary</code> in descending order.</p>
 <hr>
-<p><strong>Part III: SQL Advanced</strong></p>
-<p><strong>3.1: JOIN</strong></p>
-<p>A <code>JOIN</code> clause is used to combine rows from two or more tables, based on a related column.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> Orders.OrderID, Customers.CustomerName</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> Orders</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="kw">INNER</span> <span class="kw">JOIN</span> Customers</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="kw">ON</span> Orders.CustomerID <span class="op">=</span> Customers.CustomerID;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><strong>3.2: GROUP BY</strong></p>
+<p><strong>Part III: Advanced SQL</strong></p>
+<p><strong>3.1 Joins</strong></p>
+<p>SQL joins are used to combine rows from two or more tables.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> Employees.Name, Orders.OrderID</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> Employees</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="kw">INNER</span> <span class="kw">JOIN</span> Orders <span class="kw">ON</span> Employees.<span class="kw">ID</span> <span class="op">=</span> Orders.EmployeeID;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This <code>INNER JOIN</code> keyword selects records that have matching values in both tables.</p>
+<p><strong>3.2 Aggregate Functions</strong></p>
+<p>SQL aggregate functions return a single value, calculated from values in a column.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">AVG</span>(Salary) <span class="kw">AS</span> AverageSalary <span class="kw">FROM</span> Employees;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This command calculates the average salary of all employees.</p>
+<p><strong>3.3 Group By</strong></p>
 <p>The <code>GROUP BY</code> statement groups rows that have the same values in specified columns into aggregated data.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">COUNT</span>(<span class="kw">ID</span>), Age</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> Employees</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span> Age;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><strong>3.3: Subqueries</strong></p>
-<p>A subquery is a query nested inside another query and can be used in SELECT, INSERT, UPDATE, or DELETE statements.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> FirstName, LastName</span>
+<div class="sourceCode" id="cb10"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">COUNT</span>(<span class="kw">ID</span>), Age</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> Employees</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> Age <span class="op">&gt;</span> (<span class="kw">SELECT</span> <span class="fu">AVG</span>(Age) <span class="kw">FROM</span> Employees);</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><strong>3.4: Views</strong></p>
-<p>A view is a virtual table based on the result-set of an SQL statement. A view contains rows and columns, just like a real table.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">VIEW</span> [<span class="kw">Old</span> Employees] <span class="kw">AS</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> FirstName, LastName</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> Employees</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> Age <span class="op">&gt;</span> <span class="dv">60</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span> Age;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This command counts the number of employees of each age.</p>
+<p><strong>3.4 Subquery</strong></p>
+<p>A Subquery or Inner query or Nested query is a query within another SQL query.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> Name </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> Employees</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> Salary <span class="op">&gt;</span> (<span class="kw">SELECT</span> <span class="fu">AVG</span>(Salary) <span class="kw">FROM</span> Employees);</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This command finds employees who earn more than the average</p>
+<p>salary.</p>
 <hr>
-<p>Conclusion:</p>
-<p>SQL is a powerful language that’s essential for any data professional. Understanding SQL from basics to advanced topics will enable you to work efficiently with databases, an essential skill in today’s data-driven world. Always remember to practice regularly to become proficient.</p>
+<p><strong>Conclusion</strong></p>
+<p>SQL is a powerful language with vast capabilities in managing and manipulating data in relational databases. With a solid understanding of SQL, from basics to advanced topics, you’ll be well-equipped to handle any data thrown your way!</p>
 
 
 

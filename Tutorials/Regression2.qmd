@@ -1,8 +1,8 @@
-**Hyperparameter Optimization in Regression Analysis**
+**Hyperparameter Optimization in Regression Analysis - Part 1**
 
 Introduction:
 
-In the previous tutorial, we discussed Lasso, Ridge, and Elastic Net regressions. In this tutorial, we will focus on how to optimize these models through hyperparameter tuning. 
+In the previous tutorial, we discussed Lasso, Ridge, and Elastic Net regressions. In this tutorial, we will focus on the basics of how to optimize these models through hyperparameter tuning. 
 
 ---
 

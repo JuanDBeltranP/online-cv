@@ -1,0 +1,103 @@
+**Hyperparameter Optimization in Python – Mastering Hyperopt and Sklearn**
+
+---
+
+**Introduction**
+
+In the previous two tutorials we have cover the basics of linear models and some of the hyperparameters.
+
+As you know, hyperparameters are parameters that are not learned from the data, and they need to be set before the learning process begins. In this tutorial, we will focus on hyperparameter optimization using Hyperopt and Sklearn in Python.
+
+We will continue with the data and models from the first part of the tutorial. 
+
+---
+
+**Part I: Setting Up Your Environment**
+
+Firstly, we need to install `hyperopt` if it's not already installed. You can install it by running the following command:
+
+```Python
+!pip install hyperopt
+```
+
+Now, let's import all the libraries we are going to use.
+
+```Python
+import pandas as pd
+import numpy as np
+from sklearn.model_selection import cross_val_score
+from hyperopt import fmin, tpe, hp, STATUS_OK, Trials
+from sklearn.linear_model import Ridge
+import matplotlib.pyplot as plt
+```
+
+---
+
+**Part II: Defining the Objective Function**
+
+We will start by defining our objective function. This function should take in the hyperparameters and return the value that we want to minimize, which in our case is the cross-validation mean squared error of our model.
+
+```Python
+def objective(hyperparameters):
+    model = Ridge(**hyperparameters)
+    mse = cross_val_score(model, X_train, y_train, scoring='neg_mean_squared_error').mean()
+    return {'loss': -mse, 'status': STATUS_OK}
+```
+
+Here, we're creating a Ridge regression model with the given hyperparameters, computing the cross-validation mean squared error, and returning it as the loss to be minimized. 
+
+---
+
+**Part III: Setting Up the Search Space**
+
+Now we will define the search space for our hyperparameters. We will search for the optimal `alpha` value, which is a regularization strength parameter for Ridge regression.
+
+```Python
+space = {
+    'alpha': hp.uniform('alpha', 0.0, 2.0)
+}
+```
+
+We're telling Hyperopt that we want to find an `alpha` between 0.0 and 2.0. `hp.uniform` specifies that any value within the range is equally likely to be selected as a candidate.
+
+---
+
+**Part IV: Running the Optimization**
+
+We are now ready to start our hyperparameter optimization!
+
+```Python
+trials = Trials()
+best = fmin(fn=objective,
+            space=space,
+            algo=tpe.suggest,
+            max_evals=50,
+            trials=trials)
+```
+
+The `fmin` function performs the optimization. We pass in our objective function, the search space, the optimization algorithm (Tree-structured Parzen Estimator), and the number of evaluations to perform. 
+
+---
+
+**Part V: Visualizing the Results**
+
+Finally, let's visualize the process of optimization.
+
+```Python
+loss = [x['result']['loss'] for x in trials.trials]
+
+plt.figure(figsize=(8, 6))
+plt.plot(loss)
+plt.title('Hyperopt Optimization Process')
+plt.xlabel('Iteration')
+plt.ylabel('Mean Squared Error')
+plt.show()
+```
+
+This script creates a plot of mean squared error over each iteration, which can give you an idea of how the optimization progressed. 
+
+---
+
+**Conclusion**
+
+Hyperparameter optimization is a crucial step in tuning machine learning models, and libraries like Hyperopt provide powerful tools for this purpose. By understanding these techniques, you can train models that perform better and utilize resources more efficiently. Happy modeling!
