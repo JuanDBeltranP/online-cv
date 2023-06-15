@@ -2,6 +2,7 @@ project:
   type: website
   output-dir: docs
 website:
+  google-analytics: "G-PWP5F6C91J"
   page-navigation: false
   title: "Dr Juan Beltran"
   navbar:
