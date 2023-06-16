@@ -1,0 +1,65 @@
+```{python}
+# Import necessary libraries
+import boto3
+import sagemaker
+
+# Define SageMaker session
+sagemaker_session = sagemaker.Session()
+
+# Define IAM role
+import os
+import sagemaker
+from sagemaker import get_execution_role
+
+role = get_execution_role()
+
+# Specify S3 bucket and prefix
+bucket = sagemaker_session.default_bucket() # Replace with your own bucket name if not using the default bucket
+prefix = 'sagemaker/DEMO-xgboost-dm' # Replace with the prefix under which you want to store the data
+
+# Load data into S3
+sagemaker_session.upload_data(path='train.csv', bucket=bucket, key_prefix=prefix+'/train') # Replace 'train.csv' with your filename
+sagemaker_session.upload_data(path='validation.csv', bucket=bucket, key_prefix=prefix+'/validation') # Replace 'validation.csv' with your filename
+
+# Define SageMaker estimator
+from sagemaker.amazon.amazon_estimator import get_image_uri
+container = get_image_uri(boto3.Session().region_name, 'xgboost')
+
+xgb = sagemaker.estimator.Estimator(container,
+                                    role, 
+                                    train_instance_count=1, 
+                                    train_instance_type='ml.m4.xlarge',
+                                    output_path='s3://{}/{}/output'.format(bucket, prefix),
+                                    sagemaker_session=sagemaker_session)
+
+# Set hyperparameters
+xgb.set_hyperparameters(max_depth=5,
+                        eta=0.2,
+                        gamma=4,
+                        min_child_weight=6,
+                        subsample=0.8,
+                        silent=0,
+                        objective='binary:logistic',
+                        num_round=100)
+
+# Define data channels
+s3_input_train = sagemaker.s3_input(s3_data='s3://{}/{}/train'.format(bucket, prefix), content_type='csv')
+s3_input_validation = sagemaker.s3_input(s3_data='s3://{}/{}/validation/'.format(bucket, prefix), content_type='csv')
+
+data_channels = {'train': s3_input_train, 'validation': s3_input_validation}
+
+# Train model
+xgb.fit(data_channels)
+
+# Deploy model
+xgb_predictor = xgb.deploy(initial_instance_count=1, instance_type='ml.m4.xlarge')
+
+# Make predictions
+from sagemaker.predictor import csv_serializer
+test_data_array = test_data.drop(['y_no', 'y_yes'], axis=1).values #load some data into numpy array
+xgb_predictor.content_type = 'text/csv' # set the data type for an inference
+xgb_predictor.serializer = csv_serializer # set the serializer type
+predictions = xgb_predictor.predict(test_data_array).decode('utf-8') # predict!
+predictions_array = np.fromstring(predictions[1:], sep=',') # and turn the prediction into an array
+print(predictions_array.shape)
+```

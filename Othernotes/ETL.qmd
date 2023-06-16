@@ -1,0 +1,42 @@
+ETL stands for Extract, Transform, Load. It's a process that involves:
+
+-   **Extracting** data from different source systems,
+-   **Transforming** it into a format that can be analyzed (which can involve cleaning the data, aggregating it, and so on), and
+-   **Loading** it into a database or data warehouse where it can be analyzed.
+
+ETL pipelines are used to make data from different systems consistent and easily accessible. They're often used in data warehousing.
+
+Here's a simple example of an ETL pipeline that extracts data from a CSV file, transforms it by filtering out some rows and adding a new column, and loads it into a SQLite database. We'll use Python and the pandas and sqlite3 libraries for this example.
+
+``` python
+import pandas as pd
+import sqlite3
+
+# Step 1: Extract
+
+# Read data from a CSV file
+data = pd.read_csv('data.csv')
+
+# Step 2: Transform
+
+# Filter out rows where 'quantity' is less than 10
+data = data[data['quantity'] >= 10]
+
+# Add a new column 'total_price'
+data['total_price'] = data['quantity'] * data['price']
+
+# Step 3: Load
+
+# Create a connection to a SQLite database
+conn = sqlite3.connect('data.db')
+
+# Write the data to a table in the SQLite database
+data.to_sql('sales', conn, if_exists='replace')
+
+# Close the connection
+conn.close()
+```
+
+In this example, the extraction step is reading data from a CSV file. The transformation step is filtering out rows and adding a new column. The loading step is writing the data to a SQLite database.
+
+This is a very simple example. Real-world ETL pipelines might involve extracting data from multiple databases, performing complex transformations on the data, and loading the data into a large data warehouse. They might also need to handle large volumes of data and run at regular intervals.

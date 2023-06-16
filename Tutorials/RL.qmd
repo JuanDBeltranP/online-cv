@@ -162,7 +162,7 @@ The code above creates a simple environment using the `MDPtoolbox` library. The 
 
 Let's now dive deeper into more advanced concepts of reinforcement learning with Python, including Policy Gradients and Deep Q-Networks (DQNs). 
 
-## 6. Policy Gradients
+## 5. Policy Gradients
 
 Policy Gradients are a type of reinforcement learning algorithms that are more advanced than Q-Learning. They learn a parameterized policy that can choose actions without consulting a value function. One popular algorithm in this family is the REINFORCE algorithm.
 
@@ -256,7 +256,7 @@ policy = create_model()
 train_policy(policy, 1000)
 ```
 
-## 7. Deep Q-Networks (DQNs)
+## 6. Deep Q-Networks (DQNs)
 
 Deep Q-Networks (DQNs) are a type of Q-Learning algorithm that uses a neural network as a function approximator for the Q-function. It was introduced by DeepMind in their groundbreaking paper "Playing Atari with Deep Reinforcement Learning" in 2013.
 
@@ -379,7 +379,7 @@ The agent plays a number of episodes of the game, choosing actions via its `act`
 In this tutorial, we went over a more advanced concept in reinforcement learning, including policy gradient methods like REINFORCE and value-based methods like DQN. These methods use neural networks to learn directly from high-dimensional sensory inputs, and have achieved superhuman performance in complex tasks like playing video games and controlling robots.
 
 
-## 8. Conclusions
+## 7. Conclusions
 
 Reinforcement learning is a powerful approach for tasks that involve sequential decision-making. This tutorial presented the fundamental concepts of RL and walked through an example of how to implement Q-Learning, a simple but powerful RL algorithm, in Python and R. Remember that the RL field is vast and complex, this is just the tip of the iceberg!
 

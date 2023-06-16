@@ -1,0 +1,17 @@
+Certainly, time series analysis is a statistical technique that deals with time series data, or trend analysis. Time series data means that data points are in a temporal order. This type of analysis is often used for forecasting, as it can reveal patterns in data that are over time.
+
+Here are some of the key statistical methods used in time series analysis:
+
+1.  **Autoregressive Integrated Moving Average (ARIMA)**: ARIMA models explain a time series based on its own past values, i.e., its own lags and the lagged forecast errors. These models are fitted to time series data to better understand the data or to predict future points in the series (forecasting).
+
+2.  **Seasonal Decomposition of Time Series (STL)**: This is a method that decomposes a time series into three components: trend, seasonality, and residuals. The trend component reflects the long-term progression of the series, the seasonality reflects the periodic variation, and the residuals reflect irregular influences.
+
+3.  **Exponential Smoothing (ETS)**: Exponential smoothing methods use a weighted average of past observations to forecast future points. The weights decrease in size exponentially, meaning more recent observations have a larger effect on the forecast.
+
+4.  **State Space Models and the Kalman Filter**: State space models are a statistical method that uses state variables to describe the relationship between the observed data and the latent (unobserved) state of a system. The Kalman filter is a recursive algorithm used to compute the state estimates given the observations.
+
+5.  **GARCH Models (Generalized Autoregressive Conditional Heteroskedasticity)**: GARCH models are used when the variance of the error term is believed to be changing over time. This is often the case in analyzing financial markets.
+
+6.  **Vector Autoregressive (VAR) Models**: VAR models generalize the univariate autoregressive model by allowing for more than one evolving variable. All variables in a VAR enter the model in the same way: each variable has an equation explaining its evolution based on its own lags and the lags of the other model variables.
+
+These are just a few of the statistical methods used in time series analysis. The choice of method often depends on the specific properties of the time series, such as whether it contains a trend or seasonality, the amount of noise present, and whether multiple time series are being analyzed at once.

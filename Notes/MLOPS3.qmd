@@ -100,4 +100,4 @@ Prometheus and Grafana are often used for monitoring, but they are typically use
 
 If the model performance drops, you would go back to the experimentation stage, adjust your model or data, and then rerun your code.
 
-Remember, these are simplified examples and real-world scenarios would involve more complex data preprocessing, model training, testing, and deployment steps.
+Always remember, these are simplified examples and real-world scenarios would involve more complex data preprocessing, model training, testing, and deployment steps.

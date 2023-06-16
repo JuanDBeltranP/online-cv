@@ -52,7 +52,7 @@ Docker and Kubernetes are not mutually exclusive; instead, they complement each 
 
 **4.1: Use Docker When:**
 
-- You are containerizing applications and ensuring consistent behavior across environments.
+- You are containerising applications and ensuring consistent behavior across environments.
 - Your application is relatively simple and does not require advanced orchestration or scaling features.
 - You want a simpler learning curve. Docker is generally easier to learn and implement.
 
@@ -66,4 +66,4 @@ Docker and Kubernetes are not mutually exclusive; instead, they complement each 
 
 Conclusion:
 
-Understanding Docker and Kubernetes and their respective strengths can help you make informed decisions when deploying and managing your applications. While Docker provides an excellent platform for containerizing applications, Kubernetes offers powerful tools for managing and scaling those containers. Choosing the right tool depends on your specific use case, the complexity and scale of your application, and your infrastructure needs.
+Understanding Docker and Kubernetes and their respective strengths can help you make informed decisions when deploying and managing your applications. While Docker provides an excellent platform for containerising applications, Kubernetes offers powerful tools for managing and scaling those containers. Choosing the right tool depends on your specific use case, the complexity and scale of your application, and your infrastructure needs.
