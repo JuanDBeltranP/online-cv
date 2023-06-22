@@ -1,0 +1,9 @@
+---
+title: "Education"
+---
+| Degree | Institution | Duration | Details |
+|---|---|---|---------------|
+| PhD (DPhil), Plant Sciences | University of Oxford | 2013 - 2017 | Applied machine learning, computational modelling, and advanced statistics to analyse plant behaviour under drought stress and the impact of climate change on plant species distribution. Used various techniques including Neural Networks, XGBoost, Random Forest, Clustering analysis, and A/B tests using bootstrapping and Bayesian statistics. |
+| MSc, Biology (1st place) | Universidad de los Andes, Colombia | 2012 | Utilized R to explore hypotheses about biochemical changes in juvenile plants under drought conditions. |
+| BSc, Biology | Universidad de los Andes, Colombia | 2010 | Gained proficiency in R during biostatistics coursework and applied it extensively in my dissertation and subsequent work. |
+

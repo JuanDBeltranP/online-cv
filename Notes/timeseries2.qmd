@@ -1,0 +1,192 @@
+---
+title: Time series methods
+---
+
+1.  **Autoregressive (AR) Models**: An autoregressive (AR) model predicts future behavior based on past behavior. It's a regression model that utilizes the dependent relationship between an observation and some number of lagged observations (i.e., previous periods).
+
+2.  **Moving Average (MA) Models**: Unlike AR models, moving average models do not use past values of the forecast variable in the prediction. Instead, they use past forecast errors in a regression-like model. The "moving average" here refers to the past errors, not the moving average of the time series itself.
+
+3.  **Autoregressive Moving Average (ARMA) Models**: ARMA models combine the methods of both AR and MA models. They use both past values of the forecast variable and past forecast errors to make predictions.
+
+4.  **Autoregressive Integrated Moving Average (ARIMA) Models**: ARIMA models are a generalization of ARMA models that can be applied to non-stationary time series. The "integrated" part of the name refers to the differencing step applied to make the time series stationary.
+
+5.  **Seasonal Autoregressive Integrated Moving Average (SARIMA) Models**: SARIMA models are an extension of ARIMA models that specifically handle seasonality. They include additional terms to model the seasonal components of the time series.
+
+6.  **Vector Autoregression (VAR) Models**: VAR models generalize the univariate autoregressive model by allowing for more than one evolving variable. All variables in a VAR enter the model in the same way: each variable has an equation explaining its evolution based on its own lagged values and the lagged values of all the other variables.
+
+7.  **Exponential Smoothing Models**: Exponential smoothing models are a class of time series forecasting models that involve calculating a weighted average of past observations, where the weights decrease exponentially as the observations get older. There are several types of exponential smoothing models, including Simple Exponential Smoothing, Double Exponential Smoothing (also known as Holt's linear exponential smoothing), and Triple Exponential Smoothing (also known as Holt-Winters' exponential smoothing).
+
+8.  **State Space Models and the Kalman Filter**: State space representation and the related Kalman filter algorithm are very flexible methods for handling time series. They can be used to model complex time series with trend, seasonal components, and other structures.
+
+9.  **GARCH Models (Generalized Autoregressive Conditional Heteroskedasticity)**: GARCH models are used when the variance of the error term is believed to be changing over time. They are often used in financial market data where volatility is a significant factor.
+
+Each of these models has its strengths and weaknesses, and the choice of model depends on the specific characteristics of the time series you are working with (e.g., whether the series is stationary, whether it has a trend or seasonal components, etc.). It's also common to combine these models in practice, or to use machine learning techniques in conjunction with these models to improve forecasting performance.
+
+Summary of the strengths, weaknesses, and appropriate use cases for each of the models mentioned above:
+
+1.  **Autoregressive (AR) Models**
+    -   Strengths: Simple to understand and implement; works well for short-term forecasts.
+    -   Weaknesses: Assumes linear relationship between lagged variables; not suitable for datasets with complex trends or seasonality.
+    -   Use Case: Best for time series that are stationary and have no significant trend or seasonal components.
+2.  **Moving Average (MA) Models**
+    -   Strengths: Can handle sudden changes in the series better than AR models.
+    -   Weaknesses: Not effective for long-range forecasting; assumes linear relationship between forecast errors.
+    -   Use Case: Useful when the error terms (not the actual series values) are correlated.
+3.  **Autoregressive Moving Average (ARMA) Models**
+    -   Strengths: Combines strengths of AR and MA models; can model a wider range of time series.
+    -   Weaknesses: Requires the time series to be stationary; may not handle complex trends or seasonality well.
+    -   Use Case: Best for time series that are stationary and have no significant trend or seasonal components.
+4.  **Autoregressive Integrated Moving Average (ARIMA) Models**
+    -   Strengths: Can handle non-stationary data and a mix of AR and MA components.
+    -   Weaknesses: Requires careful tuning of parameters; may not handle complex seasonality well.
+    -   Use Case: Useful for non-stationary time series without seasonal components.
+5.  **Seasonal Autoregressive Integrated Moving Average (SARIMA) Models**
+    -   Strengths: Can handle both trends and seasonality in the data.
+    -   Weaknesses: Requires careful tuning of parameters; more complex to implement than simpler models.
+    -   Use Case: Best for time series with both trend and seasonal components.
+6.  **Vector Autoregression (VAR) Models**
+    -   Strengths: Can model multiple, interrelated time series at once.
+    -   Weaknesses: Requires all time series to be stationary; can be computationally intensive.
+    -   Use Case: Useful when modeling multiple, related time series.
+7.  **Exponential Smoothing Models**
+    -   Strengths: Can handle trends and seasonality; less complex than ARIMA/SARIMA models.
+    -   Weaknesses: May not perform as well as ARIMA/SARIMA for more complex time series.
+    -   Use Case: Useful for time series with trend and/or seasonal components.
+8.  **State Space Models and the Kalman Filter**
+    -   Strengths: Very flexible; can handle trends, seasonality, and other complex structures.
+    -   Weaknesses: More complex to implement and understand than other models.
+    -   Use Case: Useful for complex time series with trend, seasonal components, and other structures.
+9.  **GARCH Models (Generalized Autoregressive Conditional Heteroskedasticity)**
+    -   Strengths: Can handle changing variance over time; often used for financial data.
+    -   Weaknesses: Assumes a specific form for the variance structure; can be complex to implement.
+    -   Use Case: Best for time series where the variance changes over time, such as financial market data.
+
+Code:
+
+```{python}
+mport pandas as pd
+import matplotlib.pyplot as plt
+from statsmodels.tsa.stattools import adfuller
+
+# Load the time series data
+# Replace 'your_data.csv' with the path to your actual data file
+# This assumes that your file has a date column named 'date' and a value column named 'value'
+df = pd.read_csv('your_data.csv')
+df['date'] = pd.to_datetime(df['date'])
+df.set_index('date', inplace=True)
+
+# Plot the time series
+df['value'].plot()
+plt.show()
+
+# Perform the Augmented Dickey-Fuller test to check for stationarity
+def adf_test(timeseries):
+    print('Results of Dickey-Fuller Test:')
+    dftest = adfuller(timeseries, autolag='AIC')
+    dfoutput = pd.Series(dftest[0:4], index=['Test Statistic','p-value','#Lags Used','Number of Observations Used'])
+    for key,value in dftest[4].items():
+        dfoutput['Critical Value (%s)'%key] = value
+    print(dfoutput)
+
+adf_test(df['value'])
+```
+
+# Time series analysis using Python.
+
+For this tutorial, I'll use the AirPassengers dataset, which is a classic dataset for time series analysis. It shows the monthly totals of international airline passengers from 1949 to 1960.
+
+Here's a step-by-step guide:
+
+1.  **Import necessary libraries and load the data**
+
+``` python
+# Import necessary libraries
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from statsmodels.tsa.stattools import adfuller
+from statsmodels.graphics.tsaplots import plot_acf, plot_pacf
+from statsmodels.tsa.seasonal import seasonal_decompose
+from statsmodels.stats.diagnostic import acorr_ljungbox
+from arch import arch_model
+
+# Load the AirPassengers dataset
+# This dataset is included with the seaborn library
+import seaborn as sns
+df = sns.load_dataset("flights")
+df = df.pivot("month", "year", "passengers")
+df = df.mean().reset_index()
+df.columns = ['year', 'passengers']
+df.set_index('year', inplace=True)
+```
+
+2.  **Plot the time series**
+
+``` python
+# Plot the time series
+df.plot()
+plt.title('AirPassengers Time Series')
+plt.show()
+```
+
+3.  **Check for stationarity using the Augmented Dickey-Fuller test**
+
+``` python
+# Perform the Augmented Dickey-Fuller test to check for stationarity
+def adf_test(timeseries):
+    print('Results of Dickey-Fuller Test:')
+    dftest = adfuller(timeseries, autolag='AIC')
+    dfoutput = pd.Series(dftest[0:4], index=['Test Statistic','p-value','#Lags Used','Number of Observations Used'])
+    for key,value in dftest[4].items():
+        dfoutput['Critical Value (%s)'%key] = value
+    print(dfoutput)
+
+adf_test(df['passengers'])
+```
+
+4.  **Decompose the time series into trend, seasonal, and residual components**
+
+``` python
+# Decompose the time series into trend, seasonal, and residual components
+decomposition = seasonal_decompose(df)
+
+trend = decomposition.trend
+seasonal = decomposition.seasonal
+residual = decomposition.resid
+
+plt.figure(figsize=(12,8))
+plt.subplot(411)
+plt.plot(df, label='Original')
+plt.legend(loc='best')
+plt.subplot(412)
+plt.plot(trend, label='Trend')
+plt.legend(loc='best')
+plt.subplot(413)
+plt.plot(seasonal,label='Seasonality')
+plt.legend(loc='best')
+plt.subplot(414)
+plt.plot(residual, label='Residuals')
+plt.legend(loc='best')
+plt.tight_layout()
+```
+
+5.  **Check for autocorrelation in the residuals**
+
+``` python
+# Check for autocorrelation in the residuals
+plot_acf(residual.dropna())
+plot_pacf(residual.dropna())
+plt.show()
+```
+
+6.  **Check for homoscedasticity (constant variance over time)**
+
+\`\`\`python \# Check for homoscedasticity (constant variance over time) residual.plot() plt.show()
+
+# We can also use a formal test like the Breusch-Pagan test
+
+# Null hypothesis is homoscedasticity, alternative hypothesis is heteroscedasticity
+
+from statsmodels.compat import lzip import statsmodels.stats.api as sms
+
+names = \['Lagrange multiplier statistic', 'p-value', 'f-value', 'f p-value'\] test = sms.het_breuschpagan(residual.dropna(), df.dropna()) lzip(names, test
