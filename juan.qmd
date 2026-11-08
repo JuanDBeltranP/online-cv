@@ -1,8 +1,10 @@
 ---
 title: "Brief Description"
 ---
-As a seasoned data scientist with more than 7 years of experience across various sectors, including the global soft commodities trading industry, I have developed an advanced understanding of machine learning, time series analysis, and GIS. These skills have been instrumental in enabling me to discern complex data patterns and provide actionable insights within the trading ecosystem. My technical expertise is underscored by my proficiency in Python and R programming languages, tools I've leveraged extensively to address data-driven challenges in the commodities market.
+I am a quantitative researcher with 7+ years of experience in agricultural commodities, combining market fundamentals with data science. At ECOM Trading I worked across cocoa, coffee and cotton, building forecasting models, trading signals, weather analytics and satellite-based crop models that fed directly into trading decisions.
 
-My project management skills are honed through practical experience with cross-functional teams, Agile methodologies, and continuous integration/delivery principles on the lookout for new ways to create business value.
+My background pairs deep technical skill (Python, R, machine learning, time-series forecasting and geospatial analysis) with a scientific training in plant sciences, which gives me a practical understanding of how weather and crop biology drive supply.
 
-In addition, my leadership qualities are widely acknowledged, demonstrated by my commitment to mentorship and fostering data-centric approaches across diverse teams. My approach to problem-solving fuses intense curiosity with unwavering rigour, enabling me to address complex issues effectively. Furthermore, I excel in distilling intricate concepts into accessible narratives, ensuring clear and empathetic communication with stakeholders. This blend of leadership, problem-solving, and communication skills has been a cornerstone of my data science journey.
+I have led data science teams, mentored junior colleagues, and trained staff at major banks and retailers. I care about turning complex analysis into clear, actionable views for decision-makers.
+
+**Next step:** since late 2024 my focus has been commodities analysis in agricultural markets.

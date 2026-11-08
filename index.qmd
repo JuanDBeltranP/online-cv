@@ -1,17 +1,17 @@
 ---
 title: "Dr Juan D. Beltran"
-subtitle: "Lead Data Scientist"
+subtitle: "Agricultural Commodities · Quantitative Research"
 about:
   image: juan.png
   template: solana
 ---
 
-Hi and welcome to my website! 
+Welcome! This site collects my CV, selected projects, and the notes and tutorials I have written over the years.
 
-Here you can find my cv and more information about my data science journey! As well as some tutorials and notes that I share regularly with my team!
+I spent more than five years at ECOM Trading, one of the world's largest merchants of coffee, cotton and cocoa, where I rose to lead the data science team in the Research department. There I built price forecasting models, trading signals, weather and crop-yield models, and a global deforestation risk model, all used to support trading decisions.
 
-I am a lead data scientist passionate about developing useful, effective and practical data science products to solve commercial problems in different industries. I have a strong academic background and I build my data solutions following rigorous and pragmatic data science principles. I love analysing and solving complex problems that involve data analysis. I am always eager to learn new techniques and knowledge to incorporate them into my data science toolbox.
+Before that, I designed data science training for blue-chip companies at Decoded, worked on real-time disease modelling at UCL, and completed a DPhil in Plant Sciences at the University of Oxford.
 
-I have been coding in R for the last 15 years and in Python for the last 9 years. I have designed, developed and maintained a wide range of data products which combine machine learning models and GIS analysis in the shape of stand alone models, dashboards, advanced visualisation, automatic reports, and web apps. I have extensive knowledge in statistical modelling, forecasting time series and geospatial analysis.
+**Next step:** since late 2024 I have moved into commodities analysis, applying fundamental, weather, macro and quantitative analysis to agricultural markets.
 
-When I am not coding I really enjoy going to the gym, hiking outdoors or drinking cocktails!
+Outside work, you will usually find me in the gym, hiking, or travelling.

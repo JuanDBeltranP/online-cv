@@ -2,8 +2,8 @@
 title: "Contact me"
 ---
 
-📱 +44 07922857788
+📧 [jd.beltran43@gmail.com](mailto:jd.beltran43@gmail.com)
 
-💻 [Website](https://juandbeltranp.github.io/online-cv/)
+📱 +44 7922 857788
 
-
+💼 [LinkedIn](https://www.linkedin.com/in/jdbeltran/)

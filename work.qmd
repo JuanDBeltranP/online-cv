@@ -2,44 +2,48 @@
 title: "Work Experience"
 ---
 
-**Lead Data Scientist \| ECOM Trading \| Nov 2022 - Present**
+::: {.callout-note appearance="simple"}
+**Next step (late 2024 onwards):** commodities analysis in agricultural markets.
+:::
 
--   Currently leading the data science team at the Research department in ECOM Trading, one of the world’s largest traders of coffee, cotton and cocoa. I started at ECOM Trading in 2019 as a Senior Data Scientist, I was promoted to the role of Lead Data Scientist in November 2022.
+**Data Science Consultant \| Freelance \| May 2024 – Aug 2024**
 
--   My career at ECOM has been marked by pivotal contributions to our core product offerings. These contributions span the realms of data infrastructure and data centralisation as well as the creation, deployment and maintenance of machine learning models, which I describe in further detail below.
+-   Advised commodities research teams, building machine learning models that automated data analysis and improved forecasting.
 
--   I've played a significant role in the development and maintenance of advanced trading signal models that leverage Supply & Demand dynamics, weather data, and historical price trends. This unique blend of information allows us to predict market behaviour with high precision, creating a strategic advantage in our trading operations.
+**Lead Data Scientist \| ECOM Trading \| Dec 2022 – May 2024**
 
--   Recognizing the critical importance of sustainability in today's market, I've been instrumental in developing a new framework for measuring deforestation on global farms. This initiative highlights our commitment to responsible trading and provides invaluable insights into environmental impact.
+-   Led the data science team in the Research department at ECOM Trading, one of the world's largest merchants of coffee, cotton and cocoa, after joining as a Senior Data Scientist in December 2019.
 
--   To further streamline our processes and ensure data integrity, I've implemented an automated alert system that identifies potential anomalies in cotton, coffee and cocoa price data. This system proactively sends email alerts when irregularities are detected, allowing us to swiftly mitigate potential risks and maintain market-leading accuracy in our data-driven decisions.
+-   Built and maintained trading signal models for cocoa, coffee and cotton that combined supply and demand dynamics, weather data and price history.
 
-**Senior Data Scientist \| ECOM Trading \| Dec 2019 - Nov 2022**
+-   Developed, deployed and maintained price forecasting models used in trading decisions.
 
--   Led the development of a comprehensive suite of data products, encompassing dashboards, automatic reports, and web applications in the research department as a senior data scientist.
+-   Created a global deforestation risk model from satellite imagery, machine learning and GIS, feeding ECOM's carbon footprint assessment.
 
--   Developed an array of machine learning models to tackle key industry questions, from predicting the supply and demand of commodities like coffee, cotton, and cocoa to estimating crop yields using satellite imagery.
+-   Drove data infrastructure and centralisation work, and promoted a data-driven culture across the business.
 
--   Utilized my predictive models to forecast a range of pivotal factors, including the productivity of West African cocoa farms, the medium-term climate change effects on global plantations, and future price dynamics based on climatic variables.
+**Senior Data Scientist \| ECOM Trading \| Dec 2019 – Dec 2022**
 
--   Conceived an innovative web application that fused historical deforestation data with georeferenced farm locations, forming a unique deforestation risk model for global farms.
+-   Built an automated alert system that flags anomalies in cocoa, coffee and cotton futures prices and emails the team when irregularities appear.
 
-**Product Developer - Data Science \| Decoded \| Oct 2018 - Nov 2019**
+-   Built a weather platform tracking temperature and precipitation anomalies across key growing regions.
 
--   Pioneered and executed over 40% of the curriculum for Decoded's flagship offering, the Data Academy, fostering data science integration among blue-chip clients, including Societe General, UBS, Unilever, Nike, and M&S.
+-   Predicted crop yields from satellite imagery and machine learning, including the productivity of West African cocoa farms.
 
--   Crafted comprehensive course material covering fundamental coding in Python and R, advanced statistics, and a wide array of machine learning techniques.
+-   Led models forecasting the outcome of key cotton yield and production reports.
 
--   Authored specialized R and Python modules for an extensive range of topics such as regression analysis, classification methods, neural networks, Big Data handling, time series analysis, and SQL.
+-   Assessed the medium-term impact of climate change on global coffee and cocoa growing areas.
 
--   Regularly hosted workshops to impart these modules to client employees, both in-person and via webinars, and trained new facilitators to carry the torch forward.
+-   Delivered dashboards, automated reports and web applications for the Research department.
 
-**Research Associate - Data Science \| Institute for Risk and Disaster Reduction, University College London \| Jan 2018 - Oct 2018**
+**Product Developer – Data Science \| Decoded \| Oct 2018 – Dec 2019**
 
--   Developed a machine learning model capable of real-time prediction of potential mosquito breeding points across four cities in Brazil, employing Python, TensorFlow, and Keras to create recurrent neural networks that geospatially modelled virus and mosquito occurrences.
+-   Co-developed more than 40% of the curriculum for the Data Academy, Decoded's flagship programme for embedding data science in blue-chip companies including Société Générale, UBS, Unilever, Nike and M&S.
 
--   The results of my work were manifested in a user-friendly bokeh web application, which I built and was actively used by health professionals in Brazil.
+-   Wrote course material on Python and R, statistics, machine learning, time series, text analysis and SQL.
 
--   Complimenting this, I also created a mobile application to streamline data collection from health professionals on the ground.
+-   Ran workshops and webinars for client employees and trained new facilitators.
 
+**Postdoctoral Researcher \| Institute for Risk and Disaster Reduction, University College London \| Jan 2018 – Oct 2018**
 
+-   Developed a real-time model tracking the spread of the Zika virus in Brazil, using recurrent neural networks (Python, TensorFlow, Keras) to model virus and mosquito occurrence across four cities.

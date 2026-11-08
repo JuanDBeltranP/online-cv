@@ -4,10 +4,11 @@ title: "Skills"
 
 |  ||
 |:-------------------------|:---------------------------------------------|
-| **Programming Python**   | Advanced proficiency in Pandas, GeoPandas, SciKit-Learn, TensorFlow, Pytorch, keras, Matplotlib, NumPy, SciPy, SQLAlchemy, Seaborn, Bokeh, SciKit-Image                                  |
-| **Programming R**        | Advanced proficiency in RStudio, Shiny, tidyverse, Parsnip, bayestestR, sparklyr, keras, dygraph, forecast                                                                               |
-| **Modelling**            | Advanced experience in statistical modelling, time series analysis, supervised and unsupervised machine learning algorithms, currently implementing solutions in reinforcement learning (intermediate)|
-| **Geospatial Analysis**  | Advanced skills in geospatial machine learning, professional proficiency in ArcGIS, QGIS and OpenGeos (Python)|
-| **Big Data & Databases** | Proficient in SQL, MongoDB (NoSQL), Spark (pyspark and sparklyr)                                                                                                               |
-| **Experimental Design**  | Strong background in designing and implementing A/B tests, and Bayesian statistics                                                                                             |
-| **Languages**            | Fluent in English and Spanish (native)                                                                                                                                         |
+| **Commodities**          | Cocoa, coffee, cotton and sugar; working knowledge of grains and cattle. Supply and demand analysis, weather and crop analysis, market report forecasting |
+| **Programming: Python**  | Pandas, GeoPandas, scikit-learn, TensorFlow, PyTorch, Keras, Prophet, NumPy, SciPy, SQLAlchemy, Matplotlib, Seaborn, Bokeh |
+| **Programming: R**       | tidyverse, Shiny, forecast, parsnip, bayestestR, sparklyr, keras, dygraphs |
+| **Modelling**            | Time-series forecasting, statistical modelling, supervised and unsupervised machine learning, deep learning, reinforcement learning |
+| **Geospatial Analysis**  | Geospatial machine learning, satellite imagery, ArcGIS, QGIS, Google Earth Engine |
+| **Data & Cloud**         | SQL, MongoDB, Spark (PySpark, sparklyr), BigQuery, AWS, Power BI, Tableau |
+| **Experimental Design**  | A/B testing and Bayesian statistics |
+| **Languages**            | Spanish (native), English (fluent), Portuguese (intermediate), French (basic) |
