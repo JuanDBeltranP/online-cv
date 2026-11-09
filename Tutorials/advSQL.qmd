@@ -1,127 +1,172 @@
-**Advanced SQL**
-
-Introduction:
-
-Building on our SQL basics and intermediate knowledge, this tutorial, is the second part of SQL 101, here we will delve deeper into advanced SQL techniques, which can help in managing and manipulating complex relational databases.
-
-
-**Part IV: SQL Constraints**
-
-**4.1 Understanding SQL Constraints**
-
-SQL Constraints are used to specify rules for the data in a table. Constraints ensure the reliability and accuracy of the data in the table. 
-
-**4.2 Primary Key**
-
-A primary key is used to uniquely identify each record in a table.
-
-```SQL
-CREATE TABLE Employees (
-    ID int PRIMARY KEY,
-    Name text,
-    Age int,
-    Salary real
-);
-```
-The `PRIMARY KEY` constraint uniquely identifies each record in the `Employees` table. This means that the `ID` field is unique for each record and cannot be `NULL`.
-
-**4.3 Foreign Key**
-
-A foreign key is used to link two tables together.
-
-```SQL
-CREATE TABLE Orders (
-    OrderID int PRIMARY KEY,
-    OrderNumber int,
-    EmployeeID int,
-    FOREIGN KEY (EmployeeID) REFERENCES Employees(ID)
-);
-```
-Here, `EmployeeID` in the `Orders` table is a foreign key that refers to `ID` in the `Employees` table.
-
-**4.4 Unique**
-
-The `UNIQUE` constraint ensures that all values in a column are different.
-
-```SQL
-CREATE TABLE Employees (
-    ID int PRIMARY KEY,
-    Name text UNIQUE,
-    Age int,
-    Salary real
-);
-```
-This ensures that the `Name` is unique for each record.
-
+---
+title: "Advanced SQL: Market Analytics in the Database"
 ---
 
-**Part V: Advanced SQL Queries**
+::: {.callout-note appearance="simple"}
+Written in 2024. All examples use public data and are for learning only, not investment advice.
+:::
 
-**5.1 Using Alias**
+In [SQL 101](SQL.qmd) we built a small database of softs prices and exports. Here we push more of the analysis into SQL itself: rolling statistics, returns, spreads, seasonal comparisons and ranking. Doing this in the database keeps calculations consistent across every notebook and dashboard that reads from it.
 
-SQL aliases are used to give a table or a column a temporary name. They make column names more readable.
+All examples use SQLite 3.25+ (window functions). The same syntax works in PostgreSQL and BigQuery with minor changes.
 
-```SQL
-SELECT e.Name AS Employee, e.Salary AS Income 
-FROM Employees AS e;
-```
-This command selects all `Name` and `Salary` from the `Employees` table but results will be displayed as `Employee` and `Income` respectively.
+## 1. Window functions: moving averages
 
-**5.2 Conditional Selection**
+A 20-day and 100-day moving average for cocoa:
 
-The `CASE` statement goes through conditions and returns a value when the first condition is met.
-
-```SQL
-SELECT Name, Salary,
-CASE 
-    WHEN Salary > 50000 THEN 'Above Average'
-    ELSE 'Below Average' 
-END AS SalaryStatus
-FROM Employees;
-```
-This command adds a new column `SalaryStatus` that categorizes employees based on their salary.
-
-**5.3 IN Operator**
-
-The `IN` operator allows you to specify multiple values in a `WHERE` clause.
-
-```SQL
-SELECT * FROM Employees
-WHERE Name IN ('John Doe', 'Jane Doe');
-```
-This command selects all fields from `Employees` where the `Name` is either 'John Doe' or 'Jane Doe'.
-
----
-
-**Part VI: Stored Procedures**
-
-**6.1 What is a Stored Procedure?**
-
-A stored procedure is a prepared SQL code that you can save so the code can be reused over and over again. 
-
-**6.2 Creating a Stored Procedure**
-
-Let's assume we frequently need to fetch all employees with a salary above a certain value. Instead of writing this query every time, we can create a stored procedure.
-
-```SQL
-CREATE PROCEDURE SelectHighlyPaid @Salary real
-AS
-SELECT * FROM Employees WHERE Salary > @Salary;
-GO;
+```sql
+SELECT date,
+       settle,
+       AVG(settle) OVER (ORDER BY date ROWS BETWEEN 19 PRECEDING AND CURRENT ROW)  AS ma20,
+       AVG(settle) OVER (ORDER BY date ROWS BETWEEN 99 PRECEDING AND CURRENT ROW)  AS ma100
+FROM prices
+WHERE symbol = 'CC'
+ORDER BY date;
 ```
 
-**6.3 Calling a Stored Procedure**
+`PARTITION BY` runs the same calculation separately for each market:
 
-Now that we have our stored procedure, we can execute it.
-
-```SQL
-EXEC SelectHighlyPaid 50000;
+```sql
+SELECT symbol, date, settle,
+       AVG(settle) OVER (PARTITION BY symbol ORDER BY date
+                         ROWS BETWEEN 19 PRECEDING AND CURRENT ROW) AS ma20
+FROM prices;
 ```
 
-This command calls the `SelectHighlyPaid` stored procedure and retrieves employees earning more than 50000.
+## 2. Returns and volatility with LAG
 
----
+```sql
+WITH r AS (
+  SELECT symbol, date, settle,
+         LN(settle / LAG(settle) OVER (PARTITION BY symbol ORDER BY date)) AS log_ret
+  FROM prices
+)
+SELECT symbol, strftime('%Y', date) AS year,
+       ROUND(SQRT(252) * SQRT(AVG(log_ret * log_ret) - AVG(log_ret) * AVG(log_ret)), 3) AS ann_vol
+FROM r
+WHERE log_ret IS NOT NULL
+GROUP BY symbol, year
+ORDER BY symbol, year;
+```
 
-**Conclusion**
+(SQLite needs its math extension for `LN` and `SQRT`; recent Python builds include it.) Run this and the 2024 cocoa row stands out: the 2023/24 rally came with volatility far above anything in the previous decade.
 
-From basic commands to advanced procedures, SQL is a versatile tool that can handle complex queries with ease. By mastering these advanced concepts and continually practicing, you're well on your way to becoming an SQL expert!
+## 3. Common table expressions for readable logic
+
+CTEs (`WITH ...`) break long queries into named steps. Here we flag days when cocoa moved more than three rolling standard deviations, a simple anomaly alert:
+
+```sql
+WITH r AS (
+  SELECT date, settle,
+         settle / LAG(settle) OVER (ORDER BY date) - 1 AS ret
+  FROM prices WHERE symbol = 'CC'
+),
+s AS (
+  SELECT date, settle, ret,
+         AVG(ret) OVER w AS mu,
+         SQRT(AVG(ret * ret) OVER w - AVG(ret) OVER w * AVG(ret) OVER w) AS sd
+  FROM r
+  WINDOW w AS (ORDER BY date ROWS BETWEEN 60 PRECEDING AND 1 PRECEDING)
+)
+SELECT date, settle, ROUND(ret * 100, 2) AS pct_move
+FROM s
+WHERE ABS(ret - mu) > 3 * sd
+ORDER BY date DESC;
+```
+
+Note the window ends at `1 PRECEDING`, so today's move is compared with history only. Letting today leak into its own baseline is a classic mistake.
+
+## 4. Calendar spreads
+
+If you store individual contract months (a `contract` column such as `CCN24`, `CCU24`), you can compute spreads with a self-join:
+
+```sql
+SELECT a.date,
+       a.settle AS jul,
+       b.settle AS sep,
+       a.settle - b.settle AS jul_sep_spread
+FROM futures a
+JOIN futures b ON a.date = b.date
+WHERE a.contract = 'CCN24'
+  AND b.contract = 'CCU24'
+ORDER BY a.date;
+```
+
+A wide positive spread (backwardation) usually signals tight nearby supply, which is exactly what the cocoa curve showed through 2024.
+
+## 5. Seasonal comparisons
+
+Exports this season versus last season, month by month:
+
+```sql
+WITH s AS (
+  SELECT origin, month, tonnes,
+         CASE WHEN CAST(strftime('%m', month) AS INT) >= 10
+              THEN CAST(strftime('%Y', month) AS INT)
+              ELSE CAST(strftime('%Y', month) AS INT) - 1 END AS season_start
+  FROM exports
+  WHERE commodity = 'Cocoa'
+)
+SELECT cur.origin, cur.month, cur.tonnes,
+       prev.tonnes AS last_season,
+       ROUND(100.0 * (cur.tonnes - prev.tonnes) / prev.tonnes, 1) AS pct_change
+FROM s cur
+LEFT JOIN s prev
+  ON prev.origin = cur.origin
+ AND prev.month  = date(cur.month, '-1 year')
+WHERE cur.season_start = 2023
+ORDER BY cur.origin, cur.month;
+```
+
+Cumulative season-to-date totals with a running sum (reusing the same `s` CTE):
+
+```sql
+-- WITH s AS (...) as above
+SELECT origin, month,
+       SUM(tonnes) OVER (PARTITION BY origin, season_start ORDER BY month) AS season_to_date
+FROM s;
+```
+
+## 6. Ranking
+
+Top three origins per commodity by exports in a season:
+
+```sql
+SELECT * FROM (
+  SELECT commodity, origin, SUM(tonnes) AS total,
+         RANK() OVER (PARTITION BY commodity ORDER BY SUM(tonnes) DESC) AS rnk
+  FROM exports
+  WHERE month BETWEEN '2022-10-01' AND '2023-09-01'
+  GROUP BY commodity, origin
+)
+WHERE rnk <= 3;
+```
+
+## 7. Views and indexes
+
+Save logic you reuse as a view, and index the columns you filter on:
+
+```sql
+CREATE VIEW v_cocoa_daily AS
+SELECT date, settle,
+       AVG(settle) OVER (ORDER BY date ROWS BETWEEN 19 PRECEDING AND CURRENT ROW) AS ma20
+FROM prices WHERE symbol = 'CC';
+
+CREATE INDEX idx_prices_symbol_date ON prices(symbol, date);
+CREATE INDEX idx_exports_origin_month ON exports(origin, month);
+```
+
+## 8. Transactions
+
+Load each day's data inside a transaction, so a failed load never leaves half a day in the table:
+
+```sql
+BEGIN;
+INSERT INTO prices (symbol, date, settle, volume) VALUES ('KC', '2024-06-28', 226.25, 31000);
+-- ... the rest of the day's rows
+COMMIT;   -- or ROLLBACK; if anything failed
+```
+
+## Next steps
+
+With clean, queryable data in place, the [Regression 101](Regression.qmd) tutorial starts modelling what drives prices.

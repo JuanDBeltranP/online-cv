@@ -1,125 +1,154 @@
-# Forecasting with Time Series Methods: A Comparative Approach using R and Python
+---
+title: "Forecasting Softs Prices with Time Series Methods (R and Python)"
+---
 
-When it comes to predicting future trends, events, or quantities---known as forecasting---time series methods are some of the most commonly used approaches. By definition, a time series is a sequence of data points recorded at successive, equally spaced intervals. Given the unique traits of time series data, specialized analysis techniques have been developed over time, and these methods can be used to forecast future data points.
+::: {.callout-note appearance="simple"}
+Written in 2024. All examples use public data and are for learning only, not investment advice.
+:::
 
-In this blog post, we will look at how to apply time series methods to forecast data using two popular programming languages: R and Python.
+Before reaching for machine learning, it pays to understand what classical time series models can and cannot do. In this tutorial we decompose and forecast **monthly arabica and robusta coffee prices** in both R and Python, and use the arabica–robusta spread to see why benchmarks matter.
 
-## Understanding Time Series Components
+2024 is a good moment for this: robusta has hit record highs after drought in Vietnam, the largest robusta producer, while arabica has also rallied. Good forecasting practice is about knowing how little a price series alone can tell you in years like this.
 
-Before delving into the coding aspect, it's important to understand the key components of a time series:
+## 1. Data
 
-1.  **Trend:** The underlying pattern of growth or decline in a time series.
+We use the World Bank Pink Sheet (`CMO-Historical-Data-Monthly.xlsx`), which has long monthly histories for `Coffee, Arabica` and `Coffee, Robusta` in US$/kg.
 
-2.  **Seasonality:** Regular and predictable changes that recur every calendar year.
+## 2. Time series components
 
-3.  **Cyclical components:** Fluctuations happening due to economic cycles.
+A monthly series can be split into:
 
-4.  **Irregular (or residual) component:** The random variation in the series.
+- **Trend:** the long-run level, driven by costs, demand growth and inflation.
+- **Seasonality:** recurring patterns within the year. Coffee prices have some, linked to harvest timing and frost risk in Brazil, but it is weak relative to price swings.
+- **Remainder:** everything else, which for commodities is most of the story: weather shocks, currency moves, logistics and positioning.
 
-## Time Series Forecasting in R
+## 3. Forecasting in R
 
-R provides robust support for time series analysis via several specialized packages like `forecast`, `tseries`, and `tsibble`.
-
-In this example, we will use the `forecast` package to analyze the `AirPassengers` dataset.
-
-``` r
-
-# Loading required library
-
+```r
+library(readxl)
 library(forecast)
 
-# Load the dataset
+wb <- read_excel("CMO-Historical-Data-Monthly.xlsx", sheet = "Monthly Prices", skip = 4)
+names(wb)[1] <- "month"
+wb <- wb[grepl("^\\d{4}M\\d{2}$", wb$month), ]
 
-data(AirPassengers)
+arabica <- ts(as.numeric(wb$`Coffee, Arabica`), start = c(1960, 1), frequency = 12)
+arabica <- window(arabica, start = c(2000, 1))
 
-# Plotting the data
+plot(arabica, main = "Arabica coffee, US$/kg")
 
-plot(AirPassengers)
-
-# Decomposing the time series
-
-decomposed_ap <- decompose(AirPassengers)
-
-# Plotting the decomposed time series
-
-plot(decomposed_ap)
-
-# Applying the ARIMA model
-
-arima_model <- auto.arima(AirPassengers)
-
-# Forecasting for next 24 months
-
-forecast_arima <- forecast(arima_model, h=24)
-
-# Plotting the forecast
-
-plot(forecast_arima)
+# Decompose the log series (multiplicative effects become additive)
+dec <- stl(log(arabica), s.window = "periodic")
+plot(dec)
 ```
 
-In this example, we first decomposed the time series to understand its underlying components. We then fitted an ARIMA model using the `auto.arima()` function, and used it to forecast the next 24 months.
+The seasonal panel will be small compared with the remainder. That alone tells you seasonality will not drive the forecast.
 
-## Time Series Forecasting in Python
+Fit an ARIMA model automatically and forecast 12 months ahead:
 
-Python also has strong support for time series analysis, particularly through the `pandas` and `statsmodels` libraries.
+```r
+fit <- auto.arima(log(arabica))
+summary(fit)
 
-Let's analyze the same `AirPassengers` dataset in Python.
+fc <- forecast(fit, h = 12)
+plot(fc, main = "12-month ARIMA forecast (log arabica)")
+```
 
-``` python
+The widening fan is the most useful output: it shows how quickly uncertainty grows. Most automatically selected models for commodity prices end up close to a random walk.
 
-# Importing required libraries
+Compare with the simplest possible benchmark, the naive forecast (next month equals this month), on a hold-out period:
 
-import pandas as pd
+```r
+train <- window(log(arabica), end = c(2019, 12))
+test  <- window(log(arabica), start = c(2020, 1))
 
+fit_tr <- auto.arima(train)
+fc_ar  <- forecast(fit_tr, h = length(test))
+fc_nv  <- naive(train, h = length(test))
+
+accuracy(fc_ar, test)
+accuracy(fc_nv, test)
+```
+
+## 4. Forecasting in Python
+
+```python
 import numpy as np
-
-from statsmodels.tsa.seasonal import seasonal_decompose
-
+import pandas as pd
+import matplotlib.pyplot as plt
+from statsmodels.tsa.seasonal import STL
 from statsmodels.tsa.arima.model import ARIMA
 
-import matplotlib.pyplot as plt
+wb = pd.read_excel("CMO-Historical-Data-Monthly.xlsx", sheet_name="Monthly Prices", skiprows=4)
+wb = wb.rename(columns={wb.columns[0]: "month"})
+wb = wb[wb["month"].astype(str).str.match(r"^\d{4}M\d{2}$")]
+wb.index = pd.to_datetime(wb["month"].str.replace("M", "-"), format="%Y-%m")
+coffee = wb[["Coffee, Arabica", "Coffee, Robusta"]].astype(float).loc["2000":]
+coffee.columns = ["arabica", "robusta"]
 
-# Load the dataset
-
-air_passengers = pd.read_csv('AirPassengers.csv', parse_dates=['Month'], index_col='Month')
-
-# Plotting the data
-
-air_passengers.plot()
-
-# Decomposing the time series
-
-decomposition = seasonal_decompose(air_passengers)
-
-# Plotting the decomposed time series
-
-decomposition.plot()
-
-plt.show()
-
-# Applying the ARIMA model
-
-model = ARIMA(air_passengers, order=(5,1,0))
-
-model_fit = model.fit(disp=0)
-
-# Forecasting for next 24 months
-
-forecast, stderr, conf_int = model_fit.forecast(steps=24)
-
-# Plotting the forecast
-
-plt.plot(forecast)
-
-plt.fill_between(range(len(forecast)), forecast - stderr, forecast + stderr, color='r', alpha=.1)
-
+STL(np.log(coffee["robusta"]), period=12).fit().plot()
 plt.show()
 ```
 
-Here, we used the `seasonal_decompose()` function from `statsmodels` to decompose the time series, fitted an ARIMA model, and made a forecast for the next 24 months.
+A rolling-origin evaluation is more honest than a single split: refit each month and forecast one step ahead.
 
-## Conclusion
+```python
+y = np.log(coffee["robusta"])
+preds, actual = [], []
+for end in pd.date_range("2018-01-01", y.index[-2], freq="MS"):
+    model = ARIMA(y.loc[:end], order=(1, 1, 0)).fit()
+    preds.append(model.forecast(1).iloc[0])
+    actual.append(y.shift(-1).loc[end])
 
-In summary, time series forecasting is a powerful tool for
+preds, actual = np.array(preds), np.array(actual)
+naive = y.loc["2018-01-01":y.index[-2]].values
+print("ARIMA MAE:", np.mean(np.abs(preds - actual)).round(4))
+print("Naive MAE:", np.mean(np.abs(naive - actual)).round(4))
+```
 
-predicting future trends and events. Both R and Python provide excellent support for time series analysis and can be chosen based on the specific requirements of your project and your familiarity with the language. Happy forecasting!
+## 5. Prophet
+
+Prophet handles trend changes and seasonality with little tuning:
+
+```python
+from prophet import Prophet
+
+d = coffee["arabica"].reset_index()
+d.columns = ["ds", "y"]
+d["y"] = np.log(d["y"])
+
+m = Prophet(yearly_seasonality=True, changepoint_prior_scale=0.3)
+m.fit(d.loc[d["ds"] < "2023-01-01"])
+future = m.make_future_dataframe(periods=24, freq="MS")
+fc = m.predict(future)
+m.plot(fc); m.plot_components(fc)
+plt.show()
+```
+
+Prophet extrapolates the recent trend, so after a big rally it will tend to forecast more rally. Check its changepoints against what actually happened in the market.
+
+## 6. Modelling a spread instead of a level
+
+Relative value is often more forecastable than outright price. The arabica–robusta spread reflects quality premia and the relative supply from Brazil, Colombia and Central America versus Vietnam, Brazil (conilon) and Uganda:
+
+```python
+spread = coffee["arabica"] - coffee["robusta"]
+spread.plot(title="Arabica minus robusta, US$/kg")
+plt.axhline(spread.loc["2010":].mean(), ls="--", color="grey")
+plt.show()
+
+from statsmodels.tsa.stattools import adfuller
+print("ADF p-value (spread):", round(adfuller(spread.dropna())[1], 3))
+```
+
+A low p-value suggests the spread tends to revert to its mean. Mean-reversion is never guaranteed, but this is the kind of structure that univariate models can use.
+
+## 7. Takeaways
+
+- Price-only models rarely beat a naive forecast for softs outright prices. Use them as baselines.
+- Their real value is in quantifying uncertainty and in modelling more stable quantities: spreads, seasonal patterns and basis.
+- Forecasting supply shocks needs fundamental inputs: weather, crop surveys, exports and stocks.
+
+## Next steps
+
+[Deep learning for time series](NeuralNetworks.qmd) adds exogenous drivers to a neural network forecast.

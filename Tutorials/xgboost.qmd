@@ -1,87 +1,122 @@
-**XGBoost - Understanding, Implementing, and Optimizing**
-
-Introduction:
-
-XGBoost, short for eXtreme Gradient Boosting, is an optimized and scalable machine learning system for tree boosting. In this tutorial, we'll explore the workings of XGBoost, when it's a good choice, its parameters and hyperparameters, and how to implement and optimize it in Python.
-
+---
+title: "XGBoost 101: Cocoa, Weather and the Curve"
 ---
 
-**Part I: Understanding XGBoost**
+::: {.callout-note appearance="simple"}
+Written in 2024. All examples use public data and are for learning only, not investment advice.
+:::
 
-**1.1: What is XGBoost?**
+Gradient boosting builds trees one after another, each correcting the errors of the previous ones. XGBoost is the best-known implementation: fast, regularised and usually the strongest model on tabular data.
 
-XGBoost is an ensemble learning method that applies the principle of gradient boosting to decision trees. It's recognized for its execution speed and model performance, which have made it a favorite tool among Kaggle competition winners.
+In this tutorial we predict the **monthly direction of cocoa prices** and see whether West African weather adds information beyond price momentum. The 2023/24 cocoa season, with record prices, makes a hard but instructive test.
 
-**1.2: When to Use XGBoost**
+## 1. Data
 
-XGBoost is a great choice when dealing with numerical or mixed data types, and when prediction accuracy is a major concern. It can handle both regression and classification problems, but it might be overkill for simple problems where a simpler model could work better.
-
----
-
-**Part II: Parameters and Hyperparameters of XGBoost**
-
-**2.1: Main Parameters**
-
-* `n_estimators`: The number of gradient boosted trees. Equivalent to number of boosting rounds.
-* `max_depth`: Maximum tree depth for base learners.
-* `learning_rate`: Boosting learning rate (also known as eta).
-* `gamma`: Minimum loss reduction required to make a further partition on a leaf node of the tree.
-
-**2.2: Hyperparameters**
-
-Just like with Random Forests, the parameters listed above are hyperparameters, meaning they are set before the learning process begins.
-
----
-
-**Part III: Implementing XGBoost in Python**
+- **Cocoa prices:** World Bank Pink Sheet monthly prices (see [Part 2 of the regression tutorials](Regression3.qmd) for loading code).
+- **Rainfall:** CHIRPS monthly precipitation, averaged over the cocoa belt of Côte d'Ivoire and Ghana. You can export it from Google Earth Engine with the script in the [Google Earth Engine tutorial](GoogleEarth.qmd), as a CSV with columns `month` and `rain_mm`.
+- **ENSO:** NOAA's Oceanic Niño Index (ONI).
 
 ```python
-import xgboost as xgb
+import numpy as np
+import pandas as pd
 
-# Instantiate the XGBClassifier
-xgb_clf = xgb.XGBClassifier(n_estimators=100, learning_rate=0.1, max_depth=5)
+rain = pd.read_csv("cocoa_belt_chirps_monthly.csv", parse_dates=["month"]).set_index("month")["rain_mm"]
 
-# Fit the classifier to the training set
-xgb_clf.fit(X_train, y_train)
-
-# Predict the labels of the test set
-y_pred = xgb_clf.predict(X_test)
+df = pd.DataFrame({"cocoa": cocoa, "rain": rain, "oni": oni}).dropna()
+df["ret"] = np.log(df["cocoa"]).diff()
 ```
 
----
+## 2. Weather features that make agronomic sense
 
-**Part IV: Optimizing XGBoost**
-
-Optimizing XGBoost involves tuning its hyperparameters to get the best performance for a specific dataset. We can again use techniques like Grid Search and Randomized Search.
-
-**4.1: Grid Search Example**
+Raw rainfall is less useful than **anomalies** against the normal for that calendar month, and cocoa cares about accumulated stress over several months:
 
 ```python
-from sklearn.model_selection import GridSearchCV
+clim = df.groupby(df.index.month)["rain"].transform("mean")
+df["rain_anom"] = df["rain"] / clim - 1
 
-# Define the parameter grid
-param_grid = {
-    'n_estimators': [100, 200, 300, 500],
-    'learning_rate': [0.01, 0.1, 0.2],
-    'max_depth' : [4,5,6,7,8],
-    'gamma': [0, 0.1, 0.2]
-}
+X = pd.DataFrame(index=df.index)
+X["rain_anom_1m"] = df["rain_anom"].shift(1)
+X["rain_anom_3m"] = df["rain_anom"].rolling(3).mean().shift(1)
+X["rain_anom_6m"] = df["rain_anom"].rolling(6).mean().shift(1)
+X["oni_lag2"]     = df["oni"].shift(2)
+X["mom_3m"]       = df["ret"].rolling(3).sum().shift(1)
+X["mom_12m"]      = df["ret"].rolling(12).sum().shift(1)
+X["month"]        = df.index.month          # main crop Oct–Mar, mid-crop Apr–Sep
 
-# Create a based model
-xgb_clf = xgb.XGBClassifier()
-
-# Instantiate the grid search model
-grid_search = GridSearchCV(estimator = xgb_clf, param_grid = param_grid, cv = 3)
-
-# Fit the grid search to the data
-grid_search.fit(X_train, y_train)
-
-# Get the best parameters
-best_params = grid_search.best_params_
+y = (df["ret"].shift(-1) > 0).astype(int)
+data = X.join(y.rename("up")).dropna()
 ```
 
----
+Every feature is shifted so it is known before the month we predict.
 
-Conclusion:
+## 3. Training XGBoost
 
-XGBoost is a powerful machine learning algorithm that excels in many contexts, particularly where accuracy is paramount. Understanding the ins and outs of XGBoost, knowing how to implement it in Python, and being able to optimize its hyperparameters are essential skills for any data scientist or machine learning engineer.
+```python
+from xgboost import XGBClassifier
+from sklearn.metrics import roc_auc_score, accuracy_score
+
+train = data.loc[:"2018-12"]
+valid = data.loc["2019-01":"2021-12"]
+test  = data.loc["2022-01":]
+
+feat = [c for c in data.columns if c != "up"]
+model = XGBClassifier(
+    n_estimators=1000, learning_rate=0.02, max_depth=2,
+    subsample=0.8, colsample_bytree=0.8, reg_lambda=1.0,
+    eval_metric="auc", early_stopping_rounds=50,
+)
+model.fit(train[feat], train["up"], eval_set=[(valid[feat], valid["up"])], verbose=False)
+
+p = model.predict_proba(test[feat])[:, 1]
+print("Best iteration:", model.best_iteration)
+print("Test AUC:", round(roc_auc_score(test["up"], p), 3))
+print("Test accuracy:", round(accuracy_score(test["up"], p > 0.5), 3))
+```
+
+Early stopping on a separate validation period picks the number of trees for us and is the single most effective guard against overfitting with boosting.
+
+## 4. Tuning
+
+With only a few hundred monthly observations, keep the search small and the trees shallow:
+
+```python
+from sklearn.model_selection import GridSearchCV, TimeSeriesSplit
+
+grid = GridSearchCV(
+    XGBClassifier(n_estimators=300, learning_rate=0.03, eval_metric="auc"),
+    {"max_depth": [1, 2, 3], "min_child_weight": [1, 5, 10], "subsample": [0.7, 1.0]},
+    cv=TimeSeriesSplit(n_splits=5), scoring="roc_auc",
+)
+grid.fit(pd.concat([train, valid])[feat], pd.concat([train, valid])["up"])
+print(grid.best_params_)
+```
+
+## 5. Explaining the model with SHAP
+
+SHAP values show how much each feature pushed each prediction up or down:
+
+```python
+import shap
+explainer = shap.TreeExplainer(model)
+sv = explainer.shap_values(test[feat])
+shap.summary_plot(sv, test[feat])
+```
+
+Look for whether dry anomalies (negative `rain_anom_3m`) push the probability of a rise up, as agronomy would suggest. If the model relies on the opposite sign, be suspicious.
+
+## 6. Ablation: does weather add anything?
+
+Retrain without the weather columns and compare:
+
+```python
+base_feat = ["mom_3m", "mom_12m", "month"]
+m0 = XGBClassifier(n_estimators=model.best_iteration + 1, learning_rate=0.02, max_depth=2,
+                   subsample=0.8, colsample_bytree=0.8).fit(train[base_feat], train["up"])
+print("AUC without weather:", round(roc_auc_score(test["up"], m0.predict_proba(test[base_feat])[:, 1]), 3))
+```
+
+On monthly data the difference is often small, and that is a fair conclusion. Weather is far more useful at higher resolution: daily rainfall and soil moisture by region, mapped to crop calendars, combined with field reports on pod counts and disease.
+
+## Next steps
+
+[Forecasting with time series methods](Forecasting.qmd) looks at seasonality and classical forecasting models for softs prices.

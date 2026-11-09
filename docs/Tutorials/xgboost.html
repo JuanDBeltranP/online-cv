@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Dr Juan Beltran – xgboost</title>
+<title>Dr Juan Beltran - XGBoost 101: Cocoa, Weather and the Curve</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -227,51 +227,55 @@ gtag('config', 'G-PWP5F6C91J', { 'anonymize_ip': true});
         <li class="dropdown-header">Tutorials</li>
         <li>
     <a class="dropdown-item" href="../Tutorials/SQL.html">
- <span class="dropdown-text">SQL 101</span></a>
+ <span class="dropdown-text">SQL 101: a softs market database</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../Tutorials/advSQL.html">
- <span class="dropdown-text">Advance SQL</span></a>
+ <span class="dropdown-text">Advanced SQL: market analytics</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../Tutorials/Regression.html">
- <span class="dropdown-text">Regression analysis 101</span></a>
+ <span class="dropdown-text">Regression: what drives sugar?</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../Tutorials/Regression2.html">
- <span class="dropdown-text">Hyperparameters in regression P1</span></a>
+ <span class="dropdown-text">Hyperparameters P1: tuning without look-ahead</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../Tutorials/Regression3.html">
- <span class="dropdown-text">Hyperparameters in regression P2</span></a>
+ <span class="dropdown-text">Hyperparameters P2: Bayesian optimisation on cocoa</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../Tutorials/RF.html">
- <span class="dropdown-text">Random Forest 101</span></a>
+ <span class="dropdown-text">Random Forest: coffee’s weekly direction</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../Tutorials/xgboost.html">
- <span class="dropdown-text">XGboost 101</span></a>
+ <span class="dropdown-text">XGBoost: cocoa and weather</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Tutorials/Forecasting.html">
+ <span class="dropdown-text">Forecasting coffee prices (R and Python)</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../Tutorials/NeuralNetworks.html">
- <span class="dropdown-text">Deep Learning for Time Series Analysis</span></a>
+ <span class="dropdown-text">Deep learning forecasts for cotton</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../Tutorials/ImageClassification.html">
- <span class="dropdown-text">Image Classification with Deep Learning</span></a>
+ <span class="dropdown-text">Detecting coffee leaf disease</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../Tutorials/RL.html">
- <span class="dropdown-text">Reinforcement Learning</span></a>
+ <span class="dropdown-text">Reinforcement learning: Q-learning on sugar</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../Tutorials/RLStocks.html">
- <span class="dropdown-text">RL and trading in financial markets 101</span></a>
+ <span class="dropdown-text">Deep Q-Network for cocoa futures</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../Tutorials/GoogleEarth.html">
- <span class="dropdown-text">Google Earth</span></a>
+ <span class="dropdown-text">Google Earth Engine: the cocoa belt</span></a>
   </li>  
     </ul>
   </li>
@@ -292,7 +296,7 @@ gtag('config', 'G-PWP5F6C91J', { 'anonymize_ip': true});
     </nav>
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"></h1>
+      <h1 class="quarto-secondary-nav-title">XGBoost 101: Cocoa, Weather and the Curve</h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -415,62 +419,67 @@ gtag('config', 'G-PWP5F6C91J', { 'anonymize_ip': true});
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Tutorials/SQL.html" class="sidebar-item-text sidebar-link">SQL 101</a>
+  <a href="../Tutorials/SQL.html" class="sidebar-item-text sidebar-link">SQL 101: a softs market database</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Tutorials/advSQL.html" class="sidebar-item-text sidebar-link">Advance SQL</a>
+  <a href="../Tutorials/advSQL.html" class="sidebar-item-text sidebar-link">Advanced SQL: market analytics</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Tutorials/Regression.html" class="sidebar-item-text sidebar-link">Regression analysis 101</a>
+  <a href="../Tutorials/Regression.html" class="sidebar-item-text sidebar-link">Regression: what drives sugar?</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Tutorials/Regression2.html" class="sidebar-item-text sidebar-link">Hyperparameters in regression P1</a>
+  <a href="../Tutorials/Regression2.html" class="sidebar-item-text sidebar-link">Hyperparameters P1: tuning without look-ahead</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Tutorials/Regression3.html" class="sidebar-item-text sidebar-link">Hyperparameters in regression P2</a>
+  <a href="../Tutorials/Regression3.html" class="sidebar-item-text sidebar-link">Hyperparameters P2: Bayesian optimisation on cocoa</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Tutorials/RF.html" class="sidebar-item-text sidebar-link">Random Forest 101</a>
+  <a href="../Tutorials/RF.html" class="sidebar-item-text sidebar-link">Random Forest: coffee’s weekly direction</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Tutorials/xgboost.html" class="sidebar-item-text sidebar-link active">XGboost 101</a>
+  <a href="../Tutorials/xgboost.html" class="sidebar-item-text sidebar-link active">XGBoost: cocoa and weather</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Tutorials/NeuralNetworks.html" class="sidebar-item-text sidebar-link">Deep Learning for Time Series Analysis</a>
+  <a href="../Tutorials/Forecasting.html" class="sidebar-item-text sidebar-link">Forecasting coffee prices (R and Python)</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Tutorials/ImageClassification.html" class="sidebar-item-text sidebar-link">Image Classification with Deep Learning</a>
+  <a href="../Tutorials/NeuralNetworks.html" class="sidebar-item-text sidebar-link">Deep learning forecasts for cotton</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Tutorials/RL.html" class="sidebar-item-text sidebar-link">Reinforcement Learning</a>
+  <a href="../Tutorials/ImageClassification.html" class="sidebar-item-text sidebar-link">Detecting coffee leaf disease</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Tutorials/RLStocks.html" class="sidebar-item-text sidebar-link">RL and trading in financial markets 101</a>
+  <a href="../Tutorials/RL.html" class="sidebar-item-text sidebar-link">Reinforcement learning: Q-learning on sugar</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Tutorials/GoogleEarth.html" class="sidebar-item-text sidebar-link">Google Earth</a>
+  <a href="../Tutorials/RLStocks.html" class="sidebar-item-text sidebar-link">Deep Q-Network for cocoa futures</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorials/GoogleEarth.html" class="sidebar-item-text sidebar-link">Google Earth Engine: the cocoa belt</a>
   </div>
 </li>
       </ul>
@@ -480,75 +489,146 @@ gtag('config', 'G-PWP5F6C91J', { 'anonymize_ip': true});
 </nav>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#data" id="toc-data" class="nav-link active" data-scroll-target="#data">1. Data</a></li>
+  <li><a href="#weather-features-that-make-agronomic-sense" id="toc-weather-features-that-make-agronomic-sense" class="nav-link" data-scroll-target="#weather-features-that-make-agronomic-sense">2. Weather features that make agronomic sense</a></li>
+  <li><a href="#training-xgboost" id="toc-training-xgboost" class="nav-link" data-scroll-target="#training-xgboost">3. Training XGBoost</a></li>
+  <li><a href="#tuning" id="toc-tuning" class="nav-link" data-scroll-target="#tuning">4. Tuning</a></li>
+  <li><a href="#explaining-the-model-with-shap" id="toc-explaining-the-model-with-shap" class="nav-link" data-scroll-target="#explaining-the-model-with-shap">5. Explaining the model with SHAP</a></li>
+  <li><a href="#ablation-does-weather-add-anything" id="toc-ablation-does-weather-add-anything" class="nav-link" data-scroll-target="#ablation-does-weather-add-anything">6. Ablation: does weather add anything?</a></li>
+  <li><a href="#next-steps" id="toc-next-steps" class="nav-link" data-scroll-target="#next-steps">Next steps</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">XGBoost 101: Cocoa, Weather and the Curve</h1>
+</div>
 
 
-<p><strong>XGBoost - Understanding, Implementing, and Optimizing</strong></p>
-<p>Introduction:</p>
-<p>XGBoost, short for eXtreme Gradient Boosting, is an optimized and scalable machine learning system for tree boosting. In this tutorial, we’ll explore the workings of XGBoost, when it’s a good choice, its parameters and hyperparameters, and how to implement and optimize it in Python.</p>
-<hr>
-<p><strong>Part I: Understanding XGBoost</strong></p>
-<p><strong>1.1: What is XGBoost?</strong></p>
-<p>XGBoost is an ensemble learning method that applies the principle of gradient boosting to decision trees. It’s recognized for its execution speed and model performance, which have made it a favorite tool among Kaggle competition winners.</p>
-<p><strong>1.2: When to Use XGBoost</strong></p>
-<p>XGBoost is a great choice when dealing with numerical or mixed data types, and when prediction accuracy is a major concern. It can handle both regression and classification problems, but it might be overkill for simple problems where a simpler model could work better.</p>
-<hr>
-<p><strong>Part II: Parameters and Hyperparameters of XGBoost</strong></p>
-<p><strong>2.1: Main Parameters</strong></p>
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<div class="callout-note callout callout-style-simple">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Written in 2024. All examples use public data and are for learning only, not investment advice.</p>
+</div>
+</div>
+</div>
+<p>Gradient boosting builds trees one after another, each correcting the errors of the previous ones. XGBoost is the best-known implementation: fast, regularised and usually the strongest model on tabular data.</p>
+<p>In this tutorial we predict the <strong>monthly direction of cocoa prices</strong> and see whether West African weather adds information beyond price momentum. The 2023/24 cocoa season, with record prices, makes a hard but instructive test.</p>
+<section id="data" class="level2">
+<h2 class="anchored" data-anchor-id="data">1. Data</h2>
 <ul>
-<li><code>n_estimators</code>: The number of gradient boosted trees. Equivalent to number of boosting rounds.</li>
-<li><code>max_depth</code>: Maximum tree depth for base learners.</li>
-<li><code>learning_rate</code>: Boosting learning rate (also known as eta).</li>
-<li><code>gamma</code>: Minimum loss reduction required to make a further partition on a leaf node of the tree.</li>
+<li><strong>Cocoa prices:</strong> World Bank Pink Sheet monthly prices (see <a href="../Tutorials/Regression3.html">Part 2 of the regression tutorials</a> for loading code).</li>
+<li><strong>Rainfall:</strong> CHIRPS monthly precipitation, averaged over the cocoa belt of Côte d’Ivoire and Ghana. You can export it from Google Earth Engine with the script in the <a href="../Tutorials/GoogleEarth.html">Google Earth Engine tutorial</a>, as a CSV with columns <code>month</code> and <code>rain_mm</code>.</li>
+<li><strong>ENSO:</strong> NOAA’s Oceanic Niño Index (ONI).</li>
 </ul>
-<p><strong>2.2: Hyperparameters</strong></p>
-<p>Just like with Random Forests, the parameters listed above are hyperparameters, meaning they are set before the learning process begins.</p>
-<hr>
-<p><strong>Part III: Implementing XGBoost in Python</strong></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> xgboost <span class="im">as</span> xgb</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Instantiate the XGBClassifier</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>xgb_clf <span class="op">=</span> xgb.XGBClassifier(n_estimators<span class="op">=</span><span class="dv">100</span>, learning_rate<span class="op">=</span><span class="fl">0.1</span>, max_depth<span class="op">=</span><span class="dv">5</span>)</span>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>rain <span class="op">=</span> pd.read_csv(<span class="st">"cocoa_belt_chirps_monthly.csv"</span>, parse_dates<span class="op">=</span>[<span class="st">"month"</span>]).set_index(<span class="st">"month"</span>)[<span class="st">"rain_mm"</span>]</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit the classifier to the training set</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>xgb_clf.fit(X_train, y_train)</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Predict the labels of the test set</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> xgb_clf.predict(X_test)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<hr>
-<p><strong>Part IV: Optimizing XGBoost</strong></p>
-<p>Optimizing XGBoost involves tuning its hyperparameters to get the best performance for a specific dataset. We can again use techniques like Grid Search and Randomized Search.</p>
-<p><strong>4.1: Grid Search Example</strong></p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> GridSearchCV</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the parameter grid</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>param_grid <span class="op">=</span> {</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">'n_estimators'</span>: [<span class="dv">100</span>, <span class="dv">200</span>, <span class="dv">300</span>, <span class="dv">500</span>],</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">'learning_rate'</span>: [<span class="fl">0.01</span>, <span class="fl">0.1</span>, <span class="fl">0.2</span>],</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">'max_depth'</span> : [<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>],</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">'gamma'</span>: [<span class="dv">0</span>, <span class="fl">0.1</span>, <span class="fl">0.2</span>]</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a based model</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>xgb_clf <span class="op">=</span> xgb.XGBClassifier()</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Instantiate the grid search model</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>grid_search <span class="op">=</span> GridSearchCV(estimator <span class="op">=</span> xgb_clf, param_grid <span class="op">=</span> param_grid, cv <span class="op">=</span> <span class="dv">3</span>)</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit the grid search to the data</span></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>grid_search.fit(X_train, y_train)</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the best parameters</span></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>best_params <span class="op">=</span> grid_search.best_params_</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<hr>
-<p>Conclusion:</p>
-<p>XGBoost is a powerful machine learning algorithm that excels in many contexts, particularly where accuracy is paramount. Understanding the ins and outs of XGBoost, knowing how to implement it in Python, and being able to optimize its hyperparameters are essential skills for any data scientist or machine learning engineer.</p>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame({<span class="st">"cocoa"</span>: cocoa, <span class="st">"rain"</span>: rain, <span class="st">"oni"</span>: oni}).dropna()</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"ret"</span>] <span class="op">=</span> np.log(df[<span class="st">"cocoa"</span>]).diff()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="weather-features-that-make-agronomic-sense" class="level2">
+<h2 class="anchored" data-anchor-id="weather-features-that-make-agronomic-sense">2. Weather features that make agronomic sense</h2>
+<p>Raw rainfall is less useful than <strong>anomalies</strong> against the normal for that calendar month, and cocoa cares about accumulated stress over several months:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>clim <span class="op">=</span> df.groupby(df.index.month)[<span class="st">"rain"</span>].transform(<span class="st">"mean"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"rain_anom"</span>] <span class="op">=</span> df[<span class="st">"rain"</span>] <span class="op">/</span> clim <span class="op">-</span> <span class="dv">1</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> pd.DataFrame(index<span class="op">=</span>df.index)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>X[<span class="st">"rain_anom_1m"</span>] <span class="op">=</span> df[<span class="st">"rain_anom"</span>].shift(<span class="dv">1</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>X[<span class="st">"rain_anom_3m"</span>] <span class="op">=</span> df[<span class="st">"rain_anom"</span>].rolling(<span class="dv">3</span>).mean().shift(<span class="dv">1</span>)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>X[<span class="st">"rain_anom_6m"</span>] <span class="op">=</span> df[<span class="st">"rain_anom"</span>].rolling(<span class="dv">6</span>).mean().shift(<span class="dv">1</span>)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>X[<span class="st">"oni_lag2"</span>]     <span class="op">=</span> df[<span class="st">"oni"</span>].shift(<span class="dv">2</span>)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>X[<span class="st">"mom_3m"</span>]       <span class="op">=</span> df[<span class="st">"ret"</span>].rolling(<span class="dv">3</span>).<span class="bu">sum</span>().shift(<span class="dv">1</span>)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>X[<span class="st">"mom_12m"</span>]      <span class="op">=</span> df[<span class="st">"ret"</span>].rolling(<span class="dv">12</span>).<span class="bu">sum</span>().shift(<span class="dv">1</span>)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>X[<span class="st">"month"</span>]        <span class="op">=</span> df.index.month          <span class="co"># main crop Oct–Mar, mid-crop Apr–Sep</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> (df[<span class="st">"ret"</span>].shift(<span class="op">-</span><span class="dv">1</span>) <span class="op">&gt;</span> <span class="dv">0</span>).astype(<span class="bu">int</span>)</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> X.join(y.rename(<span class="st">"up"</span>)).dropna()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Every feature is shifted so it is known before the month we predict.</p>
+</section>
+<section id="training-xgboost" class="level2">
+<h2 class="anchored" data-anchor-id="training-xgboost">3. Training XGBoost</h2>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> xgboost <span class="im">import</span> XGBClassifier</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> roc_auc_score, accuracy_score</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>train <span class="op">=</span> data.loc[:<span class="st">"2018-12"</span>]</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>valid <span class="op">=</span> data.loc[<span class="st">"2019-01"</span>:<span class="st">"2021-12"</span>]</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>test  <span class="op">=</span> data.loc[<span class="st">"2022-01"</span>:]</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>feat <span class="op">=</span> [c <span class="cf">for</span> c <span class="kw">in</span> data.columns <span class="cf">if</span> c <span class="op">!=</span> <span class="st">"up"</span>]</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> XGBClassifier(</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    n_estimators<span class="op">=</span><span class="dv">1000</span>, learning_rate<span class="op">=</span><span class="fl">0.02</span>, max_depth<span class="op">=</span><span class="dv">2</span>,</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    subsample<span class="op">=</span><span class="fl">0.8</span>, colsample_bytree<span class="op">=</span><span class="fl">0.8</span>, reg_lambda<span class="op">=</span><span class="fl">1.0</span>,</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    eval_metric<span class="op">=</span><span class="st">"auc"</span>, early_stopping_rounds<span class="op">=</span><span class="dv">50</span>,</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>model.fit(train[feat], train[<span class="st">"up"</span>], eval_set<span class="op">=</span>[(valid[feat], valid[<span class="st">"up"</span>])], verbose<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> model.predict_proba(test[feat])[:, <span class="dv">1</span>]</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Best iteration:"</span>, model.best_iteration)</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Test AUC:"</span>, <span class="bu">round</span>(roc_auc_score(test[<span class="st">"up"</span>], p), <span class="dv">3</span>))</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Test accuracy:"</span>, <span class="bu">round</span>(accuracy_score(test[<span class="st">"up"</span>], p <span class="op">&gt;</span> <span class="fl">0.5</span>), <span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Early stopping on a separate validation period picks the number of trees for us and is the single most effective guard against overfitting with boosting.</p>
+</section>
+<section id="tuning" class="level2">
+<h2 class="anchored" data-anchor-id="tuning">4. Tuning</h2>
+<p>With only a few hundred monthly observations, keep the search small and the trees shallow:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> GridSearchCV, TimeSeriesSplit</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>grid <span class="op">=</span> GridSearchCV(</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    XGBClassifier(n_estimators<span class="op">=</span><span class="dv">300</span>, learning_rate<span class="op">=</span><span class="fl">0.03</span>, eval_metric<span class="op">=</span><span class="st">"auc"</span>),</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"max_depth"</span>: [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>], <span class="st">"min_child_weight"</span>: [<span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">10</span>], <span class="st">"subsample"</span>: [<span class="fl">0.7</span>, <span class="fl">1.0</span>]},</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    cv<span class="op">=</span>TimeSeriesSplit(n_splits<span class="op">=</span><span class="dv">5</span>), scoring<span class="op">=</span><span class="st">"roc_auc"</span>,</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>grid.fit(pd.concat([train, valid])[feat], pd.concat([train, valid])[<span class="st">"up"</span>])</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(grid.best_params_)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="explaining-the-model-with-shap" class="level2">
+<h2 class="anchored" data-anchor-id="explaining-the-model-with-shap">5. Explaining the model with SHAP</h2>
+<p>SHAP values show how much each feature pushed each prediction up or down:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> shap</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>explainer <span class="op">=</span> shap.TreeExplainer(model)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>sv <span class="op">=</span> explainer.shap_values(test[feat])</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>shap.summary_plot(sv, test[feat])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Look for whether dry anomalies (negative <code>rain_anom_3m</code>) push the probability of a rise up, as agronomy would suggest. If the model relies on the opposite sign, be suspicious.</p>
+</section>
+<section id="ablation-does-weather-add-anything" class="level2">
+<h2 class="anchored" data-anchor-id="ablation-does-weather-add-anything">6. Ablation: does weather add anything?</h2>
+<p>Retrain without the weather columns and compare:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>base_feat <span class="op">=</span> [<span class="st">"mom_3m"</span>, <span class="st">"mom_12m"</span>, <span class="st">"month"</span>]</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>m0 <span class="op">=</span> XGBClassifier(n_estimators<span class="op">=</span>model.best_iteration <span class="op">+</span> <span class="dv">1</span>, learning_rate<span class="op">=</span><span class="fl">0.02</span>, max_depth<span class="op">=</span><span class="dv">2</span>,</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>                   subsample<span class="op">=</span><span class="fl">0.8</span>, colsample_bytree<span class="op">=</span><span class="fl">0.8</span>).fit(train[base_feat], train[<span class="st">"up"</span>])</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"AUC without weather:"</span>, <span class="bu">round</span>(roc_auc_score(test[<span class="st">"up"</span>], m0.predict_proba(test[base_feat])[:, <span class="dv">1</span>]), <span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>On monthly data the difference is often small, and that is a fair conclusion. Weather is far more useful at higher resolution: daily rainfall and soil moisture by region, mapped to crop calendars, combined with field reports on pod counts and disease.</p>
+</section>
+<section id="next-steps" class="level2">
+<h2 class="anchored" data-anchor-id="next-steps">Next steps</h2>
+<p><a href="../Tutorials/Forecasting.html">Forecasting with time series methods</a> looks at seasonality and classical forecasting models for softs prices.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

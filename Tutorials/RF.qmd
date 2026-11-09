@@ -1,85 +1,132 @@
-**Random Forests - Understanding, Implementing, and Optimizing**
-
-Introduction:
-
-Random Forests are a popular machine learning method that are highly flexible and capable of performing both regression and classification tasks. In this tutorial, we will explore Random Forests in depth, including when they are a good fit, their parameters and hyperparameters, and how to implement and optimize them in Python.
-
+---
+title: "Random Forest 101: Predicting Coffee's Weekly Direction"
 ---
 
-**Part I: Understanding Random Forests**
+::: {.callout-note appearance="simple"}
+Written in 2024. All examples use public data and are for learning only, not investment advice.
+:::
 
-**1.1: What is a Random Forest?**
+A random forest is a collection of decision trees, each trained on a random sample of the data and features, whose votes are averaged. Forests handle non-linear relationships, need little preprocessing and rarely overfit badly, which makes them a solid first model for market data.
 
-A Random Forest is an ensemble learning method that operates by constructing multiple decision trees during training and outputting the mean/ mode of the individual trees for regression/ classification tasks, respectively. 
+Here we classify whether **arabica coffee (ICE Coffee "C")** will rise or fall over the next week, using price-based features and speculative positioning from the CFTC.
 
-**1.2: When to Use Random Forests**
+## 1. Data
 
-Random Forests are particularly effective in situations where you have a large dataset with many features and complex relationships. They can handle both categorical and numerical data and are robust to outliers and missing data. They also prevent overfitting by averaging the output of many trees.
+- **Prices:** weekly front-month arabica from Yahoo Finance (`KC=F`).
+- **Positioning:** the CFTC Commitments of Traders (COT) disaggregated report, which splits open interest into producers, swap dealers and **managed money** (funds). Funds' net position is widely watched in softs because crowded positions can unwind sharply.
 
----
+```python
+import io, zipfile, requests
+import numpy as np
+import pandas as pd
+import yfinance as yf
 
-**Part II: Parameters and Hyperparameters of Random Forests**
+px = yf.download("KC=F", start="2012-01-01", end="2024-06-30", interval="1wk")["Close"].squeeze()
 
-**2.1: Main Parameters**
+def load_cot(year):
+    url = f"https://www.cftc.gov/files/dea/history/fut_disagg_txt_{year}.zip"
+    z = zipfile.ZipFile(io.BytesIO(requests.get(url).content))
+    return pd.read_csv(z.open(z.namelist()[0]), low_memory=False)
 
-* `n_estimators`: The number of trees in the forest.
-* `max_features`: The maximum number of features considered when splitting a node.
-* `max_depth`: The maximum depth of the tree.
+cot = pd.concat(load_cot(y) for y in range(2012, 2025))
+cot = cot[cot["Market_and_Exchange_Names"].str.startswith("COFFEE C")]
+cot["date"] = pd.to_datetime(cot["Report_Date_as_YYYY-MM-DD"])
+cot = cot.set_index("date").sort_index()
+cot["mm_net_pct_oi"] = (cot["M_Money_Positions_Long_All"] - cot["M_Money_Positions_Short_All"]) / cot["Open_Interest_All"]
+```
 
-**2.2: Hyperparameters**
+COT data are as of Tuesday but published on Friday, so we lag them by one week before use. Ignoring publication lags is one of the easiest ways to fool yourself.
 
-These are parameters that cannot be learned from the data and are set prior to training. In Random Forests, these include all parameters like `n_estimators`, `max_features`, and `max_depth`.
+## 2. Features
 
----
+```python
+df = pd.DataFrame({"px": px})
+df["ret"] = np.log(df["px"]).diff()
 
-**Part III: Implementing Random Forests in Python**
+X = pd.DataFrame(index=df.index)
+X["ret_1w"]  = df["ret"]
+X["ret_4w"]  = df["ret"].rolling(4).sum()
+X["ret_13w"] = df["ret"].rolling(13).sum()
+X["vol_13w"] = df["ret"].rolling(13).std()
+X["dist_ma26"] = df["px"] / df["px"].rolling(26).mean() - 1
+X["week_of_year"] = df.index.isocalendar().week.astype(int)   # Brazil harvest / frost seasonality
+
+cot_w = cot["mm_net_pct_oi"].resample("W-SUN").last().shift(1)  # publication lag
+X = X.join(cot_w.rename("mm_net")).ffill()
+X["mm_net_chg_4w"] = X["mm_net"].diff(4)
+
+y = (df["ret"].shift(-1) > 0).astype(int)   # 1 if next week is up
+data = X.join(y.rename("up")).dropna()
+```
+
+The week-of-year feature lets the forest pick up seasonality: the Brazilian harvest from roughly May to September, and the frost-risk window in June to August that has driven some of arabica's biggest rallies.
+
+## 3. Training, in time order
 
 ```python
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score, classification_report
 
-# Instantiate the random forest model
-rf = RandomForestClassifier(n_estimators=100, max_depth=2, random_state=0)
+train = data.loc[:"2020-12"]
+test  = data.loc["2021-01":]
+X_train, y_train = train.drop(columns="up"), train["up"]
+X_test,  y_test  = test.drop(columns="up"),  test["up"]
 
-# Train the model
+rf = RandomForestClassifier(n_estimators=500, max_depth=4, min_samples_leaf=20,
+                            random_state=42, n_jobs=-1)
 rf.fit(X_train, y_train)
 
-# Predict on the test set
-y_pred = rf.predict(X_test)
+pred = rf.predict(X_test)
+print("Accuracy:", round(accuracy_score(y_test, pred), 3))
+print("Base rate (always up):", round(y_test.mean(), 3))
+print(classification_report(y_test, pred))
 ```
 
----
+Compare accuracy with the base rate. In a trending market, "always up" can look like 55% accuracy without any skill.
 
-**Part IV: Optimizing Random Forests**
-
-Optimizing a Random Forest involves tuning its hyperparameters to find the best combination for your specific dataset. This can be achieved using methods such as Grid Search and Randomized Search, as we discussed in the previous tutorial.
-
-**4.1: Grid Search Example**
+## 4. Tuning with time-series cross-validation
 
 ```python
-from sklearn.model_selection import GridSearchCV
+from sklearn.model_selection import GridSearchCV, TimeSeriesSplit
 
-# Define the parameter grid
-param_grid = {
-    'n_estimators': [100, 200, 300, 500],
-    'max_features': ['auto', 'sqrt', 'log2'],
-    'max_depth' : [4,5,6,7,8]
-}
-
-# Create a based model
-rf = RandomForestClassifier()
-
-# Instantiate the grid search model
-grid_search = GridSearchCV(estimator = rf, param_grid = param_grid, cv = 3)
-
-# Fit the grid search to the data
-grid_search.fit(X_train, y_train)
-
-# Get the best parameters
-best_params = grid_search.best_params_
+grid = GridSearchCV(
+    RandomForestClassifier(random_state=42, n_jobs=-1),
+    {"n_estimators": [300, 600], "max_depth": [3, 4, 6], "min_samples_leaf": [10, 20, 40]},
+    cv=TimeSeriesSplit(n_splits=5), scoring="roc_auc",
+)
+grid.fit(X_train, y_train)
+print(grid.best_params_, round(grid.best_score_, 3))
 ```
 
----
+We score with ROC AUC, which judges how well the model ranks up-weeks above down-weeks, regardless of the 50% threshold.
 
-Conclusion:
+## 5. What did the forest learn?
 
-Random Forests are a powerful and flexible machine learning algorithm that can provide excellent results on a wide range of problems. Understanding the underlying mechanics, knowing how to implement them in Python, and being able to optimize their hyperparameters are all vital skills for any machine learning practitioner. Remember, as with all machine learning algorithms, it's important to thoroughly understand your data and the problem at hand to make informed decisions on algorithm selection and tuning.
+Built-in feature importances are biased towards continuous variables. Permutation importance on the test set is more honest:
+
+```python
+from sklearn.inspection import permutation_importance
+imp = permutation_importance(grid.best_estimator_, X_test, y_test, scoring="roc_auc",
+                             n_repeats=20, random_state=0)
+pd.Series(imp.importances_mean, index=X_test.columns).sort_values().plot.barh()
+```
+
+Positioning features often matter most at extremes: when funds are very long, the downside risk from liquidation rises.
+
+## 6. From probabilities to decisions
+
+Instead of trading every week, act only when the model is confident:
+
+```python
+proba = grid.best_estimator_.predict_proba(X_test)[:, 1]
+signal = np.where(proba > 0.6, 1, np.where(proba < 0.4, -1, 0))
+strategy = signal * df["ret"].shift(-1).reindex(X_test.index)
+print("Weeks active:", (signal != 0).mean().round(2))
+print("Cumulative log return:", strategy.sum().round(3))
+```
+
+This ignores costs, rolls and slippage, so treat it as a sanity check rather than a backtest.
+
+## Next steps
+
+[XGBoost 101](xgboost.qmd) applies gradient boosting to cocoa and adds weather signals.

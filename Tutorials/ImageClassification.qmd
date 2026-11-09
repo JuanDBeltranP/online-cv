@@ -1,88 +1,130 @@
-**Image Classification with Deep Learning**
-
-Introduction:
-
-Image Classification is a key application of Deep Learning, with uses ranging from medical imaging to autonomous driving. In this tutorial, we'll explore Convolutional Neural Networks (CNNs), a class of models that has proven to be highly effective for image classification tasks. We will also discuss how to implement them in Python and explore ways to optimize them.
-
+---
+title: "Image Classification with Deep Learning: Detecting Coffee Leaf Disease"
 ---
 
-**Part I: Understanding Image Classification with Deep Learning**
+::: {.callout-note appearance="simple"}
+Written in 2024. All examples use public data and are for learning only, not investment advice.
+:::
 
-**1.1: What is Image Classification?**
+Plant disease is a supply story. Coffee leaf rust (*Hemileia vastatrix*) cut production sharply across Central America in 2012–13, and cocoa swollen shoot virus is one of the reasons West African cocoa output has struggled in recent seasons. Agronomists, cooperatives and exporters increasingly use phone photos and drones to spot disease early.
 
-Image Classification is a process of assigning a class label to an image from a predefined set. This is often achieved by training a model on a large number of images with known class labels, then applying this model to classify new images.
+In this tutorial we train a convolutional neural network (CNN) to classify **coffee leaf images** as healthy or diseased, using transfer learning in Keras.
 
-**1.2: Convolutional Neural Networks (CNNs)**
+## 1. The data
 
-CNNs are specifically designed to process grid-like data, where there's a spatial relationship between the pixels. This makes them ideal for image processing tasks.
+Two open datasets on Mendeley Data work well:
 
----
+- **RoCoLe** (Robusta Coffee Leaf images, Ecuador): healthy leaves, red spider mite and rust at several severity levels.
+- **JMuBEN** (arabica leaves, Kenya): healthy leaves, leaf rust, *Cercospora* and *Phoma*.
 
-**Part II: Implementing CNNs in Python for Image Classification**
+Download one and arrange the images in one folder per class:
 
-We will use the Keras library to build a simple CNN for image classification. Here's an example of a simple CNN architecture:
-
-```python
-from keras.models import Sequential
-from keras.layers import Conv2D, MaxPooling2D, Flatten, Dense
-
-# Initialize the CNN
-model = Sequential()
-
-# Add a Convolutional layer
-model.add(Conv2D(32, (3, 3), activation='relu', input_shape=(64, 64, 3)))
-
-# Add a Pooling layer
-model.add(MaxPooling2D(pool_size=(2, 2)))
-
-# Flatten
-model.add(Flatten())
-
-# Full connection
-model.add(Dense(units=128, activation='relu'))
-model.add(Dense(units=1, activation='sigmoid'))
-
-# Compile the model
-model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
-
-# Fit the model
-model.fit(X_train, y_train, epochs=10, batch_size=32)
+```
+coffee_leaves/
+    healthy/
+    rust/
+    cercospora/
+    phoma/
 ```
 
-**Code Explanation:**
+## 2. How CNNs see an image
 
-1. We first import the necessary libraries and initialize a Sequential model.
-2. We then add a Conv2D layer. This is the convolutional layer that will extract features from the input images by sliding a convolution filter over the input to produce a feature map. Here we choose 32 filters and each filter is of size 3 by 3.
-3. Next, we add a MaxPooling2D layer. This is a pooling layer with a 2x2 filter that reduces the dimensions of the feature maps and helps to make the model invariant to small translations.
-4. We then flatten the 2D arrays into a 1D array to feed into a Dense layer (also called a fully connected layer).
-5. Two Dense layers are added. The first has 128 units, and the second has 1 unit, which is the output layer (as this is a binary classification problem).
-6. The model is then compiled with the 'adam' optimizer, 'binary_crossentropy' as the loss function, and 'accuracy' as the evaluation metric.
-7. Finally, we fit the model to our training data. 
+A CNN slides small filters across the image. Early layers detect edges and colours; deeper layers combine them into textures and shapes, such as the orange powdery spots of rust or the brown rings of *Cercospora*. Pooling layers shrink the image so later layers see larger areas.
 
----
+Training a CNN from scratch needs a lot of images. **Transfer learning** starts from a network already trained on millions of everyday photos (ImageNet) and only retrains the top layers, which works well with a few thousand leaves.
 
-**Part III: Optimizing CNNs**
+## 3. Loading the images
 
-Optimizing a CNN can involve adjusting the architecture (number and types of layers, number of nodes in layers), tuning the hyperparameters, or using techniques such as data augmentation or transfer learning.
+```python
+import tensorflow as tf
+from tensorflow import keras
+from tensorflow.keras import layers
 
-**3.1: Adjusting the Architecture**
+IMG = (224, 224)
+train_ds = keras.utils.image_dataset_from_directory(
+    "coffee_leaves", validation_split=0.2, subset="training", seed=42,
+    image_size=IMG, batch_size=32)
+val_ds = keras.utils.image_dataset_from_directory(
+    "coffee_leaves", validation_split=0.2, subset="validation", seed=42,
+    image_size=IMG, batch_size=32)
 
-For example, we can add more convolutional layers or fully connected layers, change the size of the filters, or add Dropout layers to prevent overfitting.
+class_names = train_ds.class_names
+print(class_names)
 
-**3.2: Hyperparameter Tuning**
+AUTOTUNE = tf.data.AUTOTUNE
+train_ds = train_ds.cache().shuffle(1000).prefetch(AUTOTUNE)
+val_ds = val_ds.cache().prefetch(AUTOTUNE)
+```
 
-This could involve adjusting the learning rate, batch size, number of epochs, or parameters related to specific layers (like the number
+Check the class balance. Disease datasets are often dominated by healthy leaves, and a model that always says "healthy" can look accurate while being useless.
 
- of filters in a Conv2D layer).
+## 4. Building the model
 
-**3.3: Data Augmentation and Transfer Learning**
+```python
+augment = keras.Sequential([
+    layers.RandomFlip("horizontal_and_vertical"),
+    layers.RandomRotation(0.2),
+    layers.RandomZoom(0.15),
+    layers.RandomContrast(0.2),
+])
 
-Data Augmentation involves creating new training examples by applying random jitters and transformations to the images, which can improve performance and reduce overfitting. 
+base = keras.applications.EfficientNetB0(include_top=False, weights="imagenet",
+                                         input_shape=IMG + (3,))
+base.trainable = False   # freeze the pretrained layers at first
 
-Transfer Learning involves taking a pre-trained model (usually trained on a large dataset like ImageNet) and fine-tuning it on your specific task. This can often yield excellent results with less data and compute resources.
+inputs = keras.Input(shape=IMG + (3,))
+x = augment(inputs)
+x = keras.applications.efficientnet.preprocess_input(x)
+x = base(x, training=False)
+x = layers.GlobalAveragePooling2D()(x)
+x = layers.Dropout(0.3)(x)
+outputs = layers.Dense(len(class_names), activation="softmax")(x)
+model = keras.Model(inputs, outputs)
 
----
+model.compile(optimizer=keras.optimizers.Adam(1e-3),
+              loss="sparse_categorical_crossentropy", metrics=["accuracy"])
+```
 
-Conclusion:
+Augmentation imitates real field photos: leaves at different angles, lighting and distances.
 
-Image Classification with CNNs is a key aspect of Deep Learning, with a wide range of applications. Understanding how these models work, how to implement them in Python, and how to optimize them are crucial skills for anyone working with image data. Always consider the complexity of your specific problem and the resources at your disposal when selecting a model and optimization strategy.
+## 5. Training in two stages
+
+```python
+stop = keras.callbacks.EarlyStopping(patience=5, restore_best_weights=True)
+model.fit(train_ds, validation_data=val_ds, epochs=20, callbacks=[stop])
+
+# Fine-tune: unfreeze the top of the base network with a small learning rate
+base.trainable = True
+for layer in base.layers[:-30]:
+    layer.trainable = False
+model.compile(optimizer=keras.optimizers.Adam(1e-5),
+              loss="sparse_categorical_crossentropy", metrics=["accuracy"])
+model.fit(train_ds, validation_data=val_ds, epochs=10, callbacks=[stop])
+```
+
+## 6. Evaluating properly
+
+```python
+import numpy as np
+from sklearn.metrics import classification_report, confusion_matrix
+
+y_true = np.concatenate([y.numpy() for _, y in val_ds])
+y_pred = np.argmax(model.predict(val_ds), axis=1)
+
+print(classification_report(y_true, y_pred, target_names=class_names))
+print(confusion_matrix(y_true, y_pred))
+```
+
+Focus on **recall for the disease classes**: a missed rust case costs much more than a false alarm. If photos of the same tree or farm appear in both training and validation sets, accuracy will be inflated; split by farm or date where the metadata allows.
+
+## 7. From a classifier to market information
+
+A leaf classifier on its own does not move prices. Its value comes when it is aggregated:
+
+- **Field surveys:** counting the share of diseased leaves across sampled farms gives an early, quantitative read on crop health, ahead of official estimates.
+- **Satellite and drone imagery:** the same CNN approach, applied to canopy images, maps stressed or dying plantations at scale. The [Google Earth Engine tutorial](GoogleEarth.qmd) covers vegetation indices from satellites.
+- **Yield models:** disease prevalence can be added as a feature alongside weather in crop forecasts.
+
+## Next steps
+
+[Reinforcement learning](RL.qmd) moves from prediction to decision-making.

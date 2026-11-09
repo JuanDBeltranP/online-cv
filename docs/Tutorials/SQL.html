@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Dr Juan Beltran – sql</title>
+<title>Dr Juan Beltran - SQL 101: Building a Softs Market Database</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -227,51 +227,55 @@ gtag('config', 'G-PWP5F6C91J', { 'anonymize_ip': true});
         <li class="dropdown-header">Tutorials</li>
         <li>
     <a class="dropdown-item" href="../Tutorials/SQL.html">
- <span class="dropdown-text">SQL 101</span></a>
+ <span class="dropdown-text">SQL 101: a softs market database</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../Tutorials/advSQL.html">
- <span class="dropdown-text">Advance SQL</span></a>
+ <span class="dropdown-text">Advanced SQL: market analytics</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../Tutorials/Regression.html">
- <span class="dropdown-text">Regression analysis 101</span></a>
+ <span class="dropdown-text">Regression: what drives sugar?</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../Tutorials/Regression2.html">
- <span class="dropdown-text">Hyperparameters in regression P1</span></a>
+ <span class="dropdown-text">Hyperparameters P1: tuning without look-ahead</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../Tutorials/Regression3.html">
- <span class="dropdown-text">Hyperparameters in regression P2</span></a>
+ <span class="dropdown-text">Hyperparameters P2: Bayesian optimisation on cocoa</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../Tutorials/RF.html">
- <span class="dropdown-text">Random Forest 101</span></a>
+ <span class="dropdown-text">Random Forest: coffee’s weekly direction</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../Tutorials/xgboost.html">
- <span class="dropdown-text">XGboost 101</span></a>
+ <span class="dropdown-text">XGBoost: cocoa and weather</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Tutorials/Forecasting.html">
+ <span class="dropdown-text">Forecasting coffee prices (R and Python)</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../Tutorials/NeuralNetworks.html">
- <span class="dropdown-text">Deep Learning for Time Series Analysis</span></a>
+ <span class="dropdown-text">Deep learning forecasts for cotton</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../Tutorials/ImageClassification.html">
- <span class="dropdown-text">Image Classification with Deep Learning</span></a>
+ <span class="dropdown-text">Detecting coffee leaf disease</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../Tutorials/RL.html">
- <span class="dropdown-text">Reinforcement Learning</span></a>
+ <span class="dropdown-text">Reinforcement learning: Q-learning on sugar</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../Tutorials/RLStocks.html">
- <span class="dropdown-text">RL and trading in financial markets 101</span></a>
+ <span class="dropdown-text">Deep Q-Network for cocoa futures</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../Tutorials/GoogleEarth.html">
- <span class="dropdown-text">Google Earth</span></a>
+ <span class="dropdown-text">Google Earth Engine: the cocoa belt</span></a>
   </li>  
     </ul>
   </li>
@@ -292,7 +296,7 @@ gtag('config', 'G-PWP5F6C91J', { 'anonymize_ip': true});
     </nav>
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"></h1>
+      <h1 class="quarto-secondary-nav-title">SQL 101: Building a Softs Market Database</h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -415,62 +419,67 @@ gtag('config', 'G-PWP5F6C91J', { 'anonymize_ip': true});
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Tutorials/SQL.html" class="sidebar-item-text sidebar-link active">SQL 101</a>
+  <a href="../Tutorials/SQL.html" class="sidebar-item-text sidebar-link active">SQL 101: a softs market database</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Tutorials/advSQL.html" class="sidebar-item-text sidebar-link">Advance SQL</a>
+  <a href="../Tutorials/advSQL.html" class="sidebar-item-text sidebar-link">Advanced SQL: market analytics</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Tutorials/Regression.html" class="sidebar-item-text sidebar-link">Regression analysis 101</a>
+  <a href="../Tutorials/Regression.html" class="sidebar-item-text sidebar-link">Regression: what drives sugar?</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Tutorials/Regression2.html" class="sidebar-item-text sidebar-link">Hyperparameters in regression P1</a>
+  <a href="../Tutorials/Regression2.html" class="sidebar-item-text sidebar-link">Hyperparameters P1: tuning without look-ahead</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Tutorials/Regression3.html" class="sidebar-item-text sidebar-link">Hyperparameters in regression P2</a>
+  <a href="../Tutorials/Regression3.html" class="sidebar-item-text sidebar-link">Hyperparameters P2: Bayesian optimisation on cocoa</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Tutorials/RF.html" class="sidebar-item-text sidebar-link">Random Forest 101</a>
+  <a href="../Tutorials/RF.html" class="sidebar-item-text sidebar-link">Random Forest: coffee’s weekly direction</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Tutorials/xgboost.html" class="sidebar-item-text sidebar-link">XGboost 101</a>
+  <a href="../Tutorials/xgboost.html" class="sidebar-item-text sidebar-link">XGBoost: cocoa and weather</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Tutorials/NeuralNetworks.html" class="sidebar-item-text sidebar-link">Deep Learning for Time Series Analysis</a>
+  <a href="../Tutorials/Forecasting.html" class="sidebar-item-text sidebar-link">Forecasting coffee prices (R and Python)</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Tutorials/ImageClassification.html" class="sidebar-item-text sidebar-link">Image Classification with Deep Learning</a>
+  <a href="../Tutorials/NeuralNetworks.html" class="sidebar-item-text sidebar-link">Deep learning forecasts for cotton</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Tutorials/RL.html" class="sidebar-item-text sidebar-link">Reinforcement Learning</a>
+  <a href="../Tutorials/ImageClassification.html" class="sidebar-item-text sidebar-link">Detecting coffee leaf disease</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Tutorials/RLStocks.html" class="sidebar-item-text sidebar-link">RL and trading in financial markets 101</a>
+  <a href="../Tutorials/RL.html" class="sidebar-item-text sidebar-link">Reinforcement learning: Q-learning on sugar</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Tutorials/GoogleEarth.html" class="sidebar-item-text sidebar-link">Google Earth</a>
+  <a href="../Tutorials/RLStocks.html" class="sidebar-item-text sidebar-link">Deep Q-Network for cocoa futures</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorials/GoogleEarth.html" class="sidebar-item-text sidebar-link">Google Earth Engine: the cocoa belt</a>
   </div>
 </li>
       </ul>
@@ -480,89 +489,179 @@ gtag('config', 'G-PWP5F6C91J', { 'anonymize_ip': true});
 </nav>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#setting-up" id="toc-setting-up" class="nav-link active" data-scroll-target="#setting-up">1. Setting up</a></li>
+  <li><a href="#designing-the-tables" id="toc-designing-the-tables" class="nav-link" data-scroll-target="#designing-the-tables">2. Designing the tables</a></li>
+  <li><a href="#inserting-data" id="toc-inserting-data" class="nav-link" data-scroll-target="#inserting-data">3. Inserting data</a></li>
+  <li><a href="#querying" id="toc-querying" class="nav-link" data-scroll-target="#querying">4. Querying</a></li>
+  <li><a href="#aggregating" id="toc-aggregating" class="nav-link" data-scroll-target="#aggregating">5. Aggregating</a></li>
+  <li><a href="#joining-tables" id="toc-joining-tables" class="nav-link" data-scroll-target="#joining-tables">6. Joining tables</a></li>
+  <li><a href="#updating-and-deleting" id="toc-updating-and-deleting" class="nav-link" data-scroll-target="#updating-and-deleting">7. Updating and deleting</a></li>
+  <li><a href="#next-steps" id="toc-next-steps" class="nav-link" data-scroll-target="#next-steps">Next steps</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">SQL 101: Building a Softs Market Database</h1>
+</div>
 
 
-<p><strong>SQL 101</strong></p>
-<p><strong>Introduction</strong></p>
-<p>Structured Query Language (SQL) is a standardized programming language used for managing relational databases and performing various operations on the data in them. This tutorial will guide you through the basics to advanced SQL commands.</p>
-<hr>
-<p><strong>Part I: SQL Basics</strong></p>
-<p><strong>1.1 Setting Up</strong></p>
-<p>First, we need to set up a database. For this tutorial, we’ll be using SQLite, a software library that provides a relational database management system.</p>
-<p>You can install SQLite from its <a href="https://www.sqlite.org/download.html">official website</a>. After installation, you can interact with SQLite via the command-line shell.</p>
-<p><strong>1.2 Creating a Database</strong></p>
-<p>To create a database in SQLite, you use the following command:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>sqlite3 TestDB.db</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>This command creates a new database named <code>TestDB.db</code>. If the database exists, it opens the database.</p>
-<p><strong>1.3 Creating a Table</strong></p>
-<p>To create a table in SQL, we use the <code>CREATE TABLE</code> statement.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> Employees (</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">ID</span> <span class="dt">int</span>,</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    Name text,</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    Age <span class="dt">int</span>,</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    Salary <span class="dt">real</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>);</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>This creates a table named <code>Employees</code> with four columns: <code>ID</code>, <code>Name</code>, <code>Age</code>, and <code>Salary</code>.</p>
-<p><strong>1.4 Inserting Data</strong></p>
-<p>We can insert data into the table using the <code>INSERT INTO</code> statement.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> Employees (<span class="kw">ID</span>, Name, Age, Salary) </span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">VALUES</span> (<span class="dv">1</span>, <span class="st">'John Doe'</span>, <span class="dv">30</span>, <span class="fl">50000.00</span> );</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>This command inserts a new row into the <code>Employees</code> table.</p>
-<p><strong>1.5 Querying Data</strong></p>
-<p>You can retrieve data using the <code>SELECT</code> statement.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> Employees;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>This command selects all records from the <code>Employees</code> table.</p>
-<hr>
-<p><strong>Part II: Intermediate SQL</strong></p>
-<p><strong>2.1 Updating Data</strong></p>
-<p>You can update existing records using the <code>UPDATE</code> statement.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">UPDATE</span> Employees</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SET</span> Salary <span class="op">=</span> <span class="fl">55000.00</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> <span class="kw">ID</span> <span class="op">=</span> <span class="dv">1</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>This command updates the salary of the employee with <code>ID</code> 1.</p>
-<p><strong>2.2 Deleting Data</strong></p>
-<p>You can delete records using the <code>DELETE</code> statement.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">DELETE</span> <span class="kw">FROM</span> Employees <span class="kw">WHERE</span> <span class="kw">ID</span> <span class="op">=</span> <span class="dv">1</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>This command deletes the employee with <code>ID</code> 1.</p>
-<p><strong>2.3 Ordering Data</strong></p>
-<p>You can sort the result set using the <code>ORDER BY</code> keyword.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> Employees <span class="kw">ORDER</span> <span class="kw">BY</span> Salary <span class="kw">DESC</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>This command selects all employees and orders them by <code>Salary</code> in descending order.</p>
-<hr>
-<p><strong>Part III: Advanced SQL</strong></p>
-<p><strong>3.1 Joins</strong></p>
-<p>SQL joins are used to combine rows from two or more tables.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> Employees.Name, Orders.OrderID</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> Employees</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="kw">INNER</span> <span class="kw">JOIN</span> Orders <span class="kw">ON</span> Employees.<span class="kw">ID</span> <span class="op">=</span> Orders.EmployeeID;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>This <code>INNER JOIN</code> keyword selects records that have matching values in both tables.</p>
-<p><strong>3.2 Aggregate Functions</strong></p>
-<p>SQL aggregate functions return a single value, calculated from values in a column.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">AVG</span>(Salary) <span class="kw">AS</span> AverageSalary <span class="kw">FROM</span> Employees;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>This command calculates the average salary of all employees.</p>
-<p><strong>3.3 Group By</strong></p>
-<p>The <code>GROUP BY</code> statement groups rows that have the same values in specified columns into aggregated data.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">COUNT</span>(<span class="kw">ID</span>), Age</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> Employees</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span> Age;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>This command counts the number of employees of each age.</p>
-<p><strong>3.4 Subquery</strong></p>
-<p>A Subquery or Inner query or Nested query is a query within another SQL query.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> Name </span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> Employees</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> Salary <span class="op">&gt;</span> (<span class="kw">SELECT</span> <span class="fu">AVG</span>(Salary) <span class="kw">FROM</span> Employees);</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>This command finds employees who earn more than the average</p>
-<p>salary.</p>
-<hr>
-<p><strong>Conclusion</strong></p>
-<p>SQL is a powerful language with vast capabilities in managing and manipulating data in relational databases. With a solid understanding of SQL, from basics to advanced topics, you’ll be well-equipped to handle any data thrown your way!</p>
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<div class="callout-note callout callout-style-simple">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Written in 2024. All examples use public data and are for learning only, not investment advice.</p>
+</div>
+</div>
+</div>
+<p>Every serious commodities desk sits on top of a database: futures prices, physical differentials, weather, shipments, positioning. Before any model, you need to be able to store and query that data cleanly. In this tutorial we build a small SQLite database for the four main softs (cocoa, coffee, sugar and cotton) and learn the core SQL commands along the way.</p>
+<section id="setting-up" class="level2">
+<h2 class="anchored" data-anchor-id="setting-up">1. Setting up</h2>
+<p>SQLite needs no server. In Python it comes built in:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sqlite3</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>con <span class="op">=</span> sqlite3.<span class="ex">connect</span>(<span class="st">"softs.db"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>cur <span class="op">=</span> con.cursor()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>You can also use the command line (<code>sqlite3 softs.db</code>) or a GUI such as DB Browser for SQLite. Every SQL block below can be run with <code>cur.execute("""...""")</code>.</p>
+</section>
+<section id="designing-the-tables" class="level2">
+<h2 class="anchored" data-anchor-id="designing-the-tables">2. Designing the tables</h2>
+<p>We will keep three tables:</p>
+<ul>
+<li><code>contracts</code>: one row per futures market (what it is, where it trades, its unit).</li>
+<li><code>prices</code>: daily settlement prices.</li>
+<li><code>exports</code>: monthly exports by origin country.</li>
+</ul>
+<div class="sourceCode" id="cb2"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> contracts (</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    symbol      TEXT <span class="kw">PRIMARY</span> <span class="kw">KEY</span>,   <span class="co">-- e.g. 'CC'</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    commodity   TEXT <span class="kw">NOT</span> <span class="kw">NULL</span>,      <span class="co">-- 'Cocoa'</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">exchange</span>    TEXT <span class="kw">NOT</span> <span class="kw">NULL</span>,      <span class="co">-- 'ICE US'</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    unit        TEXT <span class="kw">NOT</span> <span class="kw">NULL</span>       <span class="co">-- 'USD/tonne'</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>);</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> prices (</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    symbol      TEXT <span class="kw">NOT</span> <span class="kw">NULL</span> <span class="kw">REFERENCES</span> contracts(symbol),</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">date</span>        <span class="dt">DATE</span> <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    settle      <span class="dt">REAL</span> <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    volume      <span class="dt">INTEGER</span>,</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">PRIMARY</span> <span class="kw">KEY</span> (symbol, <span class="dt">date</span>)</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>);</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> exports (</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    origin      TEXT <span class="kw">NOT</span> <span class="kw">NULL</span>,      <span class="co">-- 'Côte d''Ivoire'</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    commodity   TEXT <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    <span class="dt">month</span>       <span class="dt">DATE</span> <span class="kw">NOT</span> <span class="kw">NULL</span>,      <span class="co">-- first day of the month</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    tonnes      <span class="dt">REAL</span> <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    <span class="kw">PRIMARY</span> <span class="kw">KEY</span> (origin, commodity, <span class="dt">month</span>)</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>);</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The composite primary keys stop you loading the same day or month twice, which is the most common data bug on a research desk.</p>
+</section>
+<section id="inserting-data" class="level2">
+<h2 class="anchored" data-anchor-id="inserting-data">3. Inserting data</h2>
+<div class="sourceCode" id="cb3"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> contracts <span class="kw">VALUES</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  (<span class="st">'CC'</span>, <span class="st">'Cocoa'</span>,          <span class="st">'ICE US'</span>, <span class="st">'USD/tonne'</span>),</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  (<span class="st">'KC'</span>, <span class="st">'Coffee Arabica'</span>, <span class="st">'ICE US'</span>, <span class="st">'USc/lb'</span>),</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  (<span class="st">'SB'</span>, <span class="st">'Sugar No.11'</span>,    <span class="st">'ICE US'</span>, <span class="st">'USc/lb'</span>),</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  (<span class="st">'CT'</span>, <span class="st">'Cotton No.2'</span>,    <span class="st">'ICE US'</span>, <span class="st">'USc/lb'</span>);</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>In practice you load prices in bulk. A quick way to get continuous front-month prices for learning purposes is <code>yfinance</code>, then push the DataFrame into SQLite with pandas:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> yfinance <span class="im">as</span> yf</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>tickers <span class="op">=</span> {<span class="st">"CC"</span>: <span class="st">"CC=F"</span>, <span class="st">"KC"</span>: <span class="st">"KC=F"</span>, <span class="st">"SB"</span>: <span class="st">"SB=F"</span>, <span class="st">"CT"</span>: <span class="st">"CT=F"</span>}</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>frames <span class="op">=</span> []</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> sym, tk <span class="kw">in</span> tickers.items():</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> yf.download(tk, start<span class="op">=</span><span class="st">"2015-01-01"</span>, end<span class="op">=</span><span class="st">"2024-06-30"</span>)[[<span class="st">"Close"</span>, <span class="st">"Volume"</span>]]</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> df.reset_index().rename(columns<span class="op">=</span>{<span class="st">"Date"</span>: <span class="st">"date"</span>, <span class="st">"Close"</span>: <span class="st">"settle"</span>, <span class="st">"Volume"</span>: <span class="st">"volume"</span>})</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">"symbol"</span>] <span class="op">=</span> sym</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    frames.append(df)</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>prices <span class="op">=</span> pd.concat(frames)</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>prices.to_sql(<span class="st">"prices"</span>, con, if_exists<span class="op">=</span><span class="st">"append"</span>, index<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Continuous front-month series jump at every roll, so treat them as illustrative. For real analysis you would store individual contract months (e.g.&nbsp;<code>CCN24</code>) and build your own roll-adjusted series.</p>
+<p>For exports, national statistics, the ICCO and the ICO publish monthly or quarterly figures; load them the same way with <code>to_sql</code>.</p>
+</section>
+<section id="querying" class="level2">
+<h2 class="anchored" data-anchor-id="querying">4. Querying</h2>
+<p>The latest cocoa prices:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="dt">date</span>, settle</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> prices</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> symbol <span class="op">=</span> <span class="st">'CC'</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span> <span class="dt">date</span> <span class="kw">DESC</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="kw">LIMIT</span> <span class="dv">10</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Filtering with conditions: every day in 2024 when cocoa settled above $10,000/t (it did, for the first time ever, in the spring of 2024):</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="dt">date</span>, settle</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> prices</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> symbol <span class="op">=</span> <span class="st">'CC'</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">AND</span> <span class="dt">date</span> <span class="op">&gt;=</span> <span class="st">'2024-01-01'</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">AND</span> settle <span class="op">&gt;</span> <span class="dv">10000</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="aggregating" class="level2">
+<h2 class="anchored" data-anchor-id="aggregating">5. Aggregating</h2>
+<p>Average yearly price and volume per market:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> symbol,</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>       strftime(<span class="st">'%Y'</span>, <span class="dt">date</span>)  <span class="kw">AS</span> <span class="dt">year</span>,</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>       <span class="fu">ROUND</span>(<span class="fu">AVG</span>(settle), <span class="dv">2</span>) <span class="kw">AS</span> avg_settle,</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>       <span class="fu">SUM</span>(volume)           <span class="kw">AS</span> total_volume</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> prices</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span> symbol, <span class="dt">year</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span> symbol, <span class="dt">year</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><code>HAVING</code> filters after aggregation. Years in which arabica averaged above 200 USc/lb:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> strftime(<span class="st">'%Y'</span>, <span class="dt">date</span>) <span class="kw">AS</span> <span class="dt">year</span>, <span class="fu">AVG</span>(settle) <span class="kw">AS</span> avg_settle</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> prices</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> symbol <span class="op">=</span> <span class="st">'KC'</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span> <span class="dt">year</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="kw">HAVING</span> <span class="fu">AVG</span>(settle) <span class="op">&gt;</span> <span class="dv">200</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="joining-tables" class="level2">
+<h2 class="anchored" data-anchor-id="joining-tables">6. Joining tables</h2>
+<p>Joins let you put context next to the numbers:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> c.commodity, c.unit, p.<span class="dt">date</span>, p.settle</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> prices p</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="kw">JOIN</span> contracts c <span class="kw">ON</span> c.symbol <span class="op">=</span> p.symbol</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> p.<span class="dt">date</span> <span class="op">=</span> (<span class="kw">SELECT</span> <span class="fu">MAX</span>(<span class="dt">date</span>) <span class="kw">FROM</span> prices);</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Total cocoa exports by origin for the 2022/23 season (October to September):</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> origin, <span class="fu">ROUND</span>(<span class="fu">SUM</span>(tonnes) <span class="op">/</span> <span class="dv">1000</span>, <span class="dv">1</span>) <span class="kw">AS</span> kt</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> exports</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> commodity <span class="op">=</span> <span class="st">'Cocoa'</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">AND</span> <span class="dt">month</span> <span class="kw">BETWEEN</span> <span class="st">'2022-10-01'</span> <span class="kw">AND</span> <span class="st">'2023-09-01'</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span> origin</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span> kt <span class="kw">DESC</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Note that softs run on <strong>crop years</strong>, not calendar years: cocoa and coffee seasons usually start in October. Getting the season boundaries right is half the job.</p>
+</section>
+<section id="updating-and-deleting" class="level2">
+<h2 class="anchored" data-anchor-id="updating-and-deleting">7. Updating and deleting</h2>
+<div class="sourceCode" id="cb11"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- correct a bad print</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="kw">UPDATE</span> prices <span class="kw">SET</span> settle <span class="op">=</span> <span class="dv">7845</span> <span class="kw">WHERE</span> symbol <span class="op">=</span> <span class="st">'CC'</span> <span class="kw">AND</span> <span class="dt">date</span> <span class="op">=</span> <span class="st">'2024-03-01'</span>;</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co">-- remove a duplicated load</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="kw">DELETE</span> <span class="kw">FROM</span> exports <span class="kw">WHERE</span> origin <span class="op">=</span> <span class="st">'Ghana'</span> <span class="kw">AND</span> <span class="dt">month</span> <span class="op">=</span> <span class="st">'2023-01-01'</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Always run the matching <code>SELECT</code> first, so you can see exactly which rows will change.</p>
+</section>
+<section id="next-steps" class="level2">
+<h2 class="anchored" data-anchor-id="next-steps">Next steps</h2>
+<p>In <a href="../Tutorials/advSQL.html">Advanced SQL</a> we use window functions to compute moving averages, calendar spreads and year-on-year export changes directly in the database.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

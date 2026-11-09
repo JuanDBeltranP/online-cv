@@ -191,93 +191,93 @@
   {
     "objectID": "Tutorials/advSQL.html",
     "href": "Tutorials/advSQL.html",
-    "title": "Dr Juan Beltran",
+    "title": "Advanced SQL: Market Analytics in the Database",
     "section": "",
-    "text": "Advanced SQL\nIntroduction:\nBuilding on our SQL basics and intermediate knowledge, this tutorial, is the second part of SQL 101, here we will delve deeper into advanced SQL techniques, which can help in managing and manipulating complex relational databases.\nPart IV: SQL Constraints\n4.1 Understanding SQL Constraints\nSQL Constraints are used to specify rules for the data in a table. Constraints ensure the reliability and accuracy of the data in the table.\n4.2 Primary Key\nA primary key is used to uniquely identify each record in a table.\nCREATE TABLE Employees (\n    ID int PRIMARY KEY,\n    Name text,\n    Age int,\n    Salary real\n);\nThe PRIMARY KEY constraint uniquely identifies each record in the Employees table. This means that the ID field is unique for each record and cannot be NULL.\n4.3 Foreign Key\nA foreign key is used to link two tables together.\nCREATE TABLE Orders (\n    OrderID int PRIMARY KEY,\n    OrderNumber int,\n    EmployeeID int,\n    FOREIGN KEY (EmployeeID) REFERENCES Employees(ID)\n);\nHere, EmployeeID in the Orders table is a foreign key that refers to ID in the Employees table.\n4.4 Unique\nThe UNIQUE constraint ensures that all values in a column are different.\nCREATE TABLE Employees (\n    ID int PRIMARY KEY,\n    Name text UNIQUE,\n    Age int,\n    Salary real\n);\nThis ensures that the Name is unique for each record.\n\nPart V: Advanced SQL Queries\n5.1 Using Alias\nSQL aliases are used to give a table or a column a temporary name. They make column names more readable.\nSELECT e.Name AS Employee, e.Salary AS Income \nFROM Employees AS e;\nThis command selects all Name and Salary from the Employees table but results will be displayed as Employee and Income respectively.\n5.2 Conditional Selection\nThe CASE statement goes through conditions and returns a value when the first condition is met.\nSELECT Name, Salary,\nCASE \n    WHEN Salary > 50000 THEN 'Above Average'\n    ELSE 'Below Average' \nEND AS SalaryStatus\nFROM Employees;\nThis command adds a new column SalaryStatus that categorizes employees based on their salary.\n5.3 IN Operator\nThe IN operator allows you to specify multiple values in a WHERE clause.\nSELECT * FROM Employees\nWHERE Name IN ('John Doe', 'Jane Doe');\nThis command selects all fields from Employees where the Name is either ‘John Doe’ or ‘Jane Doe’.\n\nPart VI: Stored Procedures\n6.1 What is a Stored Procedure?\nA stored procedure is a prepared SQL code that you can save so the code can be reused over and over again.\n6.2 Creating a Stored Procedure\nLet’s assume we frequently need to fetch all employees with a salary above a certain value. Instead of writing this query every time, we can create a stored procedure.\nCREATE PROCEDURE SelectHighlyPaid @Salary real\nAS\nSELECT * FROM Employees WHERE Salary > @Salary;\nGO;\n6.3 Calling a Stored Procedure\nNow that we have our stored procedure, we can execute it.\nEXEC SelectHighlyPaid 50000;\nThis command calls the SelectHighlyPaid stored procedure and retrieves employees earning more than 50000.\n\nConclusion\nFrom basic commands to advanced procedures, SQL is a versatile tool that can handle complex queries with ease. By mastering these advanced concepts and continually practicing, you’re well on your way to becoming an SQL expert!"
+    "text": "Written in 2024. All examples use public data and are for learning only, not investment advice.\nIn SQL 101 we built a small database of softs prices and exports. Here we push more of the analysis into SQL itself: rolling statistics, returns, spreads, seasonal comparisons and ranking. Doing this in the database keeps calculations consistent across every notebook and dashboard that reads from it.\nAll examples use SQLite 3.25+ (window functions). The same syntax works in PostgreSQL and BigQuery with minor changes."
   },
   {
     "objectID": "Tutorials/Forecasting.html",
     "href": "Tutorials/Forecasting.html",
-    "title": "Dr Juan Beltran",
+    "title": "Forecasting Softs Prices with Time Series Methods (R and Python)",
     "section": "",
-    "text": "When it comes to predicting future trends, events, or quantities—known as forecasting—time series methods are some of the most commonly used approaches. By definition, a time series is a sequence of data points recorded at successive, equally spaced intervals. Given the unique traits of time series data, specialized analysis techniques have been developed over time, and these methods can be used to forecast future data points.\nIn this blog post, we will look at how to apply time series methods to forecast data using two popular programming languages: R and Python.\n\n\nBefore delving into the coding aspect, it’s important to understand the key components of a time series:\n\nTrend: The underlying pattern of growth or decline in a time series.\nSeasonality: Regular and predictable changes that recur every calendar year.\nCyclical components: Fluctuations happening due to economic cycles.\nIrregular (or residual) component: The random variation in the series.\n\n\n\n\nR provides robust support for time series analysis via several specialized packages like forecast, tseries, and tsibble.\nIn this example, we will use the forecast package to analyze the AirPassengers dataset.\n\n# Loading required library\n\nlibrary(forecast)\n\n# Load the dataset\n\ndata(AirPassengers)\n\n# Plotting the data\n\nplot(AirPassengers)\n\n# Decomposing the time series\n\ndecomposed_ap <- decompose(AirPassengers)\n\n# Plotting the decomposed time series\n\nplot(decomposed_ap)\n\n# Applying the ARIMA model\n\narima_model <- auto.arima(AirPassengers)\n\n# Forecasting for next 24 months\n\nforecast_arima <- forecast(arima_model, h=24)\n\n# Plotting the forecast\n\nplot(forecast_arima)\nIn this example, we first decomposed the time series to understand its underlying components. We then fitted an ARIMA model using the auto.arima() function, and used it to forecast the next 24 months.\n\n\n\nPython also has strong support for time series analysis, particularly through the pandas and statsmodels libraries.\nLet’s analyze the same AirPassengers dataset in Python.\n\n# Importing required libraries\n\nimport pandas as pd\n\nimport numpy as np\n\nfrom statsmodels.tsa.seasonal import seasonal_decompose\n\nfrom statsmodels.tsa.arima.model import ARIMA\n\nimport matplotlib.pyplot as plt\n\n# Load the dataset\n\nair_passengers = pd.read_csv('AirPassengers.csv', parse_dates=['Month'], index_col='Month')\n\n# Plotting the data\n\nair_passengers.plot()\n\n# Decomposing the time series\n\ndecomposition = seasonal_decompose(air_passengers)\n\n# Plotting the decomposed time series\n\ndecomposition.plot()\n\nplt.show()\n\n# Applying the ARIMA model\n\nmodel = ARIMA(air_passengers, order=(5,1,0))\n\nmodel_fit = model.fit(disp=0)\n\n# Forecasting for next 24 months\n\nforecast, stderr, conf_int = model_fit.forecast(steps=24)\n\n# Plotting the forecast\n\nplt.plot(forecast)\n\nplt.fill_between(range(len(forecast)), forecast - stderr, forecast + stderr, color='r', alpha=.1)\n\nplt.show()\nHere, we used the seasonal_decompose() function from statsmodels to decompose the time series, fitted an ARIMA model, and made a forecast for the next 24 months.\n\n\n\nIn summary, time series forecasting is a powerful tool for\npredicting future trends and events. Both R and Python provide excellent support for time series analysis and can be chosen based on the specific requirements of your project and your familiarity with the language. Happy forecasting!"
+    "text": "Written in 2024. All examples use public data and are for learning only, not investment advice.\nBefore reaching for machine learning, it pays to understand what classical time series models can and cannot do. In this tutorial we decompose and forecast monthly arabica and robusta coffee prices in both R and Python, and use the arabica–robusta spread to see why benchmarks matter.\n2024 is a good moment for this: robusta has hit record highs after drought in Vietnam, the largest robusta producer, while arabica has also rallied. Good forecasting practice is about knowing how little a price series alone can tell you in years like this."
   },
   {
     "objectID": "Tutorials/GoogleEarth.html",
     "href": "Tutorials/GoogleEarth.html",
-    "title": "Dr Juan Beltran",
+    "title": "Google Earth Engine for Softs: Rainfall, Crop Health and Deforestation in the Cocoa Belt",
     "section": "",
-    "text": "Introduction to Google Earth Engine\nIntroduction:\nGoogle Earth Engine is a cloud-based platform for planetary-scale environmental data analysis. It combines a multi-petabyte catalog of satellite imagery and geospatial datasets with computational capabilities to analyze and extract insights. In this blog, we will explore how to use Google Earth Engine, access its data, what types of analysis are possible, and how to produce composite images and measure deforestation.\n\nPart I: Getting Started with Google Earth Engine\n1.1: Setting Up\nTo begin, you will need to sign up for a Google Earth Engine account. Once approved, you can access the Code Editor at https://code.earthengine.google.com/.\n1.2: Navigating the Interface\nThe Google Earth Engine Code Editor is divided into several panels:\n\nScripts panel: where you can create, save, and manage your scripts.\nCode Editor panel: where you enter JavaScript code.\nMap panel: where results are displayed.\nInspector panel: to query map results.\n\n\nPart II: Accessing Data\n2.1: Image and ImageCollection\nIn Google Earth Engine, raster data are represented as Image objects. A collection of images is an ImageCollection. You can access satellite imagery and other raster datasets from the Earth Engine Data Catalog.\n2.2: Example - Accessing Landsat Imagery\nvar image = ee.Image('LANDSAT/LC08/C01/T1_TOA/LC08_044034_20140318');\nMap.addLayer(image, {bands: ['B4', 'B3', 'B2'], max: 0.3}, 'true color image');\n\nPart III: Types of Analysis\n3.1: Basic Operations\nYou can perform arithmetic operations on images, compute spectral indices, and extract statistics.\n3.2: Example - NDVI Calculation\nvar ndvi = image.normalizedDifference(['B5', 'B4']);\nMap.addLayer(ndvi, {min: 0, max: 1, palette: ['white', 'green']}, 'NDVI');\n\nPart IV: Creating Composite Images\nCreating a composite image involves combining several images into one. In the context of Google Earth Engine, you can create a composite image from an ImageCollection.\n4.1: Example - Median Composite\nvar collection = ee.ImageCollection('LANDSAT/LC08/C01/T1_TOA')\n    .filterDate('2019-01-01', '2019-12-31');\n\nvar composite = collection.median();\n\nMap.addLayer(composite, {bands: ['B4', 'B3', 'B2'], max: 0.3}, 'composite image');\n\nPart V: Measuring Deforestation with Google Earth Engine\nGoogle Earth Engine can be used to monitor and measure deforestation. You can compute the difference between two images or track changes over time.\n5.1: Example - Difference in NDVI\nvar image1 = ee.Image('LANDSAT/LC08/C01/T1_TOA/LC08_044034_20140101');\nvar image2 = ee.Image('LANDSAT/LC08/C01/T1_TOA/LC08_044034_20141231');\n\nvar ndvi1 = image1.normalizedDifference(['B5', 'B4']);\nvar ndvi2 = image2.normalizedDifference(['B5', 'B4']);\n\nvar difference = ndvi2.subtract(ndvi1);\nMap.addLayer(difference, {min: -1, max: 1, palette: ['blue', 'white', 'green\n\n']}, 'NDVI difference');\n\nConclusion:\nGoogle Earth Engine is a powerful platform for large-scale geospatial data analysis. It provides an accessible interface for both accessing vast amounts of data and applying complex analyses to generate meaningful insights. As we’ve seen in the blog, it can be used to monitor and measure environmental phenomena such as deforestation. While we’ve only scratched the surface, I encourage you to explore the platform further, as the range of applications is vast."
+    "text": "Written in 2024. All examples use public data and are for learning only, not investment advice.\nSatellites see crops long before official statistics do. Google Earth Engine (GEE) puts decades of satellite imagery and climate data, plus the computing power to analyse them, in a browser. In this tutorial we focus on the cocoa belt of Côte d’Ivoire and Ghana, which produces around 60% of the world’s cocoa, and build three things a softs analyst actually uses:"
   },
   {
     "objectID": "Tutorials/ImageClassification.html",
     "href": "Tutorials/ImageClassification.html",
-    "title": "Dr Juan Beltran",
+    "title": "Image Classification with Deep Learning: Detecting Coffee Leaf Disease",
     "section": "",
-    "text": "Image Classification with Deep Learning\nIntroduction:\nImage Classification is a key application of Deep Learning, with uses ranging from medical imaging to autonomous driving. In this tutorial, we’ll explore Convolutional Neural Networks (CNNs), a class of models that has proven to be highly effective for image classification tasks. We will also discuss how to implement them in Python and explore ways to optimize them.\n\nPart I: Understanding Image Classification with Deep Learning\n1.1: What is Image Classification?\nImage Classification is a process of assigning a class label to an image from a predefined set. This is often achieved by training a model on a large number of images with known class labels, then applying this model to classify new images.\n1.2: Convolutional Neural Networks (CNNs)\nCNNs are specifically designed to process grid-like data, where there’s a spatial relationship between the pixels. This makes them ideal for image processing tasks.\n\nPart II: Implementing CNNs in Python for Image Classification\nWe will use the Keras library to build a simple CNN for image classification. Here’s an example of a simple CNN architecture:\nfrom keras.models import Sequential\nfrom keras.layers import Conv2D, MaxPooling2D, Flatten, Dense\n\n# Initialize the CNN\nmodel = Sequential()\n\n# Add a Convolutional layer\nmodel.add(Conv2D(32, (3, 3), activation='relu', input_shape=(64, 64, 3)))\n\n# Add a Pooling layer\nmodel.add(MaxPooling2D(pool_size=(2, 2)))\n\n# Flatten\nmodel.add(Flatten())\n\n# Full connection\nmodel.add(Dense(units=128, activation='relu'))\nmodel.add(Dense(units=1, activation='sigmoid'))\n\n# Compile the model\nmodel.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])\n\n# Fit the model\nmodel.fit(X_train, y_train, epochs=10, batch_size=32)\nCode Explanation:\n\nWe first import the necessary libraries and initialize a Sequential model.\nWe then add a Conv2D layer. This is the convolutional layer that will extract features from the input images by sliding a convolution filter over the input to produce a feature map. Here we choose 32 filters and each filter is of size 3 by 3.\nNext, we add a MaxPooling2D layer. This is a pooling layer with a 2x2 filter that reduces the dimensions of the feature maps and helps to make the model invariant to small translations.\nWe then flatten the 2D arrays into a 1D array to feed into a Dense layer (also called a fully connected layer).\nTwo Dense layers are added. The first has 128 units, and the second has 1 unit, which is the output layer (as this is a binary classification problem).\nThe model is then compiled with the ‘adam’ optimizer, ‘binary_crossentropy’ as the loss function, and ‘accuracy’ as the evaluation metric.\nFinally, we fit the model to our training data.\n\n\nPart III: Optimizing CNNs\nOptimizing a CNN can involve adjusting the architecture (number and types of layers, number of nodes in layers), tuning the hyperparameters, or using techniques such as data augmentation or transfer learning.\n3.1: Adjusting the Architecture\nFor example, we can add more convolutional layers or fully connected layers, change the size of the filters, or add Dropout layers to prevent overfitting.\n3.2: Hyperparameter Tuning\nThis could involve adjusting the learning rate, batch size, number of epochs, or parameters related to specific layers (like the number\nof filters in a Conv2D layer).\n3.3: Data Augmentation and Transfer Learning\nData Augmentation involves creating new training examples by applying random jitters and transformations to the images, which can improve performance and reduce overfitting.\nTransfer Learning involves taking a pre-trained model (usually trained on a large dataset like ImageNet) and fine-tuning it on your specific task. This can often yield excellent results with less data and compute resources.\n\nConclusion:\nImage Classification with CNNs is a key aspect of Deep Learning, with a wide range of applications. Understanding how these models work, how to implement them in Python, and how to optimize them are crucial skills for anyone working with image data. Always consider the complexity of your specific problem and the resources at your disposal when selecting a model and optimization strategy."
+    "text": "Written in 2024. All examples use public data and are for learning only, not investment advice.\nPlant disease is a supply story. Coffee leaf rust (Hemileia vastatrix) cut production sharply across Central America in 2012–13, and cocoa swollen shoot virus is one of the reasons West African cocoa output has struggled in recent seasons. Agronomists, cooperatives and exporters increasingly use phone photos and drones to spot disease early.\nIn this tutorial we train a convolutional neural network (CNN) to classify coffee leaf images as healthy or diseased, using transfer learning in Keras."
   },
   {
     "objectID": "Tutorials/NeuralNetworks.html",
     "href": "Tutorials/NeuralNetworks.html",
-    "title": "Dr Juan Beltran",
+    "title": "Deep Learning for Time Series: LSTM and CNN Forecasts for Cotton",
     "section": "",
-    "text": "Deep Learning for Time Series Analysis\nIntroduction:\nDeep Learning provides powerful tools for time series analysis. Models like Recurrent Neural Networks (RNNs), Long Short-Term Memory (LSTM), and Convolutional Neural Networks (CNNs) have proven to be effective for tasks such as time series forecasting. In this tutorial, we’ll explore these models, how they can be implemented in Python, and some ways to optimize them.\n\nPart I: Understanding Time Series Analysis with Deep Learning\n1.1: What is Time Series Analysis?\nTime Series Analysis involves studying ordered data points collected over time to identify patterns, trends, cycles, and forecast future data points.\n1.2: Deep Learning for Time Series Analysis\nDeep Learning models have shown significant success in Time Series Analysis due to their ability to learn complex temporal dependencies, handle large amounts of data, and automatically extract features.\n\nPart II: Deep Learning Models for Time Series Analysis\n2.1: Recurrent Neural Networks (RNNs)\nRNNs are designed to use their internal state (memory) to process sequences of inputs, which makes them ideal for time series forecasting.\n2.2: Long Short-Term Memory (LSTM)\nLSTMs are an extension of RNNs and were designed to remember long-term dependencies in sequence data.\n2.3: Convolutional Neural Networks (CNNs)\nThough traditionally used for image processing, CNNs can also be used for time series forecasting. They can learn to automatically extract spatial and temporal features from raw input data.\n\nPart III: Implementing Deep Learning Models in Python\nUsing the Keras library, we can easily implement these models. Here’s an example of an LSTM:\nfrom keras.models import Sequential\nfrom keras.layers import LSTM, Dense\n\n# Define model architecture\nmodel = Sequential()\nmodel.add(LSTM(50, activation='relu', input_shape=(n_steps, n_features)))\nmodel.add(Dense(1))\n\n# Compile the model\nmodel.compile(optimizer='adam', loss='mse')\n\n# Fit the model\nmodel.fit(X, y, epochs=200, verbose=0)\n\nPart IV: Optimizing Deep Learning Models\nOptimization of Deep Learning models for time series analysis is typically done via hyperparameter tuning and architecture design.\n4.1: Hyperparameter Tuning\nJust like in previous algorithms we have discussed, we can adjust parameters such as the learning rate, number of hidden units, number of layers, and many others to optimize the model’s performance.\n4.2: Architecture Design\nThe design of the model’s architecture can also have a significant impact on performance. For instance, one could decide to stack multiple LSTM layers or use a combination of CNN and LSTM layers.\n\nConclusion:\nDeep Learning provides a suite of powerful tools for time series analysis. Understanding these models, their application to time series data, and how to implement and optimize them in Python are key skills in the modern data scientist’s toolbox. Always remember, though, that these are complex models, and simpler methods may often provide equally effective solutions. Always consider the complexity and requirements of your specific problem when selecting a model."
+    "text": "Written in 2024. All examples use public data and are for learning only, not investment advice.\nRecurrent and convolutional neural networks can learn patterns across several input series at once, which makes them tempting for commodity forecasting. They can also overfit spectacularly. In this tutorial we build LSTM and 1D-CNN models for weekly cotton (ICE Cotton No.2) returns with a few exogenous drivers, and test them honestly against simple benchmarks."
   },
   {
     "objectID": "Tutorials/Regression.html",
     "href": "Tutorials/Regression.html",
-    "title": "Dr Juan Beltran",
+    "title": "Regression 101: What Drives Sugar Prices?",
     "section": "",
-    "text": "Tutorial: Regression Models in Python – From Basics to Advanced\nIntroduction\nRegression analysis is a powerful statistical method that allows you to examine the relationship between two or more variables. In this tutorial, we’ll explore several types of regression models using Python, including Linear Regression, Lasso, Ridge, Elastic Net, Bayesian Regression, and Decision Trees.\nWe’ll be using real-world data from the Our World in Data repository.\n\nPart I: Setting Up Your Environment\nTo get started, we first need to install some necessary libraries. If you don’t have them installed already, you can do so by running the following commands:\n!pip install pandas numpy sklearn matplotlib seaborn\npandas and numpy will help us handle the data, sklearn will provide the regression models, and matplotlib and seaborn will help us visualize the data.\n\nPart II: Importing the Data\nWe’re going to use the Our World in Data’s CO2 and GDP dataset. This dataset includes information about countries’ CO2 emissions and their GDP.\nFirst, let’s import our libraries and load our data.\nimport pandas as pd\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import StandardScaler\n\n# Load the data\nurl = \"https://raw.githubusercontent.com/owid/co2-data/master/owid-co2-data.csv\"\ndata = pd.read_csv(url)\n\n# Check the data\ndata.head()\nWe use pandas’ read_csv function to load our data. data.head() prints the first 5 rows of our dataframe.\n\nPart III: Preprocessing the Data\nBefore we start modeling, we need to preprocess our data. We will deal with missing values and scale our data.\n# Drop missing values\ndata = data[['year', 'co2', 'gdp']].dropna()\n\n# Define our inputs and target\nX = data[['year', 'gdp']]\ny = data['co2']\n\n# Split the data into train and test sets\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)\n\n# Scale the data\nscaler = StandardScaler()\nX_train = scaler.fit_transform(X_train)\nX_test = scaler.transform(X_test)\nWe use dropna() to drop missing values, and train_test_split() to split our data into a training set and a test set. The StandardScaler() standardizes our data to have a mean of 0 and a standard deviation of 1.\n\nPart IV: Linear Regression\nLinear regression is a basic and commonly used type of predictive analysis.\nfrom sklearn.linear_model import LinearRegression\nfrom sklearn.metrics import mean_squared_error\n\n# Initialize the model\nlr = LinearRegression()\n\n# Fit the model\nlr.fit(X_train, y_train)\n\n# Predict the test set\ny_pred = lr.predict(X_test)\n\n# Evaluate the model\nmse = mean_squared_error(y_test, y_pred)\nprint('MSE: ', mse)\nWe initialize our model with LinearRegression(), fit it to our training data with lr.fit(), and make predictions with lr.predict(). Finally, we evaluate our model by calculating the Mean Squared Error.\n\nPart V: Lasso, Ridge and Elastic Net Regression\nThese are extensions of linear regression that have regularizations.\nfrom sklearn.linear_model import Lasso, Ridge, ElasticNet\n\n# Lasso\nlasso = Lasso(alpha=0.1)\nlasso.fit(X_train, y_train)\ny_pred = lasso.predict(X_test)\nprint\n\n('Lasso MSE: ', mean_squared_error(y_test, y_pred))\n\n# Ridge\nridge = Ridge(alpha=0.1)\nridge.fit(X_train, y_train)\ny_pred = ridge.predict(X_test)\nprint('Ridge MSE: ', mean_squared_error(y_test, y_pred))\n\n# Elastic Net\nelastic = ElasticNet(alpha=0.1, l1_ratio=0.5)\nelastic.fit(X_train, y_train)\ny_pred = elastic.predict(X_test)\nprint('ElasticNet MSE: ', mean_squared_error(y_test, y_pred))\nFor each model, we initialize it (with the appropriate hyperparameters), fit it, make predictions, and evaluate it. The alpha hyperparameter controls the strength of the penalty, and l1_ratio controls the mixture of L1 and L2 penalties for Elastic Net.\n\nPart VI: Bayesian Regression and Decision Trees\nBayesian regression uses Bayes’ theorem to update the probability of a hypothesis as more evidence or information becomes available. Decision Trees split the data into branches to make predictions.\nfrom sklearn.tree import DecisionTreeRegressor\nfrom sklearn.linear_model import BayesianRidge\n\n# Bayesian Ridge Regression\nbayesian = BayesianRidge()\nbayesian.fit(X_train, y_train)\ny_pred = bayesian.predict(X_test)\nprint('BayesianRidge MSE: ', mean_squared_error(y_test, y_pred))\n\n# Decision Tree Regression\ntree = DecisionTreeRegressor(max_depth=5)\ntree.fit(X_train, y_train)\ny_pred = tree.predict(X_test)\nprint('DecisionTree MSE: ', mean_squared_error(y_test, y_pred))\nThe procedure for Bayesian Ridge and Decision Tree Regression is the same as before. For Decision Trees, the max_depth hyperparameter controls the maximum depth of the tree.\n\nConclusion\nIn this tutorial, we have covered various types of regression models in Python, including linear regression, lasso, ridge, elastic net, Bayesian regression, and decision trees. We have also demonstrated how to import and preprocess real-world data, fit models, make predictions, and evaluate model performance. By understanding these fundamental concepts, you’re now well equipped to explore more complex predictive modeling techniques."
+    "text": "Written in 2024. All examples use public data and are for learning only, not investment advice.\nRaw sugar (ICE Sugar No.11) is one of the best markets to learn regression on, because two of its macro drivers are well understood:\nWe will test these relationships with linear models in Python, from ordinary least squares to regularised regression and a decision tree."
   },
   {
     "objectID": "Tutorials/Regression2.html",
     "href": "Tutorials/Regression2.html",
-    "title": "Dr Juan Beltran",
+    "title": "Hyperparameters in Regression, Part 1: Tuning Without Look-Ahead",
     "section": "",
-    "text": "Hyperparameter Optimization in Regression Analysis - Part 1\nIntroduction:\nIn the previous tutorial, we discussed Lasso, Ridge, and Elastic Net regressions. In this tutorial, we will focus on the basics of how to optimize these models through hyperparameter tuning.\n\nPart I: Understanding Hyperparameters\n1.1: What are Hyperparameters?\nHyperparameters are parameters that are not learned from data. They are set prior to the commencement of the learning process and help to control the behavior of the model. For instance, the ‘alpha’ in our previous tutorial is a hyperparameter.\n\nPart II: Methods for Hyperparameter Tuning\n2.1: Grid Search\nGrid search is a tuning technique that attempts to compute the optimum values of hyperparameters. It is an exhaustive search that is performed on the specific parameter values of a model.\nfrom sklearn.model_selection import GridSearchCV\n\n# Define the grid of hyperparameters 'params'\nparams = {'alpha': [0.02, 0.024, 0.025, 0.026, 0.03]}\n\n# Instantiate a 10-fold CV grid search object 'grid'\ngrid = GridSearchCV(estimator=lasso, param_grid=params, cv=10)\n\n# Fit the grid search\ngrid.fit(X_train, y_train)\n2.2: Random Search\nRandom search differs from grid search in that it does not try every parameter value. Instead, it randomly selects values within the ranges specified.\nfrom sklearn.model_selection import RandomizedSearchCV\n\n# Define the grid of hyperparameters 'params'\nparams = {'alpha': [0.02, 0.024, 0.025, 0.026, 0.03]}\n\n# Instantiate a 10-fold CV randomized search object 'random'\nrandom = RandomizedSearchCV(estimator=ridge, param_distributions=params, cv=10)\n\n# Fit the random search\nrandom.fit(X_train, y_train)\n\nPart III: Hyperparameter Tuning for Regression Models\n3.1: Tuning Lasso Regression\nWhen tuning Lasso Regression, the main hyperparameter to adjust is ‘alpha’, which controls the amount of shrinkage: the larger the value of alpha, the greater the amount of shrinkage.\n3.2: Tuning Ridge Regression\nIn Ridge Regression, ‘alpha’ is also the primary hyperparameter. However, the impact is slightly different: alpha reduces the complexity of the model by coefficient shrinkage.\n3.3: Tuning Elastic Net Regression\nElastic Net has two key hyperparameters: ‘alpha’ and ‘l1_ratio’. ‘Alpha’ is the penalty term and ‘l1_ratio’ is the mix between L1 and L2 regularization.\n\nConclusion:\nHyperparameter tuning is crucial in building optimal machine learning models. Although it can be a time-consuming process, Python, with libraries such as Scikit-Learn, provides efficient tools for carrying out this process effectively. Tuning your models can lead to significant improvements in model performance."
+    "text": "Written in 2024. All examples use public data and are for learning only, not investment advice.\nIn Regression 101 we explained weekly sugar returns with crude oil, the Brazilian real and the dollar. Here we tune the regularisation strength of Lasso, Ridge and Elastic Net. The key lesson is that standard k-fold cross-validation is wrong for market data."
   },
   {
     "objectID": "Tutorials/Regression3.html",
     "href": "Tutorials/Regression3.html",
-    "title": "Dr Juan Beltran",
+    "title": "Hyperparameters in Regression, Part 2: Bayesian Optimisation on Cocoa",
     "section": "",
-    "text": "Hyperparameter Optimization in Python – Mastering Hyperopt and Sklearn\n\nIntroduction\nIn the previous two tutorials we have cover the basics of linear models and some of the hyperparameters.\nAs you know, hyperparameters are parameters that are not learned from the data, and they need to be set before the learning process begins. In this tutorial, we will focus on hyperparameter optimization using Hyperopt and Sklearn in Python.\nWe will continue with the data and models from the first part of the tutorial.\n\nPart I: Setting Up Your Environment\nFirstly, we need to install hyperopt if it’s not already installed. You can install it by running the following command:\n!pip install hyperopt\nNow, let’s import all the libraries we are going to use.\nimport pandas as pd\nimport numpy as np\nfrom sklearn.model_selection import cross_val_score\nfrom hyperopt import fmin, tpe, hp, STATUS_OK, Trials\nfrom sklearn.linear_model import Ridge\nimport matplotlib.pyplot as plt\n\nPart II: Defining the Objective Function\nWe will start by defining our objective function. This function should take in the hyperparameters and return the value that we want to minimize, which in our case is the cross-validation mean squared error of our model.\ndef objective(hyperparameters):\n    model = Ridge(**hyperparameters)\n    mse = cross_val_score(model, X_train, y_train, scoring='neg_mean_squared_error').mean()\n    return {'loss': -mse, 'status': STATUS_OK}\nHere, we’re creating a Ridge regression model with the given hyperparameters, computing the cross-validation mean squared error, and returning it as the loss to be minimized.\n\nPart III: Setting Up the Search Space\nNow we will define the search space for our hyperparameters. We will search for the optimal alpha value, which is a regularization strength parameter for Ridge regression.\nspace = {\n    'alpha': hp.uniform('alpha', 0.0, 2.0)\n}\nWe’re telling Hyperopt that we want to find an alpha between 0.0 and 2.0. hp.uniform specifies that any value within the range is equally likely to be selected as a candidate.\n\nPart IV: Running the Optimization\nWe are now ready to start our hyperparameter optimization!\ntrials = Trials()\nbest = fmin(fn=objective,\n            space=space,\n            algo=tpe.suggest,\n            max_evals=50,\n            trials=trials)\nThe fmin function performs the optimization. We pass in our objective function, the search space, the optimization algorithm (Tree-structured Parzen Estimator), and the number of evaluations to perform.\n\nPart V: Visualizing the Results\nFinally, let’s visualize the process of optimization.\nloss = [x['result']['loss'] for x in trials.trials]\n\nplt.figure(figsize=(8, 6))\nplt.plot(loss)\nplt.title('Hyperopt Optimization Process')\nplt.xlabel('Iteration')\nplt.ylabel('Mean Squared Error')\nplt.show()\nThis script creates a plot of mean squared error over each iteration, which can give you an idea of how the optimization progressed.\n\nConclusion\nHyperparameter optimization is a crucial step in tuning machine learning models, and libraries like Hyperopt provide powerful tools for this purpose. By understanding these techniques, you can train models that perform better and utilize resources more efficiently. Happy modeling!"
+    "text": "Written in 2024. All examples use public data and are for learning only, not investment advice.\nIn Part 1 we tuned linear models with grid and random search. Here we use Bayesian optimisation with hyperopt, which learns from earlier trials where good settings are likely to be. We apply it to a harder problem: forecasting next month’s cocoa price change from weather and macro signals."
   },
   {
     "objectID": "Tutorials/RF.html",
     "href": "Tutorials/RF.html",
-    "title": "Dr Juan Beltran",
+    "title": "Random Forest 101: Predicting Coffee’s Weekly Direction",
     "section": "",
-    "text": "Random Forests - Understanding, Implementing, and Optimizing\nIntroduction:\nRandom Forests are a popular machine learning method that are highly flexible and capable of performing both regression and classification tasks. In this tutorial, we will explore Random Forests in depth, including when they are a good fit, their parameters and hyperparameters, and how to implement and optimize them in Python.\n\nPart I: Understanding Random Forests\n1.1: What is a Random Forest?\nA Random Forest is an ensemble learning method that operates by constructing multiple decision trees during training and outputting the mean/ mode of the individual trees for regression/ classification tasks, respectively.\n1.2: When to Use Random Forests\nRandom Forests are particularly effective in situations where you have a large dataset with many features and complex relationships. They can handle both categorical and numerical data and are robust to outliers and missing data. They also prevent overfitting by averaging the output of many trees.\n\nPart II: Parameters and Hyperparameters of Random Forests\n2.1: Main Parameters\n\nn_estimators: The number of trees in the forest.\nmax_features: The maximum number of features considered when splitting a node.\nmax_depth: The maximum depth of the tree.\n\n2.2: Hyperparameters\nThese are parameters that cannot be learned from the data and are set prior to training. In Random Forests, these include all parameters like n_estimators, max_features, and max_depth.\n\nPart III: Implementing Random Forests in Python\nfrom sklearn.ensemble import RandomForestClassifier\n\n# Instantiate the random forest model\nrf = RandomForestClassifier(n_estimators=100, max_depth=2, random_state=0)\n\n# Train the model\nrf.fit(X_train, y_train)\n\n# Predict on the test set\ny_pred = rf.predict(X_test)\n\nPart IV: Optimizing Random Forests\nOptimizing a Random Forest involves tuning its hyperparameters to find the best combination for your specific dataset. This can be achieved using methods such as Grid Search and Randomized Search, as we discussed in the previous tutorial.\n4.1: Grid Search Example\nfrom sklearn.model_selection import GridSearchCV\n\n# Define the parameter grid\nparam_grid = {\n    'n_estimators': [100, 200, 300, 500],\n    'max_features': ['auto', 'sqrt', 'log2'],\n    'max_depth' : [4,5,6,7,8]\n}\n\n# Create a based model\nrf = RandomForestClassifier()\n\n# Instantiate the grid search model\ngrid_search = GridSearchCV(estimator = rf, param_grid = param_grid, cv = 3)\n\n# Fit the grid search to the data\ngrid_search.fit(X_train, y_train)\n\n# Get the best parameters\nbest_params = grid_search.best_params_\n\nConclusion:\nRandom Forests are a powerful and flexible machine learning algorithm that can provide excellent results on a wide range of problems. Understanding the underlying mechanics, knowing how to implement them in Python, and being able to optimize their hyperparameters are all vital skills for any machine learning practitioner. Remember, as with all machine learning algorithms, it’s important to thoroughly understand your data and the problem at hand to make informed decisions on algorithm selection and tuning."
+    "text": "Written in 2024. All examples use public data and are for learning only, not investment advice.\nA random forest is a collection of decision trees, each trained on a random sample of the data and features, whose votes are averaged. Forests handle non-linear relationships, need little preprocessing and rarely overfit badly, which makes them a solid first model for market data.\nHere we classify whether arabica coffee (ICE Coffee “C”) will rise or fall over the next week, using price-based features and speculative positioning from the CFTC."
   },
   {
     "objectID": "Tutorials/RL.html",
     "href": "Tutorials/RL.html",
-    "title": "Dr Juan Beltran",
+    "title": "Reinforcement Learning 101: Q-Learning on Sugar Market Regimes",
     "section": "",
-    "text": "Reinforcement Learning (RL) is a subfield of machine learning that focuses on how an agent ought to take actions in an environment to maximize some notion of cumulative reward. In this tutorial, we will go over the fundamental principles of RL and how to implement them in Python and R. Absolutely! Let’s delve deeper into the concepts and code.\n\n\nReinforcement Learning is a dynamic process that uses rewards and punishments to train an agent. It consists of several elements:\n\nAgent: This is the learner or decision-maker. It takes actions based on the state it’s in and the policy it has learned.\nEnvironment: This is the context in which the agent operates. It could be a maze for a robotic agent or a board game for a game-playing agent.\nState: This is the current situation the agent is in. The state will be presented to the agent as an input, and it is the agent’s representation of the environment at a given time.\nAction: These are the possible steps or decisions that the agent can make.\nReward: These are the feedback signals that guide the agent to the goal. A reward can be positive (for good actions) or negative (for bad actions).\n\nThe agent learns from the consequences of its actions, rather than from being taught explicitly. It selects actions based on its past experiences (exploitation) and also by new choices (exploration), which is essentially the dilemma between choosing a known best action and trying out a new action to see if it’s better.\n\n\n\nQ-Learning is a values iteration algorithm in RL. In Q-Learning, we define a Q-function (Q stands for quality) that the agent learns. The Q-function Q(s,a) gives the expected future reward if action a is taken in state s.\nThe Q-Learning algorithm uses a table to store the Q-values for each (state-action) pair. This table guides the agent to the best action at each state.\n\n\n\nWe will use the OpenAI Gym library, which is a popular Python library for developing and comparing RL algorithms. It provides several pre-defined environments where we can test our agents.\nOne such environment is the FrozenLake-v0 game. In the FrozenLake game, the agent controls the movement of a character in a grid world. The agent’s goal is to go from the starting state (S) to the goal state (G) by walking only on frozen tiles (F) and avoid holes (H). The catch is that the ice is slippery, so the agent won’t always move in the direction it intends to.\nHere’s an example of a FrozenLake environment:\nSFFF       (S: starting point, safe)\nFHFH       (F: frozen surface, safe)\nFFFH       (H: hole, fall to your doom)\nHFFG       (G: goal, where the frisbee is located)\nThis Python code implements the Q-Learning algorithm:\nTo start, we should install the necessary dependencies, including TensorFlow and Keras for building neural networks, and Gym for the reinforcement learning environment.\npip install gym tensorflow keras numpy matplotlib\nThe implementation is the following:\nimport numpy as np\nimport gym\nimport random\nimport time\nfrom IPython.display import clear_output\n\n# Create the environment\nenv = gym.make(\"FrozenLake-v0\")\nHere we import the necessary libraries and create the FrozenLake-v0 environment.\n# Initialize Q-table with zero\nq_table = np.zeros([env.observation_space.n, env.action_space.n])\nThe Q-table is initialized with zeros and has a size of (number_of_states x number_of_actions).\n# Hyperparameters\nnum_episodes = 10000\nmax_steps_per_episode = 100\n\nlearning_rate = 0.1\ndiscount_rate = 0.99\n\nexploration_rate = 1\nmax_exploration_rate = 1\nmin_exploration_rate = 0.01\nexploration_decay_rate = \n\n0.001\n\nrewards_all_episodes = []\nThese are the hyperparameters. The number of episodes is the number of games we want the agent to play during the training. In each episode, the agent can make a fixed number of steps (max_steps_per_episode). The learning_rate is the rate at which the AI agent should learn, the discount_rate is the importance of future rewards. The exploration rate is the rate at which the agent should explore the environment randomly, instead of using the already computed Q-values.\n# Q-learning algorithm\nfor episode in range(num_episodes):\n    state = env.reset()\n\n    done = False\n    rewards_current_episode = 0\n\n    for step in range(max_steps_per_episode): \nHere we start to play the episodes. At the start of each episode, we reset the environment to its initial state. done is a flag used to indicate if the episode has ended. rewards_current_episode is used to sum up all the rewards the agent has received in the current episode.\n        exploration_rate_threshold = random.uniform(0, 1)\n        if exploration_rate_threshold > exploration_rate:\n            action = np.argmax(q_table[state,:]) \n        else:\n            action = env.action_space.sample()\nHere the agent decides whether to explore or exploit. A random number is chosen. If it is greater than the exploration rate, the agent exploits the environment and chooses the action with the highest Q-value in the current state (exploit). Otherwise, it explores the environment, and the action is chosen randomly (explore).\n        new_state, reward, done, info = env.step(action)\n\n        # Update Q-table for Q(s,a)\n        q_table[state, action] = q_table[state, action] * (1 - learning_rate) + \\\n            learning_rate * (reward + discount_rate * np.max(q_table[new_state, :]))\n\n        state = new_state\n        rewards_current_episode += reward \n\n        if done == True: \n            break\nThe agent performs the action and moves to the new state, and receives the reward. The Q-value of the (state-action) pair is updated using the Q-learning update rule.\n    # Exploration rate decay\n    exploration_rate = min_exploration_rate + \\\n        (max_exploration_rate - min_exploration_rate) * np.exp(-exploration_decay_rate*episode)\n\n    rewards_all_episodes.append(rewards_current_episode)\nAfter each episode, we decrease the exploration rate. We want our agent to explore less as it learns more about the environment. The rewards_all_episodes list keeps track of the total rewards in each episode.\n\n\n\nNow let’s implement the same Q-Learning in R. We’re going to make a simple grid world with four cells, where the agent needs to find the terminal state to get a reward.\nlibrary(MDPtoolbox)\n\n# Define transition and reward matrices\nS <- 4\nA <- 2\nT <- array(0, c(S, A, S))\nR <- matrix(0, S, A)\n\n# Define transitions\nT[1, 1, 2] <- 1\nT[2, 1, 3] <- 1\nT[3, 1, 4] <- 1\nT[4, 1, 4] <- 1\n\nT[1, 2, 1] <- 1\nT[2, 2, 1] <- 1\nT[3, 2, 2] <- 1\nT[4, 2, 3] <- 1\n\n# Define rewards\nR[3, 1] <- 1\nR[4, 1] <- 1\n\n# Run Q-Learning\nresult <- mdp_example_qlearning(T, R, 0.9, 10000)\nThe code above creates a simple environment using the MDPtoolbox library. The environment is a simple four-state system where the agent learns to navigate to the terminal state using Q-Learning.\nLet’s now dive deeper into more advanced concepts of reinforcement learning with Python, including Policy Gradients and Deep Q-Networks (DQNs).\n\n\n\nPolicy Gradients are a type of reinforcement learning algorithms that are more advanced than Q-Learning. They learn a parameterized policy that can choose actions without consulting a value function. One popular algorithm in this family is the REINFORCE algorithm.\n\n\nInstead of learning a value function that tells us what is the expected sum of rewards given a state and an action (as in Q-Learning), we’re going to learn directly a policy function. The policy is a distribution over actions given states.\nIn Policy Gradient methods, we typically use a simple function approximator such as a neural network to approximate the policy function.\nThe REINFORCE algorithm works as follows:\n\nInitialize the policy parameters θ at random.\nGenerate an episode following π(⋅|⋅;θ), and let R_t be the return from time step t.\nFor each time step t of the episode, compute the gradient ∇_θ log π(A_t|S_t;θ) and update the parameters using stochastic gradient ascent: θ ← θ + αR_t ∇_θ log π(A_t|S_t;θ)\n\n\n\n\nLet’s implement a simple version of the REINFORCE algorithm using the CartPole environment from Gym. This environment consists of a pole connected to a cart moving along a frictionless track. The pole starts upright, and the goal is to prevent it from falling over by applying a force of +1 or -1 to the cart.\nimport gym\nimport numpy as np\nfrom keras.models import Sequential\nfrom keras.layers import Dense, Reshape, Flatten\nfrom keras.optimizers import Adam\n\ndef create_model():\n    model = Sequential()\n    model.add(Dense(24, input_dim=4, activation='relu')) # input is the state\n    model.add(Dense(24, activation='relu'))\n    model.add(Dense(2, activation='softmax')) # output is the probability distribution over actions\n    model.compile(loss='categorical_crossentropy', optimizer=Adam())\n    return model\nThis function creates our policy network. It takes a state as input and outputs a probability distribution over actions.\ndef generate_episode(policy, env):\n    states, actions, rewards = [], [], []\n    state = env.reset()\n    done = False\n    while not done:\n        state = state.reshape([1, state.size])\n        prob = policy.predict(state)[0]\n        action = np.random.choice(env.action_space.n, p=prob)\n        next_state, reward, done, _ = env.step(action)\n\n        states.append(state)\n        actions.append(action)\n        rewards.append(reward)\n\n        state = next_state\n\n    return states, actions, rewards\nThis function generates an episode by running the policy in the environment. It returns the list of states, actions, and rewards encountered during the episode.\ndef compute_returns(rewards, gamma=0.99):\n    R = 0\n    returns = []\n    for r in reversed(rewards):\n        R = r + gamma * R\n        returns.insert(0, R)\n    return np.array(returns)\nThis function computes the returns for each time step in an episode, using the rewards and a discount factor gamma.\ndef train_policy(policy, episodes):\n   \n\n env = gym.make('CartPole-v0')\n    for episode in range(episodes):\n        states, actions, rewards = generate_episode(policy, env)\n        returns = compute_returns(rewards)\n        X = np.squeeze(np.vstack(states))\n        y = np.zeros([len(actions), env.action_space.n])\n        for i, action in enumerate(actions):\n            y[i, action] = returns[i]\n        policy.train_on_batch(X, y)\n    env.close()\nThis function trains the policy for a given number of episodes. For each episode, it generates an episode, computes the returns, and updates the policy parameters using the returns as weight for the actions taken.\nNow we can create our policy and train it:\npolicy = create_model()\ntrain_policy(policy, 1000)\n\n\n\n\nDeep Q-Networks (DQNs) are a type of Q-Learning algorithm that uses a neural network as a function approximator for the Q-function. It was introduced by DeepMind in their groundbreaking paper “Playing Atari with Deep Reinforcement Learning” in 2013.\n\n\nDQN is essentially Q-Learning with function approximation, but with a few key differences:\n\nExperience Replay: To break the correlation between consecutive samples, DQN stores the agent’s experiences in a replay buffer. During training, it samples mini-batches of experiences from the replay buffer to update the Q-network.\nTarget Network: To stabilize the training, DQN uses two networks: a Q-network for selecting actions, and a target network (a clone of the Q-network) for generating the Q-learning targets. The weights of the target network are updated less frequently (usually, every few thousand steps) to keep the targets stable.\n\n\n\n\nNow let’s implement a DQN for the CartPole environment.\nimport gym\nimport random\nimport numpy as np\nfrom keras.models import Sequential\nfrom keras.layers import Dense\nfrom keras.optimizers import Adam\nfrom collections import deque\n\nclass DQNAgent:\n    def __init__(self, state_size, action_size):\n        self.state_size = state_size\n        self.action_size = action_size\n        self.memory = deque(maxlen=2000)\n        self.gamma = 0.95  # discount rate\n        self.epsilon = 1.0  # exploration rate\n        self.epsilon_min = 0.01\n        self.epsilon_decay = 0.995\n        self.learning_rate = 0.001\n        self.model = self._build_model()\nThis class defines our DQN agent. It has a memory for storing experiences, parameters for the epsilon-greedy policy (epsilon is the probability of choosing a random action), and a neural network model for approximating the Q-function.\ndef _build_model(self):\n    model = Sequential()\n    model.add(Dense(24, input_dim=self.state_size, activation='relu'))\n    model.add(Dense(24, activation='relu'))\n    model.add(Dense(self.action_size, activation='linear'))\n    model.compile(loss='mse', optimizer=Adam(lr=self.learning_rate))\n    return model\nThis function builds a simple 2-layer fully connected neural network. The input size is the size of the state space, and the output size is the size of the action space. The model uses mean squared error (MSE) for loss as we’re dealing with a regression problem (predicting the Q-values), and the Adam optimizer for training the model.\nNext, we define a method for the agent to remember the experiences.\ndef remember(self, state, action, reward, next_state, done):\n    self.memory.append((state, action, reward, next_state, done))\nThis function simply adds an experience to the agent’s memory. The experience is a tuple of state, action, reward, next state, and done (which tells whether the episode ended after this step).\nNow, let’s implement the action selection policy.\ndef act(self, state):\n    if np.random.rand() <= self.epsilon:\n        return random.randrange(self.action_size)\n    act_values = self.model.predict(state)\n    return np.argmax(act_values[0])  # returns action\nThis function implements an epsilon-greedy policy. With probability epsilon, it chooses a random action (for exploration), and with probability 1 - epsilon, it chooses the best action according to the current Q-value estimates (for exploitation).\nThe core of the DQN algorithm is in the learning phase, where it updates the Q-value estimates.\ndef replay(self, batch_size):\n    minibatch = random.sample(self.memory, batch_size)\n    for state, action, reward, next_state, done in minibatch:\n        target = self.model.predict(state)\n        if done:\n            target[0][action] = reward\n        else:\n            Q_future = max(self.model.predict(next_state)[0])\n            target[0][action] = reward + self.gamma * Q_future\n        self.model.fit(state, target, epochs=1, verbose=0)\n    if self.epsilon > self.epsilon_min:\n        self.epsilon *= self.epsilon_decay\nIn this function, a mini-batch of experiences is sampled from the memory, and for each experience, the Q-value target for the action taken is updated, and the network’s weights are updated to fit this target value. If the episode ended (done is True), the target is simply the reward, else it’s the reward plus the discounted estimated maximum future Q-value.\nFinally, we create an instance of the DQNAgent and train it to balance the pole in the CartPole environment.\nenv = gym.make('CartPole-v1')\nagent = DQNAgent(env.observation_space.shape[0], env.action_space.n)\nepisodes = 500\nbatch_size = 32\n\nfor e in range(episodes):\n    state = env.reset()\n    state = np.reshape(state, [1, agent.state_size])\n    for time in range(500):\n        action = agent.act(state)\n        next_state, reward, done, _ = env.step(action)\n        reward = reward if not done else -10\n        next_state = np.reshape(next_state, [1, agent.state_size])\n        agent.remember(state, action, reward, next_state, done)\n        state = next_state\n        if done:\n            print(\"episode: {}/{}, score: {}\".format(e, episodes, time))\n            break\n\n\n        if len(agent.memory) > batch_size:\n            agent.replay(batch_size)\nThe agent plays a number of episodes of the game, choosing actions via its act method, remembering the resulting experiences, and learning from its memory by replaying experiences. The game resets when the pole falls over, giving the agent negative rewards as a penalty.\nIn this tutorial, we went over a more advanced concept in reinforcement learning, including policy gradient methods like REINFORCE and value-based methods like DQN. These methods use neural networks to learn directly from high-dimensional sensory inputs, and have achieved superhuman performance in complex tasks like playing video games and controlling robots.\n\n\n\n\nReinforcement learning is a powerful approach for tasks that involve sequential decision-making. This tutorial presented the fundamental concepts of RL and walked through an example of how to implement Q-Learning, a simple but powerful RL algorithm, in Python and R. Remember that the RL field is vast and complex, this is just the tip of the iceberg!\nThis tutorial is intended as a starting point. I encourage you to continue exploring more complex environments, policies, and algorithms as you continue your journey in reinforcement learning. Happy learning!"
+    "text": "Written in 2024. All examples use public data and are for learning only, not investment advice.\nSupervised learning predicts; reinforcement learning (RL) decides. An RL agent takes actions, observes the consequences and learns a policy that maximises long-run reward. That framing suits trading, hedging and storage decisions in commodities, where today’s action changes tomorrow’s position and costs.\nIn this tutorial we build tabular Q-learning from scratch on weekly raw sugar prices. It is deliberately simple, so every moving part is visible."
   },
   {
     "objectID": "Tutorials/RLStocks.html",
     "href": "Tutorials/RLStocks.html",
-    "title": "Dr Juan Beltran",
+    "title": "RL and Trading in Futures Markets 101: A Deep Q-Network for Cocoa",
     "section": "",
-    "text": "In this tutorial we will focus on using machine learning techniques, particularly reinforcement learning, for trading in financial markets. The goal will be to build a trading agent that learns to maximize total profit over a given period.\nWe will be using the OpenAI Gym’s environment model, so if you are not already familiar with it, you can check the previous tutorials.\n\n\nBefore we can train an agent, we need to set up the trading environment. We’ll use pandas_datareader to download historical stock price data from Yahoo Finance.\nFirst, let’s install the required libraries.\npip install gym pandas_datareader yfinance\nNext, we can import the required libraries:\nimport gym\nfrom gym import spaces\nimport numpy as np\nimport pandas as pd\nfrom pandas_datareader import data as pdr\nimport yfinance as yf\nyf.pdr_override()\nNext, let’s define our custom trading environment. The environment will have a continuous action space representing the proportion of our portfolio to invest in the stock. A positive action value indicates a long position, while a negative action value indicates a short position. The state will be the latest stock price and the current portfolio value.\nclass TradingEnv(gym.Env):\n    def __init__(self, stock_symbol, start_date, end_date, initial_balance=10000):\n        super(TradingEnv, self).__init__()\n\n        # Load data\n        self.stock_data = pdr.get_data_yahoo(stock_symbol, start=start_date, end=end_date)\n        self.stock_prices = self.stock_data['Adj Close'].values\n        self.initial_balance = initial_balance\n        self.n_steps = len(self.stock_prices)\n\n        # Define action and state space\n        # They must be gym.spaces objects\n        # Example when using discrete actions:\n        # self.action_space = spaces.Discrete(N_DISCRETE_ACTIONS)\n        self.action_space = spaces.Box(low=-1, high=1, shape=(1,))\n        self.observation_space = spaces.Box(low=0, shape=(2,))\n\n    def step(self, action):\n        # Execute one time step within the environment\n        pass\n\n    def reset(self):\n        # Reset the state of the environment to an initial state\n        pass\n\n    def render(self, mode='human'):\n        # Render the environment to the screen\n        pass\n\n\n\nThe trading agent will be implemented using a DQN (Deep Q-Network) similar to the one we used for playing the CartPole game. The agent will be trained to maximize the total rewards, which are defined as the change in portfolio value.\nimport random\nfrom keras.models import Sequential\nfrom keras.layers import Dense\nfrom keras.optimizers import Adam\nfrom collections import deque\n\nclass DQNAgent:\n    def __init__(self, state_size, action_size):\n        self.state_size = state_size\n        self.action_size = action_size\n        self.memory = deque(maxlen=2000)\n        self.gamma = 0.95  # discount rate\n        self.epsilon = 1.0  # exploration rate\n        self.epsilon_min = 0.01\n        self.epsilon_decay = 0.995\n        self.learning_rate = 0.001\n        self.model = self._build_model()\n\n    def _build_model(self):\n        # Neural network for Deep-Q learning Model\n        model = Sequential()\n        model.add(Dense(24, input_dim=self.state_size, activation='relu'))\n        model.add(Dense(24, activation='relu'))\n        model.add(Dense(self.action_size, activation='linear'))\n        model\n\n.compile(loss='mse', optimizer=Adam(lr=self.learning_rate))\n        return model\n\n    # Other methods like `remember`, `act`, `replay` would be similar to what we defined earlier in the CartPole example\n\n\n\nFinally, we can create an instance of our trading environment and our DQN agent, and train the agent using historical data. The agent learns by observing the outcome of its actions, remembering them, and learning from the experiences.\n# Specify the stock symbol and date range\nstock_symbol = 'AAPL'\nstart_date = '2015-01-01'\nend_date = '2020-12-31'\n\n# Create the trading environment\nenv = TradingEnv(stock_symbol, start_date, end_date)\n\n# Create the DQN agent\nagent = DQNAgent(env.observation_space.shape[0], env.action_space.shape[0])\n\n# Training the agent\nepisodes = 100\nfor e in range(episodes):\n    state = env.reset()\n    state = np.reshape(state, [1, agent.state_size])\n    for time in range(env.n_steps):\n        action = agent.act(state)\n        next_state, reward, done, _ = env.step(action)\n        reward = reward if not done else -10\n        next_state = np.reshape(next_state, [1, agent.state_size])\n        agent.remember(state, action, reward, next_state, done)\n        state = next_state\n        if done:\n            print(\"episode: {}/{}, score: {}\".format(e, episodes, time))\n            break\n        if len(agent.memory) > batch_size:\n            agent.replay(batch_size)\nNote that the trading environment and DQN agent are not fully implemented in this tutorial. The step, reset, and render methods in the TradingEnv class and the remember, act, and replay methods in the DQNAgent class need to be implemented similar to the CartPole example.\nAlso, note that this is a very simplified model that doesn’t take into account transaction costs, uses only the price data to make decisions, and assumes that the agent can trade any fractional amount of the stock, which might not be possible in real-world trading scenarios.\nFinally, remember that this model is trained entirely on historical data, and as the common saying in finance goes, “past performance is not indicative of future results”. Therefore, caution should be taken when using reinforcement learning models for actual trading."
+    "text": "Written in 2024. All examples use public data and are for learning only, not investment advice.\nIn Reinforcement Learning 101 we used a Q-table with 18 states. Here we replace the table with a neural network, a Deep Q-Network (DQN), so the agent can observe many continuous features at once. We build a custom trading environment for ICE cocoa futures with the gymnasium API and train a DQN with stable-baselines3.\nCocoa is a demanding test case: the 2023/24 season delivered the largest rally in the market’s history, with prices above $10,000/t in April 2024. Any agent trained on the decade before will face conditions it has never seen."
   },
   {
     "objectID": "Tutorials/SQL.html",
     "href": "Tutorials/SQL.html",
-    "title": "Dr Juan Beltran",
+    "title": "SQL 101: Building a Softs Market Database",
     "section": "",
-    "text": "SQL 101\nIntroduction\nStructured Query Language (SQL) is a standardized programming language used for managing relational databases and performing various operations on the data in them. This tutorial will guide you through the basics to advanced SQL commands.\n\nPart I: SQL Basics\n1.1 Setting Up\nFirst, we need to set up a database. For this tutorial, we’ll be using SQLite, a software library that provides a relational database management system.\nYou can install SQLite from its official website. After installation, you can interact with SQLite via the command-line shell.\n1.2 Creating a Database\nTo create a database in SQLite, you use the following command:\nsqlite3 TestDB.db\nThis command creates a new database named TestDB.db. If the database exists, it opens the database.\n1.3 Creating a Table\nTo create a table in SQL, we use the CREATE TABLE statement.\nCREATE TABLE Employees (\n    ID int,\n    Name text,\n    Age int,\n    Salary real\n);\nThis creates a table named Employees with four columns: ID, Name, Age, and Salary.\n1.4 Inserting Data\nWe can insert data into the table using the INSERT INTO statement.\nINSERT INTO Employees (ID, Name, Age, Salary) \nVALUES (1, 'John Doe', 30, 50000.00 );\nThis command inserts a new row into the Employees table.\n1.5 Querying Data\nYou can retrieve data using the SELECT statement.\nSELECT * FROM Employees;\nThis command selects all records from the Employees table.\n\nPart II: Intermediate SQL\n2.1 Updating Data\nYou can update existing records using the UPDATE statement.\nUPDATE Employees\nSET Salary = 55000.00\nWHERE ID = 1;\nThis command updates the salary of the employee with ID 1.\n2.2 Deleting Data\nYou can delete records using the DELETE statement.\nDELETE FROM Employees WHERE ID = 1;\nThis command deletes the employee with ID 1.\n2.3 Ordering Data\nYou can sort the result set using the ORDER BY keyword.\nSELECT * FROM Employees ORDER BY Salary DESC;\nThis command selects all employees and orders them by Salary in descending order.\n\nPart III: Advanced SQL\n3.1 Joins\nSQL joins are used to combine rows from two or more tables.\nSELECT Employees.Name, Orders.OrderID\nFROM Employees\nINNER JOIN Orders ON Employees.ID = Orders.EmployeeID;\nThis INNER JOIN keyword selects records that have matching values in both tables.\n3.2 Aggregate Functions\nSQL aggregate functions return a single value, calculated from values in a column.\nSELECT AVG(Salary) AS AverageSalary FROM Employees;\nThis command calculates the average salary of all employees.\n3.3 Group By\nThe GROUP BY statement groups rows that have the same values in specified columns into aggregated data.\nSELECT COUNT(ID), Age\nFROM Employees\nGROUP BY Age;\nThis command counts the number of employees of each age.\n3.4 Subquery\nA Subquery or Inner query or Nested query is a query within another SQL query.\nSELECT Name \nFROM Employees\nWHERE Salary > (SELECT AVG(Salary) FROM Employees);\nThis command finds employees who earn more than the average\nsalary.\n\nConclusion\nSQL is a powerful language with vast capabilities in managing and manipulating data in relational databases. With a solid understanding of SQL, from basics to advanced topics, you’ll be well-equipped to handle any data thrown your way!"
+    "text": "Written in 2024. All examples use public data and are for learning only, not investment advice.\nEvery serious commodities desk sits on top of a database: futures prices, physical differentials, weather, shipments, positioning. Before any model, you need to be able to store and query that data cleanly. In this tutorial we build a small SQLite database for the four main softs (cocoa, coffee, sugar and cotton) and learn the core SQL commands along the way."
   },
   {
     "objectID": "Tutorials/xgboost.html",
     "href": "Tutorials/xgboost.html",
-    "title": "Dr Juan Beltran",
+    "title": "XGBoost 101: Cocoa, Weather and the Curve",
     "section": "",
-    "text": "XGBoost - Understanding, Implementing, and Optimizing\nIntroduction:\nXGBoost, short for eXtreme Gradient Boosting, is an optimized and scalable machine learning system for tree boosting. In this tutorial, we’ll explore the workings of XGBoost, when it’s a good choice, its parameters and hyperparameters, and how to implement and optimize it in Python.\n\nPart I: Understanding XGBoost\n1.1: What is XGBoost?\nXGBoost is an ensemble learning method that applies the principle of gradient boosting to decision trees. It’s recognized for its execution speed and model performance, which have made it a favorite tool among Kaggle competition winners.\n1.2: When to Use XGBoost\nXGBoost is a great choice when dealing with numerical or mixed data types, and when prediction accuracy is a major concern. It can handle both regression and classification problems, but it might be overkill for simple problems where a simpler model could work better.\n\nPart II: Parameters and Hyperparameters of XGBoost\n2.1: Main Parameters\n\nn_estimators: The number of gradient boosted trees. Equivalent to number of boosting rounds.\nmax_depth: Maximum tree depth for base learners.\nlearning_rate: Boosting learning rate (also known as eta).\ngamma: Minimum loss reduction required to make a further partition on a leaf node of the tree.\n\n2.2: Hyperparameters\nJust like with Random Forests, the parameters listed above are hyperparameters, meaning they are set before the learning process begins.\n\nPart III: Implementing XGBoost in Python\nimport xgboost as xgb\n\n# Instantiate the XGBClassifier\nxgb_clf = xgb.XGBClassifier(n_estimators=100, learning_rate=0.1, max_depth=5)\n\n# Fit the classifier to the training set\nxgb_clf.fit(X_train, y_train)\n\n# Predict the labels of the test set\ny_pred = xgb_clf.predict(X_test)\n\nPart IV: Optimizing XGBoost\nOptimizing XGBoost involves tuning its hyperparameters to get the best performance for a specific dataset. We can again use techniques like Grid Search and Randomized Search.\n4.1: Grid Search Example\nfrom sklearn.model_selection import GridSearchCV\n\n# Define the parameter grid\nparam_grid = {\n    'n_estimators': [100, 200, 300, 500],\n    'learning_rate': [0.01, 0.1, 0.2],\n    'max_depth' : [4,5,6,7,8],\n    'gamma': [0, 0.1, 0.2]\n}\n\n# Create a based model\nxgb_clf = xgb.XGBClassifier()\n\n# Instantiate the grid search model\ngrid_search = GridSearchCV(estimator = xgb_clf, param_grid = param_grid, cv = 3)\n\n# Fit the grid search to the data\ngrid_search.fit(X_train, y_train)\n\n# Get the best parameters\nbest_params = grid_search.best_params_\n\nConclusion:\nXGBoost is a powerful machine learning algorithm that excels in many contexts, particularly where accuracy is paramount. Understanding the ins and outs of XGBoost, knowing how to implement it in Python, and being able to optimize its hyperparameters are essential skills for any data scientist or machine learning engineer."
+    "text": "Written in 2024. All examples use public data and are for learning only, not investment advice.\nGradient boosting builds trees one after another, each correcting the errors of the previous ones. XGBoost is the best-known implementation: fast, regularised and usually the strongest model on tabular data.\nIn this tutorial we predict the monthly direction of cocoa prices and see whether West African weather adds information beyond price momentum. The 2023/24 cocoa season, with record prices, makes a hard but instructive test."
   },
   {
     "objectID": "tutorials.html",
@@ -299,5 +299,712 @@
     "title": "Projects",
     "section": "Selected projects at ECOM Trading (2019 – 2024)",
     "text": "Selected projects at ECOM Trading (2019 – 2024)\n\nPredicting Market Direction for Cocoa Futures\nBased on supply and demand data as well as key weather events I built time series models in order to predict the direction of price changes in futures contracts for cocoa in London and New York. I used prophet library and Keras, using recurrent neural networks. This model was used by ECOM traders on a daily basis.\n\n\nPredicting Cocoa Production\nIn this project I used climatic variables to predict the yield of two crop seasons for cocoa in Côte d’Ivoire. The model was a series of ensemble models that weighted the anomalies for each week/month and adjusted the forecast. The predictions were tested over four seasons with accurate results, even with models with early information.\n\n\nPredicting loss of suitability of coffee and cocoa due to climate change\nClimate change is having a major impact on the production of cocoa and coffee around the world. I used several models (Random Forest, Neural Networks and XGBoost) to model the current suitability of cocoa and coffee using several climatic variables. Once the model was calibrated on current conditions, the predictions were applied to future conditions to understand either the expansion or contraction of the areas of production that are suitable today. The results helped to develop the priorities to mitigate dramatic changes in the tropics.\n\n\nAmex Default Prediction\nI used this data to train junior peers to show them how to use different classification methods to extract value of large datasets. The data came from a Kaggle competition. I used gradient boosting decision trees. Specifically, I trained and evaluated the LGBMClassifier, XGBClassifier and the CatBoostClassifier models with gold standard results in the context of the competition to successfully identify whether a customer would default on their repayments of credit."
+  },
+  {
+    "objectID": "Tutorials/SQL.html#setting-up",
+    "href": "Tutorials/SQL.html#setting-up",
+    "title": "SQL 101: Building a Softs Market Database",
+    "section": "1. Setting up",
+    "text": "1. Setting up\nSQLite needs no server. In Python it comes built in:\nimport sqlite3\ncon = sqlite3.connect(\"softs.db\")\ncur = con.cursor()\nYou can also use the command line (sqlite3 softs.db) or a GUI such as DB Browser for SQLite. Every SQL block below can be run with cur.execute(\"\"\"...\"\"\")."
+  },
+  {
+    "objectID": "Tutorials/SQL.html#designing-the-tables",
+    "href": "Tutorials/SQL.html#designing-the-tables",
+    "title": "SQL 101: Building a Softs Market Database",
+    "section": "2. Designing the tables",
+    "text": "2. Designing the tables\nWe will keep three tables:\n\ncontracts: one row per futures market (what it is, where it trades, its unit).\nprices: daily settlement prices.\nexports: monthly exports by origin country.\n\nCREATE TABLE contracts (\n    symbol      TEXT PRIMARY KEY,   -- e.g. 'CC'\n    commodity   TEXT NOT NULL,      -- 'Cocoa'\n    exchange    TEXT NOT NULL,      -- 'ICE US'\n    unit        TEXT NOT NULL       -- 'USD/tonne'\n);\n\nCREATE TABLE prices (\n    symbol      TEXT NOT NULL REFERENCES contracts(symbol),\n    date        DATE NOT NULL,\n    settle      REAL NOT NULL,\n    volume      INTEGER,\n    PRIMARY KEY (symbol, date)\n);\n\nCREATE TABLE exports (\n    origin      TEXT NOT NULL,      -- 'Côte d''Ivoire'\n    commodity   TEXT NOT NULL,\n    month       DATE NOT NULL,      -- first day of the month\n    tonnes      REAL NOT NULL,\n    PRIMARY KEY (origin, commodity, month)\n);\nThe composite primary keys stop you loading the same day or month twice, which is the most common data bug on a research desk."
+  },
+  {
+    "objectID": "Tutorials/SQL.html#inserting-data",
+    "href": "Tutorials/SQL.html#inserting-data",
+    "title": "SQL 101: Building a Softs Market Database",
+    "section": "3. Inserting data",
+    "text": "3. Inserting data\nINSERT INTO contracts VALUES\n  ('CC', 'Cocoa',          'ICE US', 'USD/tonne'),\n  ('KC', 'Coffee Arabica', 'ICE US', 'USc/lb'),\n  ('SB', 'Sugar No.11',    'ICE US', 'USc/lb'),\n  ('CT', 'Cotton No.2',    'ICE US', 'USc/lb');\nIn practice you load prices in bulk. A quick way to get continuous front-month prices for learning purposes is yfinance, then push the DataFrame into SQLite with pandas:\nimport yfinance as yf\n\ntickers = {\"CC\": \"CC=F\", \"KC\": \"KC=F\", \"SB\": \"SB=F\", \"CT\": \"CT=F\"}\nframes = []\nfor sym, tk in tickers.items():\n    df = yf.download(tk, start=\"2015-01-01\", end=\"2024-06-30\")[[\"Close\", \"Volume\"]]\n    df = df.reset_index().rename(columns={\"Date\": \"date\", \"Close\": \"settle\", \"Volume\": \"volume\"})\n    df[\"symbol\"] = sym\n    frames.append(df)\n\nimport pandas as pd\nprices = pd.concat(frames)\nprices.to_sql(\"prices\", con, if_exists=\"append\", index=False)\nContinuous front-month series jump at every roll, so treat them as illustrative. For real analysis you would store individual contract months (e.g. CCN24) and build your own roll-adjusted series.\nFor exports, national statistics, the ICCO and the ICO publish monthly or quarterly figures; load them the same way with to_sql."
+  },
+  {
+    "objectID": "Tutorials/SQL.html#querying",
+    "href": "Tutorials/SQL.html#querying",
+    "title": "SQL 101: Building a Softs Market Database",
+    "section": "4. Querying",
+    "text": "4. Querying\nThe latest cocoa prices:\nSELECT date, settle\nFROM prices\nWHERE symbol = 'CC'\nORDER BY date DESC\nLIMIT 10;\nFiltering with conditions: every day in 2024 when cocoa settled above $10,000/t (it did, for the first time ever, in the spring of 2024):\nSELECT date, settle\nFROM prices\nWHERE symbol = 'CC'\n  AND date >= '2024-01-01'\n  AND settle > 10000;"
+  },
+  {
+    "objectID": "Tutorials/SQL.html#aggregating",
+    "href": "Tutorials/SQL.html#aggregating",
+    "title": "SQL 101: Building a Softs Market Database",
+    "section": "5. Aggregating",
+    "text": "5. Aggregating\nAverage yearly price and volume per market:\nSELECT symbol,\n       strftime('%Y', date)  AS year,\n       ROUND(AVG(settle), 2) AS avg_settle,\n       SUM(volume)           AS total_volume\nFROM prices\nGROUP BY symbol, year\nORDER BY symbol, year;\nHAVING filters after aggregation. Years in which arabica averaged above 200 USc/lb:\nSELECT strftime('%Y', date) AS year, AVG(settle) AS avg_settle\nFROM prices\nWHERE symbol = 'KC'\nGROUP BY year\nHAVING AVG(settle) > 200;"
+  },
+  {
+    "objectID": "Tutorials/SQL.html#joining-tables",
+    "href": "Tutorials/SQL.html#joining-tables",
+    "title": "SQL 101: Building a Softs Market Database",
+    "section": "6. Joining tables",
+    "text": "6. Joining tables\nJoins let you put context next to the numbers:\nSELECT c.commodity, c.unit, p.date, p.settle\nFROM prices p\nJOIN contracts c ON c.symbol = p.symbol\nWHERE p.date = (SELECT MAX(date) FROM prices);\nTotal cocoa exports by origin for the 2022/23 season (October to September):\nSELECT origin, ROUND(SUM(tonnes) / 1000, 1) AS kt\nFROM exports\nWHERE commodity = 'Cocoa'\n  AND month BETWEEN '2022-10-01' AND '2023-09-01'\nGROUP BY origin\nORDER BY kt DESC;\nNote that softs run on crop years, not calendar years: cocoa and coffee seasons usually start in October. Getting the season boundaries right is half the job."
+  },
+  {
+    "objectID": "Tutorials/SQL.html#updating-and-deleting",
+    "href": "Tutorials/SQL.html#updating-and-deleting",
+    "title": "SQL 101: Building a Softs Market Database",
+    "section": "7. Updating and deleting",
+    "text": "7. Updating and deleting\n-- correct a bad print\nUPDATE prices SET settle = 7845 WHERE symbol = 'CC' AND date = '2024-03-01';\n\n-- remove a duplicated load\nDELETE FROM exports WHERE origin = 'Ghana' AND month = '2023-01-01';\nAlways run the matching SELECT first, so you can see exactly which rows will change."
+  },
+  {
+    "objectID": "Tutorials/SQL.html#next-steps",
+    "href": "Tutorials/SQL.html#next-steps",
+    "title": "SQL 101: Building a Softs Market Database",
+    "section": "Next steps",
+    "text": "Next steps\nIn Advanced SQL we use window functions to compute moving averages, calendar spreads and year-on-year export changes directly in the database."
+  },
+  {
+    "objectID": "Tutorials/advSQL.html#window-functions-moving-averages",
+    "href": "Tutorials/advSQL.html#window-functions-moving-averages",
+    "title": "Advanced SQL: Market Analytics in the Database",
+    "section": "1. Window functions: moving averages",
+    "text": "1. Window functions: moving averages\nA 20-day and 100-day moving average for cocoa:\nSELECT date,\n       settle,\n       AVG(settle) OVER (ORDER BY date ROWS BETWEEN 19 PRECEDING AND CURRENT ROW)  AS ma20,\n       AVG(settle) OVER (ORDER BY date ROWS BETWEEN 99 PRECEDING AND CURRENT ROW)  AS ma100\nFROM prices\nWHERE symbol = 'CC'\nORDER BY date;\nPARTITION BY runs the same calculation separately for each market:\nSELECT symbol, date, settle,\n       AVG(settle) OVER (PARTITION BY symbol ORDER BY date\n                         ROWS BETWEEN 19 PRECEDING AND CURRENT ROW) AS ma20\nFROM prices;"
+  },
+  {
+    "objectID": "Tutorials/advSQL.html#returns-and-volatility-with-lag",
+    "href": "Tutorials/advSQL.html#returns-and-volatility-with-lag",
+    "title": "Advanced SQL: Market Analytics in the Database",
+    "section": "2. Returns and volatility with LAG",
+    "text": "2. Returns and volatility with LAG\nWITH r AS (\n  SELECT symbol, date, settle,\n         LN(settle / LAG(settle) OVER (PARTITION BY symbol ORDER BY date)) AS log_ret\n  FROM prices\n)\nSELECT symbol, strftime('%Y', date) AS year,\n       ROUND(SQRT(252) * SQRT(AVG(log_ret * log_ret) - AVG(log_ret) * AVG(log_ret)), 3) AS ann_vol\nFROM r\nWHERE log_ret IS NOT NULL\nGROUP BY symbol, year\nORDER BY symbol, year;\n(SQLite needs its math extension for LN and SQRT; recent Python builds include it.) Run this and the 2024 cocoa row stands out: the 2023/24 rally came with volatility far above anything in the previous decade."
+  },
+  {
+    "objectID": "Tutorials/advSQL.html#common-table-expressions-for-readable-logic",
+    "href": "Tutorials/advSQL.html#common-table-expressions-for-readable-logic",
+    "title": "Advanced SQL: Market Analytics in the Database",
+    "section": "3. Common table expressions for readable logic",
+    "text": "3. Common table expressions for readable logic\nCTEs (WITH ...) break long queries into named steps. Here we flag days when cocoa moved more than three rolling standard deviations, a simple anomaly alert:\nWITH r AS (\n  SELECT date, settle,\n         settle / LAG(settle) OVER (ORDER BY date) - 1 AS ret\n  FROM prices WHERE symbol = 'CC'\n),\ns AS (\n  SELECT date, settle, ret,\n         AVG(ret) OVER w AS mu,\n         SQRT(AVG(ret * ret) OVER w - AVG(ret) OVER w * AVG(ret) OVER w) AS sd\n  FROM r\n  WINDOW w AS (ORDER BY date ROWS BETWEEN 60 PRECEDING AND 1 PRECEDING)\n)\nSELECT date, settle, ROUND(ret * 100, 2) AS pct_move\nFROM s\nWHERE ABS(ret - mu) > 3 * sd\nORDER BY date DESC;\nNote the window ends at 1 PRECEDING, so today’s move is compared with history only. Letting today leak into its own baseline is a classic mistake."
+  },
+  {
+    "objectID": "Tutorials/advSQL.html#calendar-spreads",
+    "href": "Tutorials/advSQL.html#calendar-spreads",
+    "title": "Advanced SQL: Market Analytics in the Database",
+    "section": "4. Calendar spreads",
+    "text": "4. Calendar spreads\nIf you store individual contract months (a contract column such as CCN24, CCU24), you can compute spreads with a self-join:\nSELECT a.date,\n       a.settle AS jul,\n       b.settle AS sep,\n       a.settle - b.settle AS jul_sep_spread\nFROM futures a\nJOIN futures b ON a.date = b.date\nWHERE a.contract = 'CCN24'\n  AND b.contract = 'CCU24'\nORDER BY a.date;\nA wide positive spread (backwardation) usually signals tight nearby supply, which is exactly what the cocoa curve showed through 2024."
+  },
+  {
+    "objectID": "Tutorials/advSQL.html#seasonal-comparisons",
+    "href": "Tutorials/advSQL.html#seasonal-comparisons",
+    "title": "Advanced SQL: Market Analytics in the Database",
+    "section": "5. Seasonal comparisons",
+    "text": "5. Seasonal comparisons\nExports this season versus last season, month by month:\nWITH s AS (\n  SELECT origin, month, tonnes,\n         CASE WHEN CAST(strftime('%m', month) AS INT) >= 10\n              THEN CAST(strftime('%Y', month) AS INT)\n              ELSE CAST(strftime('%Y', month) AS INT) - 1 END AS season_start\n  FROM exports\n  WHERE commodity = 'Cocoa'\n)\nSELECT cur.origin, cur.month, cur.tonnes,\n       prev.tonnes AS last_season,\n       ROUND(100.0 * (cur.tonnes - prev.tonnes) / prev.tonnes, 1) AS pct_change\nFROM s cur\nLEFT JOIN s prev\n  ON prev.origin = cur.origin\n AND prev.month  = date(cur.month, '-1 year')\nWHERE cur.season_start = 2023\nORDER BY cur.origin, cur.month;\nCumulative season-to-date totals with a running sum (reusing the same s CTE):\n-- WITH s AS (...) as above\nSELECT origin, month,\n       SUM(tonnes) OVER (PARTITION BY origin, season_start ORDER BY month) AS season_to_date\nFROM s;"
+  },
+  {
+    "objectID": "Tutorials/advSQL.html#ranking",
+    "href": "Tutorials/advSQL.html#ranking",
+    "title": "Advanced SQL: Market Analytics in the Database",
+    "section": "6. Ranking",
+    "text": "6. Ranking\nTop three origins per commodity by exports in a season:\nSELECT * FROM (\n  SELECT commodity, origin, SUM(tonnes) AS total,\n         RANK() OVER (PARTITION BY commodity ORDER BY SUM(tonnes) DESC) AS rnk\n  FROM exports\n  WHERE month BETWEEN '2022-10-01' AND '2023-09-01'\n  GROUP BY commodity, origin\n)\nWHERE rnk <= 3;"
+  },
+  {
+    "objectID": "Tutorials/advSQL.html#views-and-indexes",
+    "href": "Tutorials/advSQL.html#views-and-indexes",
+    "title": "Advanced SQL: Market Analytics in the Database",
+    "section": "7. Views and indexes",
+    "text": "7. Views and indexes\nSave logic you reuse as a view, and index the columns you filter on:\nCREATE VIEW v_cocoa_daily AS\nSELECT date, settle,\n       AVG(settle) OVER (ORDER BY date ROWS BETWEEN 19 PRECEDING AND CURRENT ROW) AS ma20\nFROM prices WHERE symbol = 'CC';\n\nCREATE INDEX idx_prices_symbol_date ON prices(symbol, date);\nCREATE INDEX idx_exports_origin_month ON exports(origin, month);"
+  },
+  {
+    "objectID": "Tutorials/advSQL.html#transactions",
+    "href": "Tutorials/advSQL.html#transactions",
+    "title": "Advanced SQL: Market Analytics in the Database",
+    "section": "8. Transactions",
+    "text": "8. Transactions\nLoad each day’s data inside a transaction, so a failed load never leaves half a day in the table:\nBEGIN;\nINSERT INTO prices (symbol, date, settle, volume) VALUES ('KC', '2024-06-28', 226.25, 31000);\n-- ... the rest of the day's rows\nCOMMIT;   -- or ROLLBACK; if anything failed"
+  },
+  {
+    "objectID": "Tutorials/advSQL.html#next-steps",
+    "href": "Tutorials/advSQL.html#next-steps",
+    "title": "Advanced SQL: Market Analytics in the Database",
+    "section": "Next steps",
+    "text": "Next steps\nWith clean, queryable data in place, the Regression 101 tutorial starts modelling what drives prices."
+  },
+  {
+    "objectID": "Tutorials/Regression.html#setting-up",
+    "href": "Tutorials/Regression.html#setting-up",
+    "title": "Regression 101: What Drives Sugar Prices?",
+    "section": "1. Setting up",
+    "text": "1. Setting up\n!pip install yfinance pandas numpy scikit-learn matplotlib\nimport numpy as np\nimport pandas as pd\nimport yfinance as yf\nimport matplotlib.pyplot as plt"
+  },
+  {
+    "objectID": "Tutorials/Regression.html#getting-the-data",
+    "href": "Tutorials/Regression.html#getting-the-data",
+    "title": "Regression 101: What Drives Sugar Prices?",
+    "section": "2. Getting the data",
+    "text": "2. Getting the data\nWe use weekly front-month futures and currency prices from Yahoo Finance: sugar (SB=F), WTI crude (CL=F), USD/BRL (BRL=X) and the US dollar index (DX-Y.NYB).\ntickers = {\"sugar\": \"SB=F\", \"crude\": \"CL=F\", \"usdbrl\": \"BRL=X\", \"dxy\": \"DX-Y.NYB\"}\nraw = yf.download(list(tickers.values()), start=\"2010-01-01\", end=\"2024-06-30\", interval=\"1wk\")[\"Close\"]\nraw = raw.rename(columns={v: k for k, v in tickers.items()}).dropna()\nraw.tail()"
+  },
+  {
+    "objectID": "Tutorials/Regression.html#levels-or-returns",
+    "href": "Tutorials/Regression.html#levels-or-returns",
+    "title": "Regression 101: What Drives Sugar Prices?",
+    "section": "3. Levels or returns?",
+    "text": "3. Levels or returns?\nRegressing one price level on another almost always gives an impressive R² that means nothing: both series trend, so they look related even when they are not (a “spurious regression”). The safer approach is to model weekly percentage changes.\nrets = np.log(raw).diff().dropna()\nrets.corr().round(2)\nYou should see a negative correlation between sugar and USD/BRL, and a positive one between sugar and crude, in line with the story above."
+  },
+  {
+    "objectID": "Tutorials/Regression.html#train-and-test-split-in-time-order",
+    "href": "Tutorials/Regression.html#train-and-test-split-in-time-order",
+    "title": "Regression 101: What Drives Sugar Prices?",
+    "section": "4. Train and test split, in time order",
+    "text": "4. Train and test split, in time order\nNever shuffle time series. Train on the past, test on the most recent data:\nX = rets[[\"crude\", \"usdbrl\", \"dxy\"]]\ny = rets[\"sugar\"]\n\nsplit = int(len(rets) * 0.8)\nX_train, X_test = X.iloc[:split], X.iloc[split:]\ny_train, y_test = y.iloc[:split], y.iloc[split:]\n\nfrom sklearn.preprocessing import StandardScaler\nscaler = StandardScaler().fit(X_train)          # fit on training data only\nX_train_s, X_test_s = scaler.transform(X_train), scaler.transform(X_test)"
+  },
+  {
+    "objectID": "Tutorials/Regression.html#ordinary-least-squares",
+    "href": "Tutorials/Regression.html#ordinary-least-squares",
+    "title": "Regression 101: What Drives Sugar Prices?",
+    "section": "5. Ordinary least squares",
+    "text": "5. Ordinary least squares\nfrom sklearn.linear_model import LinearRegression\nfrom sklearn.metrics import r2_score, mean_absolute_error\n\nols = LinearRegression().fit(X_train_s, y_train)\npred = ols.predict(X_test_s)\n\nprint(dict(zip(X.columns, ols.coef_.round(4))))\nprint(\"Test R2:\", round(r2_score(y_test, pred), 3))\nFor proper inference (standard errors, p-values) use statsmodels:\nimport statsmodels.api as sm\nmodel = sm.OLS(y_train, sm.add_constant(X_train)).fit(cov_type=\"HAC\", cov_kwds={\"maxlags\": 4})\nprint(model.summary())\nThe HAC option corrects the standard errors for autocorrelation, which weekly commodity returns usually have.\nReading the result. These are contemporaneous relationships: they explain how sugar moves alongside the real and oil in the same week. They do not forecast next week. That is a useful distinction when someone shows you a model with a high R²."
+  },
+  {
+    "objectID": "Tutorials/Regression.html#lasso-ridge-and-elastic-net",
+    "href": "Tutorials/Regression.html#lasso-ridge-and-elastic-net",
+    "title": "Regression 101: What Drives Sugar Prices?",
+    "section": "6. Lasso, Ridge and Elastic Net",
+    "text": "6. Lasso, Ridge and Elastic Net\nRegularisation shrinks coefficients to fight overfitting, which matters as soon as you add many correlated drivers (other currencies, freight, fertiliser prices, weather indices).\nfrom sklearn.linear_model import Lasso, Ridge, ElasticNet\n\nfor name, m in {\"Lasso\": Lasso(alpha=0.001),\n                \"Ridge\": Ridge(alpha=1.0),\n                \"ElasticNet\": ElasticNet(alpha=0.001, l1_ratio=0.5)}.items():\n    m.fit(X_train_s, y_train)\n    print(name, dict(zip(X.columns, m.coef_.round(4))),\n          \"R2:\", round(r2_score(y_test, m.predict(X_test_s)), 3))\nLasso can set weak drivers exactly to zero, which makes it a handy first filter when you have dozens of candidate variables."
+  },
+  {
+    "objectID": "Tutorials/Regression.html#a-decision-tree",
+    "href": "Tutorials/Regression.html#a-decision-tree",
+    "title": "Regression 101: What Drives Sugar Prices?",
+    "section": "7. A decision tree",
+    "text": "7. A decision tree\nTrees capture non-linear effects, such as the ethanol link only mattering when oil is high enough for ethanol parity to bind.\nfrom sklearn.tree import DecisionTreeRegressor\ntree = DecisionTreeRegressor(max_depth=3, min_samples_leaf=30).fit(X_train, y_train)\nprint(\"Tree R2:\", round(r2_score(y_test, tree.predict(X_test)), 3))\nA shallow tree usually does no better than the linear model here, which is itself a finding: these macro relationships are close to linear in returns."
+  },
+  {
+    "objectID": "Tutorials/Regression.html#checking-stability",
+    "href": "Tutorials/Regression.html#checking-stability",
+    "title": "Regression 101: What Drives Sugar Prices?",
+    "section": "8. Checking stability",
+    "text": "8. Checking stability\nRelationships change. A rolling regression shows whether the real and oil still matter as much as they used to:\nfrom statsmodels.regression.rolling import RollingOLS\nroll = RollingOLS(rets[\"sugar\"], sm.add_constant(rets[[\"crude\", \"usdbrl\"]]), window=104).fit()\nroll.params[[\"crude\", \"usdbrl\"]].plot(title=\"Two-year rolling betas for sugar\")\nplt.axhline(0, color=\"grey\", lw=0.8)\nplt.show()\nIf the betas drift, a model trained on 2015 to 2020 can mislead you in 2024. Policy shocks such as India’s export restrictions in 2023 are exactly the kind of event that a macro regression cannot see."
+  },
+  {
+    "objectID": "Tutorials/Regression.html#next-steps",
+    "href": "Tutorials/Regression.html#next-steps",
+    "title": "Regression 101: What Drives Sugar Prices?",
+    "section": "Next steps",
+    "text": "Next steps\nIn Hyperparameters in regression P1 we tune these models properly, using cross-validation that respects time order."
+  },
+  {
+    "objectID": "Tutorials/Regression2.html#what-is-a-hyperparameter",
+    "href": "Tutorials/Regression2.html#what-is-a-hyperparameter",
+    "title": "Hyperparameters in Regression, Part 1: Tuning Without Look-Ahead",
+    "section": "1. What is a hyperparameter?",
+    "text": "1. What is a hyperparameter?\nA hyperparameter is set before training rather than learned from the data. In Lasso and Ridge, alpha controls how hard coefficients are pushed towards zero. Too small and the model overfits noise; too large and it ignores real drivers."
+  },
+  {
+    "objectID": "Tutorials/Regression2.html#why-ordinary-cross-validation-leaks",
+    "href": "Tutorials/Regression2.html#why-ordinary-cross-validation-leaks",
+    "title": "Hyperparameters in Regression, Part 1: Tuning Without Look-Ahead",
+    "section": "2. Why ordinary cross-validation leaks",
+    "text": "2. Why ordinary cross-validation leaks\nKFold(shuffle=True) mixes weeks from 2023 into the training set and then tests on 2016. The model has effectively seen the future. In markets this makes every model look better than it will ever be in live use.\nThe fix is TimeSeriesSplit, which always trains on the past and validates on the period that follows:\nfrom sklearn.model_selection import TimeSeriesSplit\ntscv = TimeSeriesSplit(n_splits=5, gap=1)   # gap avoids overlap at the boundary\n\nfor i, (tr, va) in enumerate(tscv.split(X_train)):\n    print(i, X_train.index[tr[0]].date(), \"to\", X_train.index[tr[-1]].date(),\n          \"| validate\", X_train.index[va[0]].date(), \"to\", X_train.index[va[-1]].date())"
+  },
+  {
+    "objectID": "Tutorials/Regression2.html#grid-search-with-a-pipeline",
+    "href": "Tutorials/Regression2.html#grid-search-with-a-pipeline",
+    "title": "Hyperparameters in Regression, Part 1: Tuning Without Look-Ahead",
+    "section": "3. Grid search with a pipeline",
+    "text": "3. Grid search with a pipeline\nPut the scaler inside a pipeline so it is refitted on each training fold. Scaling on the full sample is another quiet source of leakage.\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.preprocessing import StandardScaler\nfrom sklearn.linear_model import Lasso\nfrom sklearn.model_selection import GridSearchCV\nimport numpy as np\n\npipe = Pipeline([(\"scale\", StandardScaler()), (\"model\", Lasso(max_iter=10000))])\n\ngrid = GridSearchCV(\n    pipe,\n    param_grid={\"model__alpha\": np.logspace(-5, -1, 20)},\n    cv=tscv,\n    scoring=\"neg_mean_absolute_error\",\n)\ngrid.fit(X_train, y_train)\n\nprint(\"Best alpha:\", grid.best_params_)\nprint(\"CV MAE:\", -grid.best_score_)"
+  },
+  {
+    "objectID": "Tutorials/Regression2.html#randomised-search",
+    "href": "Tutorials/Regression2.html#randomised-search",
+    "title": "Hyperparameters in Regression, Part 1: Tuning Without Look-Ahead",
+    "section": "4. Randomised search",
+    "text": "4. Randomised search\nWhen there are several hyperparameters, sampling is faster than an exhaustive grid. Elastic Net has two:\nfrom sklearn.linear_model import ElasticNet\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom scipy.stats import loguniform, uniform\n\npipe = Pipeline([(\"scale\", StandardScaler()), (\"model\", ElasticNet(max_iter=10000))])\n\nrand = RandomizedSearchCV(\n    pipe,\n    param_distributions={\"model__alpha\": loguniform(1e-5, 1e-1),\n                         \"model__l1_ratio\": uniform(0, 1)},\n    n_iter=50, cv=tscv, scoring=\"neg_mean_absolute_error\", random_state=42,\n)\nrand.fit(X_train, y_train)\nprint(rand.best_params_)"
+  },
+  {
+    "objectID": "Tutorials/Regression2.html#final-check-on-untouched-data",
+    "href": "Tutorials/Regression2.html#final-check-on-untouched-data",
+    "title": "Hyperparameters in Regression, Part 1: Tuning Without Look-Ahead",
+    "section": "5. Final check on untouched data",
+    "text": "5. Final check on untouched data\nOnly after tuning do we look at the test period, once:\nfrom sklearn.metrics import mean_absolute_error\nbest = rand.best_estimator_\nprint(\"Test MAE:\", mean_absolute_error(y_test, best.predict(X_test)))\nIf test performance is much worse than cross-validated performance, the relationship has probably shifted, or the model was overfit. Both are common in softs, where regimes change with weather, policy and positioning."
+  },
+  {
+    "objectID": "Tutorials/Regression2.html#practical-tips",
+    "href": "Tutorials/Regression2.html#practical-tips",
+    "title": "Hyperparameters in Regression, Part 1: Tuning Without Look-Ahead",
+    "section": "6. Practical tips",
+    "text": "6. Practical tips\n\nChoose the metric that matches the use: MAE for typical error, directional accuracy if you care about the sign.\nPrefer simple models when cross-validated scores are close; they hold up better out of sample.\nRe-tune on a schedule (for example each quarter) rather than after every bad week."
+  },
+  {
+    "objectID": "Tutorials/Regression2.html#next-steps",
+    "href": "Tutorials/Regression2.html#next-steps",
+    "title": "Hyperparameters in Regression, Part 1: Tuning Without Look-Ahead",
+    "section": "Next steps",
+    "text": "Next steps\nPart 2 uses Bayesian optimisation with Hyperopt and moves to a richer cocoa dataset."
+  },
+  {
+    "objectID": "Tutorials/Regression3.html#why-cocoa-and-why-el-niño",
+    "href": "Tutorials/Regression3.html#why-cocoa-and-why-el-niño",
+    "title": "Hyperparameters in Regression, Part 2: Bayesian Optimisation on Cocoa",
+    "section": "1. Why cocoa and why El Niño?",
+    "text": "1. Why cocoa and why El Niño?\nAround 60% of the world’s cocoa comes from Côte d’Ivoire and Ghana. El Niño years tend to bring drier, hotter conditions to West Africa, and the strong 2023/24 El Niño coincided with poor crops, disease (swollen shoot) and the record rally of early 2024. The Oceanic Niño Index (ONI) is a free, monthly measure of El Niño, so it makes a natural candidate feature."
+  },
+  {
+    "objectID": "Tutorials/Regression3.html#data",
+    "href": "Tutorials/Regression3.html#data",
+    "title": "Hyperparameters in Regression, Part 2: Bayesian Optimisation on Cocoa",
+    "section": "2. Data",
+    "text": "2. Data\n\nCocoa prices: World Bank “Pink Sheet” monthly commodity prices (CMO-Historical-Data-Monthly.xlsx, free from the World Bank Commodity Markets page).\nONI: NOAA Climate Prediction Center, oni.ascii.txt.\n\nimport numpy as np\nimport pandas as pd\n\n# World Bank Pink Sheet (download the file first)\nwb = pd.read_excel(\"CMO-Historical-Data-Monthly.xlsx\", sheet_name=\"Monthly Prices\", skiprows=4)\nwb = wb.rename(columns={wb.columns[0]: \"month\"})\nwb = wb[wb[\"month\"].astype(str).str.match(r\"^\\d{4}M\\d{2}$\")]\nwb[\"month\"] = pd.to_datetime(wb[\"month\"].str.replace(\"M\", \"-\"), format=\"%Y-%m\")\ncocoa = wb.set_index(\"month\")[\"Cocoa\"].astype(float)\n\n# NOAA ONI: three-month seasons, value assigned to the centre month\noni = pd.read_csv(\"https://www.cpc.ncep.noaa.gov/data/indices/oni.ascii.txt\", sep=r\"\\s+\")\nseason_to_month = {\"DJF\": 1, \"JFM\": 2, \"FMA\": 3, \"MAM\": 4, \"AMJ\": 5, \"MJJ\": 6,\n                   \"JJA\": 7, \"JAS\": 8, \"ASO\": 9, \"SON\": 10, \"OND\": 11, \"NDJ\": 12}\noni[\"month\"] = pd.to_datetime(dict(year=oni[\"YR\"], month=oni[\"SEAS\"].map(season_to_month), day=1))\noni = oni.set_index(\"month\")[\"ANOM\"]"
+  },
+  {
+    "objectID": "Tutorials/Regression3.html#features-without-look-ahead",
+    "href": "Tutorials/Regression3.html#features-without-look-ahead",
+    "title": "Hyperparameters in Regression, Part 2: Bayesian Optimisation on Cocoa",
+    "section": "3. Features without look-ahead",
+    "text": "3. Features without look-ahead\ndf = pd.DataFrame({\"cocoa\": cocoa, \"oni\": oni}).dropna()\ndf[\"ret\"] = np.log(df[\"cocoa\"]).diff()\n\nfeats = pd.DataFrame(index=df.index)\nfor lag in (1, 3, 6):\n    feats[f\"oni_lag{lag}\"] = df[\"oni\"].shift(lag)      # ONI is published with a delay\nfeats[\"mom_3m\"]  = df[\"ret\"].rolling(3).sum().shift(1)\nfeats[\"mom_12m\"] = df[\"ret\"].rolling(12).sum().shift(1)\nfeats[\"vol_6m\"]  = df[\"ret\"].rolling(6).std().shift(1)\n\ntarget = df[\"ret\"].shift(-1)          # next month's return\ndata = feats.join(target.rename(\"y\")).dropna()\n\ntrain = data.loc[:\"2019-12\"]\ntest  = data.loc[\"2020-01\":]\nX_train, y_train = train.drop(columns=\"y\"), train[\"y\"]\nX_test,  y_test  = test.drop(columns=\"y\"),  test[\"y\"]\nEvery feature uses only information available before the month we predict. Getting this right matters far more than the choice of model."
+  },
+  {
+    "objectID": "Tutorials/Regression3.html#the-objective-function",
+    "href": "Tutorials/Regression3.html#the-objective-function",
+    "title": "Hyperparameters in Regression, Part 2: Bayesian Optimisation on Cocoa",
+    "section": "4. The objective function",
+    "text": "4. The objective function\nHyperopt minimises a function. We return time-series cross-validated error for a gradient boosting model:\nfrom hyperopt import fmin, tpe, hp, Trials, STATUS_OK\nfrom sklearn.ensemble import GradientBoostingRegressor\nfrom sklearn.model_selection import TimeSeriesSplit, cross_val_score\n\ntscv = TimeSeriesSplit(n_splits=5)\n\ndef objective(params):\n    model = GradientBoostingRegressor(\n        n_estimators=int(params[\"n_estimators\"]),\n        max_depth=int(params[\"max_depth\"]),\n        learning_rate=params[\"learning_rate\"],\n        subsample=params[\"subsample\"],\n        random_state=0,\n    )\n    mae = -cross_val_score(model, X_train, y_train, cv=tscv,\n                           scoring=\"neg_mean_absolute_error\").mean()\n    return {\"loss\": mae, \"status\": STATUS_OK}"
+  },
+  {
+    "objectID": "Tutorials/Regression3.html#the-search-space",
+    "href": "Tutorials/Regression3.html#the-search-space",
+    "title": "Hyperparameters in Regression, Part 2: Bayesian Optimisation on Cocoa",
+    "section": "5. The search space",
+    "text": "5. The search space\nspace = {\n    \"n_estimators\":  hp.quniform(\"n_estimators\", 50, 500, 25),\n    \"max_depth\":     hp.quniform(\"max_depth\", 1, 4, 1),\n    \"learning_rate\": hp.loguniform(\"learning_rate\", np.log(0.005), np.log(0.2)),\n    \"subsample\":     hp.uniform(\"subsample\", 0.5, 1.0),\n}\n\ntrials = Trials()\nbest = fmin(objective, space, algo=tpe.suggest, max_evals=100, trials=trials,\n            rstate=np.random.default_rng(42))\nprint(best)\nShallow trees (depth 1 or 2) usually win on monthly commodity data, because there are only a few hundred observations."
+  },
+  {
+    "objectID": "Tutorials/Regression3.html#compare-with-a-naive-benchmark",
+    "href": "Tutorials/Regression3.html#compare-with-a-naive-benchmark",
+    "title": "Hyperparameters in Regression, Part 2: Bayesian Optimisation on Cocoa",
+    "section": "6. Compare with a naive benchmark",
+    "text": "6. Compare with a naive benchmark\nAlways compare a forecast with something simple. For returns, the honest benchmark is zero (no change):\nfrom sklearn.metrics import mean_absolute_error\n\nfinal = GradientBoostingRegressor(n_estimators=int(best[\"n_estimators\"]),\n                                  max_depth=int(best[\"max_depth\"]),\n                                  learning_rate=best[\"learning_rate\"],\n                                  subsample=best[\"subsample\"], random_state=0)\nfinal.fit(X_train, y_train)\n\npred = final.predict(X_test)\nprint(\"Model MAE:\", mean_absolute_error(y_test, pred))\nprint(\"Zero MAE: \", mean_absolute_error(y_test, np.zeros_like(y_test)))\nprint(\"Hit rate: \", (np.sign(pred) == np.sign(y_test)).mean())\nExpect the model to struggle in the test period: 2023/24 was outside anything in the training data. That is the real lesson. Weather indices can help, but supply shocks of this size are why fundamental analysis (crop surveys, arrivals, grindings, disease) matters alongside models."
+  },
+  {
+    "objectID": "Tutorials/Regression3.html#looking-inside-the-trials",
+    "href": "Tutorials/Regression3.html#looking-inside-the-trials",
+    "title": "Hyperparameters in Regression, Part 2: Bayesian Optimisation on Cocoa",
+    "section": "7. Looking inside the trials",
+    "text": "7. Looking inside the trials\nimport matplotlib.pyplot as plt\nlosses = [t[\"result\"][\"loss\"] for t in trials.trials]\nplt.plot(np.minimum.accumulate(losses))\nplt.xlabel(\"Trial\"); plt.ylabel(\"Best CV MAE so far\")\nplt.show()\nIf the curve flattens after 30 trials, extra evaluations are not buying you anything."
+  },
+  {
+    "objectID": "Tutorials/Regression3.html#next-steps",
+    "href": "Tutorials/Regression3.html#next-steps",
+    "title": "Hyperparameters in Regression, Part 2: Bayesian Optimisation on Cocoa",
+    "section": "Next steps",
+    "text": "Next steps\nRandom Forest 101 switches from predicting the size of a move to predicting its direction."
+  },
+  {
+    "objectID": "Tutorials/RF.html#data",
+    "href": "Tutorials/RF.html#data",
+    "title": "Random Forest 101: Predicting Coffee’s Weekly Direction",
+    "section": "1. Data",
+    "text": "1. Data\n\nPrices: weekly front-month arabica from Yahoo Finance (KC=F).\nPositioning: the CFTC Commitments of Traders (COT) disaggregated report, which splits open interest into producers, swap dealers and managed money (funds). Funds’ net position is widely watched in softs because crowded positions can unwind sharply.\n\nimport io, zipfile, requests\nimport numpy as np\nimport pandas as pd\nimport yfinance as yf\n\npx = yf.download(\"KC=F\", start=\"2012-01-01\", end=\"2024-06-30\", interval=\"1wk\")[\"Close\"].squeeze()\n\ndef load_cot(year):\n    url = f\"https://www.cftc.gov/files/dea/history/fut_disagg_txt_{year}.zip\"\n    z = zipfile.ZipFile(io.BytesIO(requests.get(url).content))\n    return pd.read_csv(z.open(z.namelist()[0]), low_memory=False)\n\ncot = pd.concat(load_cot(y) for y in range(2012, 2025))\ncot = cot[cot[\"Market_and_Exchange_Names\"].str.startswith(\"COFFEE C\")]\ncot[\"date\"] = pd.to_datetime(cot[\"Report_Date_as_YYYY-MM-DD\"])\ncot = cot.set_index(\"date\").sort_index()\ncot[\"mm_net_pct_oi\"] = (cot[\"M_Money_Positions_Long_All\"] - cot[\"M_Money_Positions_Short_All\"]) / cot[\"Open_Interest_All\"]\nCOT data are as of Tuesday but published on Friday, so we lag them by one week before use. Ignoring publication lags is one of the easiest ways to fool yourself."
+  },
+  {
+    "objectID": "Tutorials/RF.html#features",
+    "href": "Tutorials/RF.html#features",
+    "title": "Random Forest 101: Predicting Coffee’s Weekly Direction",
+    "section": "2. Features",
+    "text": "2. Features\ndf = pd.DataFrame({\"px\": px})\ndf[\"ret\"] = np.log(df[\"px\"]).diff()\n\nX = pd.DataFrame(index=df.index)\nX[\"ret_1w\"]  = df[\"ret\"]\nX[\"ret_4w\"]  = df[\"ret\"].rolling(4).sum()\nX[\"ret_13w\"] = df[\"ret\"].rolling(13).sum()\nX[\"vol_13w\"] = df[\"ret\"].rolling(13).std()\nX[\"dist_ma26\"] = df[\"px\"] / df[\"px\"].rolling(26).mean() - 1\nX[\"week_of_year\"] = df.index.isocalendar().week.astype(int)   # Brazil harvest / frost seasonality\n\ncot_w = cot[\"mm_net_pct_oi\"].resample(\"W-SUN\").last().shift(1)  # publication lag\nX = X.join(cot_w.rename(\"mm_net\")).ffill()\nX[\"mm_net_chg_4w\"] = X[\"mm_net\"].diff(4)\n\ny = (df[\"ret\"].shift(-1) > 0).astype(int)   # 1 if next week is up\ndata = X.join(y.rename(\"up\")).dropna()\nThe week-of-year feature lets the forest pick up seasonality: the Brazilian harvest from roughly May to September, and the frost-risk window in June to August that has driven some of arabica’s biggest rallies."
+  },
+  {
+    "objectID": "Tutorials/RF.html#training-in-time-order",
+    "href": "Tutorials/RF.html#training-in-time-order",
+    "title": "Random Forest 101: Predicting Coffee’s Weekly Direction",
+    "section": "3. Training, in time order",
+    "text": "3. Training, in time order\nfrom sklearn.ensemble import RandomForestClassifier\nfrom sklearn.metrics import accuracy_score, classification_report\n\ntrain = data.loc[:\"2020-12\"]\ntest  = data.loc[\"2021-01\":]\nX_train, y_train = train.drop(columns=\"up\"), train[\"up\"]\nX_test,  y_test  = test.drop(columns=\"up\"),  test[\"up\"]\n\nrf = RandomForestClassifier(n_estimators=500, max_depth=4, min_samples_leaf=20,\n                            random_state=42, n_jobs=-1)\nrf.fit(X_train, y_train)\n\npred = rf.predict(X_test)\nprint(\"Accuracy:\", round(accuracy_score(y_test, pred), 3))\nprint(\"Base rate (always up):\", round(y_test.mean(), 3))\nprint(classification_report(y_test, pred))\nCompare accuracy with the base rate. In a trending market, “always up” can look like 55% accuracy without any skill."
+  },
+  {
+    "objectID": "Tutorials/RF.html#tuning-with-time-series-cross-validation",
+    "href": "Tutorials/RF.html#tuning-with-time-series-cross-validation",
+    "title": "Random Forest 101: Predicting Coffee’s Weekly Direction",
+    "section": "4. Tuning with time-series cross-validation",
+    "text": "4. Tuning with time-series cross-validation\nfrom sklearn.model_selection import GridSearchCV, TimeSeriesSplit\n\ngrid = GridSearchCV(\n    RandomForestClassifier(random_state=42, n_jobs=-1),\n    {\"n_estimators\": [300, 600], \"max_depth\": [3, 4, 6], \"min_samples_leaf\": [10, 20, 40]},\n    cv=TimeSeriesSplit(n_splits=5), scoring=\"roc_auc\",\n)\ngrid.fit(X_train, y_train)\nprint(grid.best_params_, round(grid.best_score_, 3))\nWe score with ROC AUC, which judges how well the model ranks up-weeks above down-weeks, regardless of the 50% threshold."
+  },
+  {
+    "objectID": "Tutorials/RF.html#what-did-the-forest-learn",
+    "href": "Tutorials/RF.html#what-did-the-forest-learn",
+    "title": "Random Forest 101: Predicting Coffee’s Weekly Direction",
+    "section": "5. What did the forest learn?",
+    "text": "5. What did the forest learn?\nBuilt-in feature importances are biased towards continuous variables. Permutation importance on the test set is more honest:\nfrom sklearn.inspection import permutation_importance\nimp = permutation_importance(grid.best_estimator_, X_test, y_test, scoring=\"roc_auc\",\n                             n_repeats=20, random_state=0)\npd.Series(imp.importances_mean, index=X_test.columns).sort_values().plot.barh()\nPositioning features often matter most at extremes: when funds are very long, the downside risk from liquidation rises."
+  },
+  {
+    "objectID": "Tutorials/RF.html#from-probabilities-to-decisions",
+    "href": "Tutorials/RF.html#from-probabilities-to-decisions",
+    "title": "Random Forest 101: Predicting Coffee’s Weekly Direction",
+    "section": "6. From probabilities to decisions",
+    "text": "6. From probabilities to decisions\nInstead of trading every week, act only when the model is confident:\nproba = grid.best_estimator_.predict_proba(X_test)[:, 1]\nsignal = np.where(proba > 0.6, 1, np.where(proba < 0.4, -1, 0))\nstrategy = signal * df[\"ret\"].shift(-1).reindex(X_test.index)\nprint(\"Weeks active:\", (signal != 0).mean().round(2))\nprint(\"Cumulative log return:\", strategy.sum().round(3))\nThis ignores costs, rolls and slippage, so treat it as a sanity check rather than a backtest."
+  },
+  {
+    "objectID": "Tutorials/RF.html#next-steps",
+    "href": "Tutorials/RF.html#next-steps",
+    "title": "Random Forest 101: Predicting Coffee’s Weekly Direction",
+    "section": "Next steps",
+    "text": "Next steps\nXGBoost 101 applies gradient boosting to cocoa and adds weather signals."
+  },
+  {
+    "objectID": "Tutorials/xgboost.html#data",
+    "href": "Tutorials/xgboost.html#data",
+    "title": "XGBoost 101: Cocoa, Weather and the Curve",
+    "section": "1. Data",
+    "text": "1. Data\n\nCocoa prices: World Bank Pink Sheet monthly prices (see Part 2 of the regression tutorials for loading code).\nRainfall: CHIRPS monthly precipitation, averaged over the cocoa belt of Côte d’Ivoire and Ghana. You can export it from Google Earth Engine with the script in the Google Earth Engine tutorial, as a CSV with columns month and rain_mm.\nENSO: NOAA’s Oceanic Niño Index (ONI).\n\nimport numpy as np\nimport pandas as pd\n\nrain = pd.read_csv(\"cocoa_belt_chirps_monthly.csv\", parse_dates=[\"month\"]).set_index(\"month\")[\"rain_mm\"]\n\ndf = pd.DataFrame({\"cocoa\": cocoa, \"rain\": rain, \"oni\": oni}).dropna()\ndf[\"ret\"] = np.log(df[\"cocoa\"]).diff()"
+  },
+  {
+    "objectID": "Tutorials/xgboost.html#weather-features-that-make-agronomic-sense",
+    "href": "Tutorials/xgboost.html#weather-features-that-make-agronomic-sense",
+    "title": "XGBoost 101: Cocoa, Weather and the Curve",
+    "section": "2. Weather features that make agronomic sense",
+    "text": "2. Weather features that make agronomic sense\nRaw rainfall is less useful than anomalies against the normal for that calendar month, and cocoa cares about accumulated stress over several months:\nclim = df.groupby(df.index.month)[\"rain\"].transform(\"mean\")\ndf[\"rain_anom\"] = df[\"rain\"] / clim - 1\n\nX = pd.DataFrame(index=df.index)\nX[\"rain_anom_1m\"] = df[\"rain_anom\"].shift(1)\nX[\"rain_anom_3m\"] = df[\"rain_anom\"].rolling(3).mean().shift(1)\nX[\"rain_anom_6m\"] = df[\"rain_anom\"].rolling(6).mean().shift(1)\nX[\"oni_lag2\"]     = df[\"oni\"].shift(2)\nX[\"mom_3m\"]       = df[\"ret\"].rolling(3).sum().shift(1)\nX[\"mom_12m\"]      = df[\"ret\"].rolling(12).sum().shift(1)\nX[\"month\"]        = df.index.month          # main crop Oct–Mar, mid-crop Apr–Sep\n\ny = (df[\"ret\"].shift(-1) > 0).astype(int)\ndata = X.join(y.rename(\"up\")).dropna()\nEvery feature is shifted so it is known before the month we predict."
+  },
+  {
+    "objectID": "Tutorials/xgboost.html#training-xgboost",
+    "href": "Tutorials/xgboost.html#training-xgboost",
+    "title": "XGBoost 101: Cocoa, Weather and the Curve",
+    "section": "3. Training XGBoost",
+    "text": "3. Training XGBoost\nfrom xgboost import XGBClassifier\nfrom sklearn.metrics import roc_auc_score, accuracy_score\n\ntrain = data.loc[:\"2018-12\"]\nvalid = data.loc[\"2019-01\":\"2021-12\"]\ntest  = data.loc[\"2022-01\":]\n\nfeat = [c for c in data.columns if c != \"up\"]\nmodel = XGBClassifier(\n    n_estimators=1000, learning_rate=0.02, max_depth=2,\n    subsample=0.8, colsample_bytree=0.8, reg_lambda=1.0,\n    eval_metric=\"auc\", early_stopping_rounds=50,\n)\nmodel.fit(train[feat], train[\"up\"], eval_set=[(valid[feat], valid[\"up\"])], verbose=False)\n\np = model.predict_proba(test[feat])[:, 1]\nprint(\"Best iteration:\", model.best_iteration)\nprint(\"Test AUC:\", round(roc_auc_score(test[\"up\"], p), 3))\nprint(\"Test accuracy:\", round(accuracy_score(test[\"up\"], p > 0.5), 3))\nEarly stopping on a separate validation period picks the number of trees for us and is the single most effective guard against overfitting with boosting."
+  },
+  {
+    "objectID": "Tutorials/xgboost.html#tuning",
+    "href": "Tutorials/xgboost.html#tuning",
+    "title": "XGBoost 101: Cocoa, Weather and the Curve",
+    "section": "4. Tuning",
+    "text": "4. Tuning\nWith only a few hundred monthly observations, keep the search small and the trees shallow:\nfrom sklearn.model_selection import GridSearchCV, TimeSeriesSplit\n\ngrid = GridSearchCV(\n    XGBClassifier(n_estimators=300, learning_rate=0.03, eval_metric=\"auc\"),\n    {\"max_depth\": [1, 2, 3], \"min_child_weight\": [1, 5, 10], \"subsample\": [0.7, 1.0]},\n    cv=TimeSeriesSplit(n_splits=5), scoring=\"roc_auc\",\n)\ngrid.fit(pd.concat([train, valid])[feat], pd.concat([train, valid])[\"up\"])\nprint(grid.best_params_)"
+  },
+  {
+    "objectID": "Tutorials/xgboost.html#explaining-the-model-with-shap",
+    "href": "Tutorials/xgboost.html#explaining-the-model-with-shap",
+    "title": "XGBoost 101: Cocoa, Weather and the Curve",
+    "section": "5. Explaining the model with SHAP",
+    "text": "5. Explaining the model with SHAP\nSHAP values show how much each feature pushed each prediction up or down:\nimport shap\nexplainer = shap.TreeExplainer(model)\nsv = explainer.shap_values(test[feat])\nshap.summary_plot(sv, test[feat])\nLook for whether dry anomalies (negative rain_anom_3m) push the probability of a rise up, as agronomy would suggest. If the model relies on the opposite sign, be suspicious."
+  },
+  {
+    "objectID": "Tutorials/xgboost.html#ablation-does-weather-add-anything",
+    "href": "Tutorials/xgboost.html#ablation-does-weather-add-anything",
+    "title": "XGBoost 101: Cocoa, Weather and the Curve",
+    "section": "6. Ablation: does weather add anything?",
+    "text": "6. Ablation: does weather add anything?\nRetrain without the weather columns and compare:\nbase_feat = [\"mom_3m\", \"mom_12m\", \"month\"]\nm0 = XGBClassifier(n_estimators=model.best_iteration + 1, learning_rate=0.02, max_depth=2,\n                   subsample=0.8, colsample_bytree=0.8).fit(train[base_feat], train[\"up\"])\nprint(\"AUC without weather:\", round(roc_auc_score(test[\"up\"], m0.predict_proba(test[base_feat])[:, 1]), 3))\nOn monthly data the difference is often small, and that is a fair conclusion. Weather is far more useful at higher resolution: daily rainfall and soil moisture by region, mapped to crop calendars, combined with field reports on pod counts and disease."
+  },
+  {
+    "objectID": "Tutorials/xgboost.html#next-steps",
+    "href": "Tutorials/xgboost.html#next-steps",
+    "title": "XGBoost 101: Cocoa, Weather and the Curve",
+    "section": "Next steps",
+    "text": "Next steps\nForecasting with time series methods looks at seasonality and classical forecasting models for softs prices."
+  },
+  {
+    "objectID": "Tutorials/Forecasting.html#data",
+    "href": "Tutorials/Forecasting.html#data",
+    "title": "Forecasting Softs Prices with Time Series Methods (R and Python)",
+    "section": "1. Data",
+    "text": "1. Data\nWe use the World Bank Pink Sheet (CMO-Historical-Data-Monthly.xlsx), which has long monthly histories for Coffee, Arabica and Coffee, Robusta in US$/kg."
+  },
+  {
+    "objectID": "Tutorials/Forecasting.html#time-series-components",
+    "href": "Tutorials/Forecasting.html#time-series-components",
+    "title": "Forecasting Softs Prices with Time Series Methods (R and Python)",
+    "section": "2. Time series components",
+    "text": "2. Time series components\nA monthly series can be split into:\n\nTrend: the long-run level, driven by costs, demand growth and inflation.\nSeasonality: recurring patterns within the year. Coffee prices have some, linked to harvest timing and frost risk in Brazil, but it is weak relative to price swings.\nRemainder: everything else, which for commodities is most of the story: weather shocks, currency moves, logistics and positioning."
+  },
+  {
+    "objectID": "Tutorials/Forecasting.html#forecasting-in-r",
+    "href": "Tutorials/Forecasting.html#forecasting-in-r",
+    "title": "Forecasting Softs Prices with Time Series Methods (R and Python)",
+    "section": "3. Forecasting in R",
+    "text": "3. Forecasting in R\nlibrary(readxl)\nlibrary(forecast)\n\nwb <- read_excel(\"CMO-Historical-Data-Monthly.xlsx\", sheet = \"Monthly Prices\", skip = 4)\nnames(wb)[1] <- \"month\"\nwb <- wb[grepl(\"^\\\\d{4}M\\\\d{2}$\", wb$month), ]\n\narabica <- ts(as.numeric(wb$`Coffee, Arabica`), start = c(1960, 1), frequency = 12)\narabica <- window(arabica, start = c(2000, 1))\n\nplot(arabica, main = \"Arabica coffee, US$/kg\")\n\n# Decompose the log series (multiplicative effects become additive)\ndec <- stl(log(arabica), s.window = \"periodic\")\nplot(dec)\nThe seasonal panel will be small compared with the remainder. That alone tells you seasonality will not drive the forecast.\nFit an ARIMA model automatically and forecast 12 months ahead:\nfit <- auto.arima(log(arabica))\nsummary(fit)\n\nfc <- forecast(fit, h = 12)\nplot(fc, main = \"12-month ARIMA forecast (log arabica)\")\nThe widening fan is the most useful output: it shows how quickly uncertainty grows. Most automatically selected models for commodity prices end up close to a random walk.\nCompare with the simplest possible benchmark, the naive forecast (next month equals this month), on a hold-out period:\ntrain <- window(log(arabica), end = c(2019, 12))\ntest  <- window(log(arabica), start = c(2020, 1))\n\nfit_tr <- auto.arima(train)\nfc_ar  <- forecast(fit_tr, h = length(test))\nfc_nv  <- naive(train, h = length(test))\n\naccuracy(fc_ar, test)\naccuracy(fc_nv, test)"
+  },
+  {
+    "objectID": "Tutorials/Forecasting.html#forecasting-in-python",
+    "href": "Tutorials/Forecasting.html#forecasting-in-python",
+    "title": "Forecasting Softs Prices with Time Series Methods (R and Python)",
+    "section": "4. Forecasting in Python",
+    "text": "4. Forecasting in Python\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nfrom statsmodels.tsa.seasonal import STL\nfrom statsmodels.tsa.arima.model import ARIMA\n\nwb = pd.read_excel(\"CMO-Historical-Data-Monthly.xlsx\", sheet_name=\"Monthly Prices\", skiprows=4)\nwb = wb.rename(columns={wb.columns[0]: \"month\"})\nwb = wb[wb[\"month\"].astype(str).str.match(r\"^\\d{4}M\\d{2}$\")]\nwb.index = pd.to_datetime(wb[\"month\"].str.replace(\"M\", \"-\"), format=\"%Y-%m\")\ncoffee = wb[[\"Coffee, Arabica\", \"Coffee, Robusta\"]].astype(float).loc[\"2000\":]\ncoffee.columns = [\"arabica\", \"robusta\"]\n\nSTL(np.log(coffee[\"robusta\"]), period=12).fit().plot()\nplt.show()\nA rolling-origin evaluation is more honest than a single split: refit each month and forecast one step ahead.\ny = np.log(coffee[\"robusta\"])\npreds, actual = [], []\nfor end in pd.date_range(\"2018-01-01\", y.index[-2], freq=\"MS\"):\n    model = ARIMA(y.loc[:end], order=(1, 1, 0)).fit()\n    preds.append(model.forecast(1).iloc[0])\n    actual.append(y.shift(-1).loc[end])\n\npreds, actual = np.array(preds), np.array(actual)\nnaive = y.loc[\"2018-01-01\":y.index[-2]].values\nprint(\"ARIMA MAE:\", np.mean(np.abs(preds - actual)).round(4))\nprint(\"Naive MAE:\", np.mean(np.abs(naive - actual)).round(4))"
+  },
+  {
+    "objectID": "Tutorials/Forecasting.html#prophet",
+    "href": "Tutorials/Forecasting.html#prophet",
+    "title": "Forecasting Softs Prices with Time Series Methods (R and Python)",
+    "section": "5. Prophet",
+    "text": "5. Prophet\nProphet handles trend changes and seasonality with little tuning:\nfrom prophet import Prophet\n\nd = coffee[\"arabica\"].reset_index()\nd.columns = [\"ds\", \"y\"]\nd[\"y\"] = np.log(d[\"y\"])\n\nm = Prophet(yearly_seasonality=True, changepoint_prior_scale=0.3)\nm.fit(d.loc[d[\"ds\"] < \"2023-01-01\"])\nfuture = m.make_future_dataframe(periods=24, freq=\"MS\")\nfc = m.predict(future)\nm.plot(fc); m.plot_components(fc)\nplt.show()\nProphet extrapolates the recent trend, so after a big rally it will tend to forecast more rally. Check its changepoints against what actually happened in the market."
+  },
+  {
+    "objectID": "Tutorials/Forecasting.html#modelling-a-spread-instead-of-a-level",
+    "href": "Tutorials/Forecasting.html#modelling-a-spread-instead-of-a-level",
+    "title": "Forecasting Softs Prices with Time Series Methods (R and Python)",
+    "section": "6. Modelling a spread instead of a level",
+    "text": "6. Modelling a spread instead of a level\nRelative value is often more forecastable than outright price. The arabica–robusta spread reflects quality premia and the relative supply from Brazil, Colombia and Central America versus Vietnam, Brazil (conilon) and Uganda:\nspread = coffee[\"arabica\"] - coffee[\"robusta\"]\nspread.plot(title=\"Arabica minus robusta, US$/kg\")\nplt.axhline(spread.loc[\"2010\":].mean(), ls=\"--\", color=\"grey\")\nplt.show()\n\nfrom statsmodels.tsa.stattools import adfuller\nprint(\"ADF p-value (spread):\", round(adfuller(spread.dropna())[1], 3))\nA low p-value suggests the spread tends to revert to its mean. Mean-reversion is never guaranteed, but this is the kind of structure that univariate models can use."
+  },
+  {
+    "objectID": "Tutorials/Forecasting.html#takeaways",
+    "href": "Tutorials/Forecasting.html#takeaways",
+    "title": "Forecasting Softs Prices with Time Series Methods (R and Python)",
+    "section": "7. Takeaways",
+    "text": "7. Takeaways\n\nPrice-only models rarely beat a naive forecast for softs outright prices. Use them as baselines.\nTheir real value is in quantifying uncertainty and in modelling more stable quantities: spreads, seasonal patterns and basis.\nForecasting supply shocks needs fundamental inputs: weather, crop surveys, exports and stocks."
+  },
+  {
+    "objectID": "Tutorials/Forecasting.html#next-steps",
+    "href": "Tutorials/Forecasting.html#next-steps",
+    "title": "Forecasting Softs Prices with Time Series Methods (R and Python)",
+    "section": "Next steps",
+    "text": "Next steps\nDeep learning for time series adds exogenous drivers to a neural network forecast."
+  },
+  {
+    "objectID": "Tutorials/NeuralNetworks.html#why-cotton-and-which-drivers",
+    "href": "Tutorials/NeuralNetworks.html#why-cotton-and-which-drivers",
+    "title": "Deep Learning for Time Series: LSTM and CNN Forecasts for Cotton",
+    "section": "1. Why cotton and which drivers?",
+    "text": "1. Why cotton and which drivers?\nCotton prices respond to:\n\nThe US dollar: the US is the largest exporter, so a stronger dollar makes US cotton dearer abroad.\nCrude oil: polyester, cotton’s main substitute, is made from oil.\nOther markets’ risk appetite: cotton often trades with broader commodity and equity sentiment, captured here by the S&P 500.\n\nimport numpy as np\nimport pandas as pd\nimport yfinance as yf\n\ntickers = {\"cotton\": \"CT=F\", \"dxy\": \"DX-Y.NYB\", \"crude\": \"CL=F\", \"spx\": \"^GSPC\"}\nraw = yf.download(list(tickers.values()), start=\"2005-01-01\", end=\"2024-06-30\", interval=\"1wk\")[\"Close\"]\nraw = raw.rename(columns={v: k for k, v in tickers.items()}).dropna()\nrets = np.log(raw).diff().dropna()"
+  },
+  {
+    "objectID": "Tutorials/NeuralNetworks.html#turning-series-into-supervised-windows",
+    "href": "Tutorials/NeuralNetworks.html#turning-series-into-supervised-windows",
+    "title": "Deep Learning for Time Series: LSTM and CNN Forecasts for Cotton",
+    "section": "2. Turning series into supervised windows",
+    "text": "2. Turning series into supervised windows\nEach sample is the previous 26 weeks of all four return series; the target is next week’s cotton return.\ndef make_windows(df, target_col, lookback=26):\n    values = df.values\n    t_idx = df.columns.get_loc(target_col)\n    X, y = [], []\n    for i in range(lookback, len(df)):\n        X.append(values[i - lookback:i])   # weeks i-lookback ... i-1\n        y.append(values[i, t_idx])         # week i, the one after the window\n    return np.array(X), np.array(y)\nThe window covers weeks i-26 to i-1 and the target is week i, the week immediately after it. Checking this indexing is worth five minutes, because an off-by-one error here produces a “perfect” model that is just reading the answer.\nX, y = make_windows(rets, \"cotton\", lookback=26)\ndates = rets.index[26:]   # date of each target week\n\ntrain = dates < \"2018-01-01\"\nvalid = (dates >= \"2018-01-01\") & (dates < \"2021-01-01\")\ntest  = dates >= \"2021-01-01\"\n\n# Scale using training statistics only\nmu = X[train].reshape(-1, X.shape[2]).mean(0)\nsd = X[train].reshape(-1, X.shape[2]).std(0)\nX = (X - mu) / sd\ny_scale = y[train].std()\ny_s = y / y_scale"
+  },
+  {
+    "objectID": "Tutorials/NeuralNetworks.html#an-lstm-model",
+    "href": "Tutorials/NeuralNetworks.html#an-lstm-model",
+    "title": "Deep Learning for Time Series: LSTM and CNN Forecasts for Cotton",
+    "section": "3. An LSTM model",
+    "text": "3. An LSTM model\nfrom tensorflow import keras\nfrom tensorflow.keras import layers\n\ndef build_lstm(n_steps, n_feat):\n    model = keras.Sequential([\n        layers.Input(shape=(n_steps, n_feat)),\n        layers.LSTM(32),\n        layers.Dropout(0.3),\n        layers.Dense(16, activation=\"relu\"),\n        layers.Dense(1),\n    ])\n    model.compile(optimizer=keras.optimizers.Adam(1e-3), loss=\"mae\")\n    return model\n\nlstm = build_lstm(X.shape[1], X.shape[2])\nstop = keras.callbacks.EarlyStopping(patience=20, restore_best_weights=True)\nhist = lstm.fit(X[train], y_s[train], validation_data=(X[valid], y_s[valid]),\n                epochs=300, batch_size=32, callbacks=[stop], verbose=0)\nprint(\"Stopped after\", len(hist.history[\"loss\"]), \"epochs\")\nSmall networks, dropout and early stopping are not optional with a few hundred weekly samples."
+  },
+  {
+    "objectID": "Tutorials/NeuralNetworks.html#a-1d-convolutional-model",
+    "href": "Tutorials/NeuralNetworks.html#a-1d-convolutional-model",
+    "title": "Deep Learning for Time Series: LSTM and CNN Forecasts for Cotton",
+    "section": "4. A 1D convolutional model",
+    "text": "4. A 1D convolutional model\nCNNs scan the window with filters that detect short patterns (for example, a sharp dollar move followed by cotton weakness):\ndef build_cnn(n_steps, n_feat):\n    model = keras.Sequential([\n        layers.Input(shape=(n_steps, n_feat)),\n        layers.Conv1D(16, kernel_size=4, activation=\"relu\"),\n        layers.MaxPooling1D(2),\n        layers.Conv1D(16, kernel_size=4, activation=\"relu\"),\n        layers.GlobalAveragePooling1D(),\n        layers.Dropout(0.3),\n        layers.Dense(1),\n    ])\n    model.compile(optimizer=\"adam\", loss=\"mae\")\n    return model\n\ncnn = build_cnn(X.shape[1], X.shape[2])\ncnn.fit(X[train], y_s[train], validation_data=(X[valid], y_s[valid]),\n        epochs=300, batch_size=32, callbacks=[stop], verbose=0)"
+  },
+  {
+    "objectID": "Tutorials/NeuralNetworks.html#honest-evaluation",
+    "href": "Tutorials/NeuralNetworks.html#honest-evaluation",
+    "title": "Deep Learning for Time Series: LSTM and CNN Forecasts for Cotton",
+    "section": "5. Honest evaluation",
+    "text": "5. Honest evaluation\nfrom sklearn.metrics import mean_absolute_error\nfrom sklearn.linear_model import Ridge\n\ndef report(name, pred):\n    mae = mean_absolute_error(y[test], pred)\n    hit = (np.sign(pred) == np.sign(y[test])).mean()\n    print(f\"{name:8s} MAE={mae:.4f}  hit rate={hit:.3f}\")\n\nreport(\"Zero\", np.zeros(test.sum()))\nridge = Ridge(alpha=10).fit(X[train].reshape(train.sum(), -1), y[train])\nreport(\"Ridge\", ridge.predict(X[test].reshape(test.sum(), -1)))\nreport(\"LSTM\", lstm.predict(X[test], verbose=0).ravel() * y_scale)\nreport(\"CNN\", cnn.predict(X[test], verbose=0).ravel() * y_scale)\nRun the networks with several random seeds. If results swing with the seed, you are looking at noise, not skill."
+  },
+  {
+    "objectID": "Tutorials/NeuralNetworks.html#where-deep-learning-does-help-in-softs",
+    "href": "Tutorials/NeuralNetworks.html#where-deep-learning-does-help-in-softs",
+    "title": "Deep Learning for Time Series: LSTM and CNN Forecasts for Cotton",
+    "section": "6. Where deep learning does help in softs",
+    "text": "6. Where deep learning does help in softs\nWeekly returns are close to unpredictable, so do not be surprised if the zero forecast is hard to beat. Neural networks earn their keep in richer problems:\n\nCrop yield from sequences of daily weather and satellite vegetation indices over a season.\nPhysical flows: forecasting port arrivals or shipments from historical patterns and weather.\nText: classifying crop reports, weather bulletins or news by sentiment.\nImages: detecting crop disease or land use, covered in Image classification."
+  },
+  {
+    "objectID": "Tutorials/NeuralNetworks.html#next-steps",
+    "href": "Tutorials/NeuralNetworks.html#next-steps",
+    "title": "Deep Learning for Time Series: LSTM and CNN Forecasts for Cotton",
+    "section": "Next steps",
+    "text": "Next steps\nImage classification with deep learning trains a CNN to detect coffee leaf disease."
+  },
+  {
+    "objectID": "Tutorials/ImageClassification.html#the-data",
+    "href": "Tutorials/ImageClassification.html#the-data",
+    "title": "Image Classification with Deep Learning: Detecting Coffee Leaf Disease",
+    "section": "1. The data",
+    "text": "1. The data\nTwo open datasets on Mendeley Data work well:\n\nRoCoLe (Robusta Coffee Leaf images, Ecuador): healthy leaves, red spider mite and rust at several severity levels.\nJMuBEN (arabica leaves, Kenya): healthy leaves, leaf rust, Cercospora and Phoma.\n\nDownload one and arrange the images in one folder per class:\ncoffee_leaves/\n    healthy/\n    rust/\n    cercospora/\n    phoma/"
+  },
+  {
+    "objectID": "Tutorials/ImageClassification.html#how-cnns-see-an-image",
+    "href": "Tutorials/ImageClassification.html#how-cnns-see-an-image",
+    "title": "Image Classification with Deep Learning: Detecting Coffee Leaf Disease",
+    "section": "2. How CNNs see an image",
+    "text": "2. How CNNs see an image\nA CNN slides small filters across the image. Early layers detect edges and colours; deeper layers combine them into textures and shapes, such as the orange powdery spots of rust or the brown rings of Cercospora. Pooling layers shrink the image so later layers see larger areas.\nTraining a CNN from scratch needs a lot of images. Transfer learning starts from a network already trained on millions of everyday photos (ImageNet) and only retrains the top layers, which works well with a few thousand leaves."
+  },
+  {
+    "objectID": "Tutorials/ImageClassification.html#loading-the-images",
+    "href": "Tutorials/ImageClassification.html#loading-the-images",
+    "title": "Image Classification with Deep Learning: Detecting Coffee Leaf Disease",
+    "section": "3. Loading the images",
+    "text": "3. Loading the images\nimport tensorflow as tf\nfrom tensorflow import keras\nfrom tensorflow.keras import layers\n\nIMG = (224, 224)\ntrain_ds = keras.utils.image_dataset_from_directory(\n    \"coffee_leaves\", validation_split=0.2, subset=\"training\", seed=42,\n    image_size=IMG, batch_size=32)\nval_ds = keras.utils.image_dataset_from_directory(\n    \"coffee_leaves\", validation_split=0.2, subset=\"validation\", seed=42,\n    image_size=IMG, batch_size=32)\n\nclass_names = train_ds.class_names\nprint(class_names)\n\nAUTOTUNE = tf.data.AUTOTUNE\ntrain_ds = train_ds.cache().shuffle(1000).prefetch(AUTOTUNE)\nval_ds = val_ds.cache().prefetch(AUTOTUNE)\nCheck the class balance. Disease datasets are often dominated by healthy leaves, and a model that always says “healthy” can look accurate while being useless."
+  },
+  {
+    "objectID": "Tutorials/ImageClassification.html#building-the-model",
+    "href": "Tutorials/ImageClassification.html#building-the-model",
+    "title": "Image Classification with Deep Learning: Detecting Coffee Leaf Disease",
+    "section": "4. Building the model",
+    "text": "4. Building the model\naugment = keras.Sequential([\n    layers.RandomFlip(\"horizontal_and_vertical\"),\n    layers.RandomRotation(0.2),\n    layers.RandomZoom(0.15),\n    layers.RandomContrast(0.2),\n])\n\nbase = keras.applications.EfficientNetB0(include_top=False, weights=\"imagenet\",\n                                         input_shape=IMG + (3,))\nbase.trainable = False   # freeze the pretrained layers at first\n\ninputs = keras.Input(shape=IMG + (3,))\nx = augment(inputs)\nx = keras.applications.efficientnet.preprocess_input(x)\nx = base(x, training=False)\nx = layers.GlobalAveragePooling2D()(x)\nx = layers.Dropout(0.3)(x)\noutputs = layers.Dense(len(class_names), activation=\"softmax\")(x)\nmodel = keras.Model(inputs, outputs)\n\nmodel.compile(optimizer=keras.optimizers.Adam(1e-3),\n              loss=\"sparse_categorical_crossentropy\", metrics=[\"accuracy\"])\nAugmentation imitates real field photos: leaves at different angles, lighting and distances."
+  },
+  {
+    "objectID": "Tutorials/ImageClassification.html#training-in-two-stages",
+    "href": "Tutorials/ImageClassification.html#training-in-two-stages",
+    "title": "Image Classification with Deep Learning: Detecting Coffee Leaf Disease",
+    "section": "5. Training in two stages",
+    "text": "5. Training in two stages\nstop = keras.callbacks.EarlyStopping(patience=5, restore_best_weights=True)\nmodel.fit(train_ds, validation_data=val_ds, epochs=20, callbacks=[stop])\n\n# Fine-tune: unfreeze the top of the base network with a small learning rate\nbase.trainable = True\nfor layer in base.layers[:-30]:\n    layer.trainable = False\nmodel.compile(optimizer=keras.optimizers.Adam(1e-5),\n              loss=\"sparse_categorical_crossentropy\", metrics=[\"accuracy\"])\nmodel.fit(train_ds, validation_data=val_ds, epochs=10, callbacks=[stop])"
+  },
+  {
+    "objectID": "Tutorials/ImageClassification.html#evaluating-properly",
+    "href": "Tutorials/ImageClassification.html#evaluating-properly",
+    "title": "Image Classification with Deep Learning: Detecting Coffee Leaf Disease",
+    "section": "6. Evaluating properly",
+    "text": "6. Evaluating properly\nimport numpy as np\nfrom sklearn.metrics import classification_report, confusion_matrix\n\ny_true = np.concatenate([y.numpy() for _, y in val_ds])\ny_pred = np.argmax(model.predict(val_ds), axis=1)\n\nprint(classification_report(y_true, y_pred, target_names=class_names))\nprint(confusion_matrix(y_true, y_pred))\nFocus on recall for the disease classes: a missed rust case costs much more than a false alarm. If photos of the same tree or farm appear in both training and validation sets, accuracy will be inflated; split by farm or date where the metadata allows."
+  },
+  {
+    "objectID": "Tutorials/ImageClassification.html#from-a-classifier-to-market-information",
+    "href": "Tutorials/ImageClassification.html#from-a-classifier-to-market-information",
+    "title": "Image Classification with Deep Learning: Detecting Coffee Leaf Disease",
+    "section": "7. From a classifier to market information",
+    "text": "7. From a classifier to market information\nA leaf classifier on its own does not move prices. Its value comes when it is aggregated:\n\nField surveys: counting the share of diseased leaves across sampled farms gives an early, quantitative read on crop health, ahead of official estimates.\nSatellite and drone imagery: the same CNN approach, applied to canopy images, maps stressed or dying plantations at scale. The Google Earth Engine tutorial covers vegetation indices from satellites.\nYield models: disease prevalence can be added as a feature alongside weather in crop forecasts."
+  },
+  {
+    "objectID": "Tutorials/ImageClassification.html#next-steps",
+    "href": "Tutorials/ImageClassification.html#next-steps",
+    "title": "Image Classification with Deep Learning: Detecting Coffee Leaf Disease",
+    "section": "Next steps",
+    "text": "Next steps\nReinforcement learning moves from prediction to decision-making."
+  },
+  {
+    "objectID": "Tutorials/RL.html#the-building-blocks",
+    "href": "Tutorials/RL.html#the-building-blocks",
+    "title": "Reinforcement Learning 101: Q-Learning on Sugar Market Regimes",
+    "section": "1. The building blocks",
+    "text": "1. The building blocks\n\nAgent: the decision-maker (our trading rule).\nEnvironment: the market, replayed from history.\nState: what the agent observes, here the market regime.\nAction: short, flat or long one unit of sugar.\nReward: the profit or loss from the position over the next week, minus transaction costs.\n\nThe agent learns a Q-table: for each state and action, the expected discounted future reward. It updates the table after every step with the Bellman equation:\n\\[\nQ(s,a) \\leftarrow Q(s,a) + \\alpha \\left[ r + \\gamma \\max_{a'} Q(s',a') - Q(s,a) \\right]\n\\]\nwhere α is the learning rate and γ the discount factor."
+  },
+  {
+    "objectID": "Tutorials/RL.html#defining-states-from-market-regimes",
+    "href": "Tutorials/RL.html#defining-states-from-market-regimes",
+    "title": "Reinforcement Learning 101: Q-Learning on Sugar Market Regimes",
+    "section": "2. Defining states from market regimes",
+    "text": "2. Defining states from market regimes\nTabular Q-learning needs a small, discrete set of states. We describe each week by two features, each split into buckets:\n\nTrend: 13-week return in three buckets (down, sideways, up).\nVolatility: 13-week realised volatility in two buckets (calm, stressed).\nCurrent position: short, flat or long, so the agent can account for trading costs.\n\nThat gives 3 × 2 × 3 = 18 states.\nimport numpy as np\nimport pandas as pd\nimport yfinance as yf\n\npx = yf.download(\"SB=F\", start=\"2008-01-01\", end=\"2024-06-30\", interval=\"1wk\")[\"Close\"].squeeze()\nret = np.log(px).diff()\n\ntrend = ret.rolling(13).sum()\nvol = ret.rolling(13).std()\n\ndf = pd.DataFrame({\"ret_next\": ret.shift(-1), \"trend\": trend, \"vol\": vol}).dropna()\ntrain = df.loc[:\"2018-12\"].copy()\ntest = df.loc[\"2019-01\":].copy()\n\n# Bucket edges from the training period only\nt_edges = train[\"trend\"].quantile([1/3, 2/3]).values\nv_edge = train[\"vol\"].median()\n\nfor d in (train, test):\n    d[\"t_bin\"] = np.digitize(d[\"trend\"], t_edges)        # 0, 1, 2\n    d[\"v_bin\"] = (d[\"vol\"] > v_edge).astype(int)         # 0, 1"
+  },
+  {
+    "objectID": "Tutorials/RL.html#the-environment",
+    "href": "Tutorials/RL.html#the-environment",
+    "title": "Reinforcement Learning 101: Q-Learning on Sugar Market Regimes",
+    "section": "3. The environment",
+    "text": "3. The environment\nACTIONS = np.array([-1, 0, 1])   # short, flat, long\nCOST = 0.0005                    # cost per unit traded, as a fraction of price\n\ndef state_id(t_bin, v_bin, pos):\n    return (t_bin * 2 + v_bin) * 3 + (pos + 1)\n\ndef step(row, pos, action_idx):\n    new_pos = ACTIONS[action_idx]\n    reward = new_pos * row.ret_next - COST * abs(new_pos - pos)\n    return new_pos, reward"
+  },
+  {
+    "objectID": "Tutorials/RL.html#training-the-agent",
+    "href": "Tutorials/RL.html#training-the-agent",
+    "title": "Reinforcement Learning 101: Q-Learning on Sugar Market Regimes",
+    "section": "4. Training the agent",
+    "text": "4. Training the agent\nrng = np.random.default_rng(0)\nQ = np.zeros((18, 3))\nalpha, gamma = 0.05, 0.9\nepsilon, eps_min, eps_decay = 1.0, 0.05, 0.995\n\nrows = list(train.itertuples())\nfor episode in range(500):\n    pos = 0\n    for i in range(len(rows) - 1):\n        s = state_id(rows[i].t_bin, rows[i].v_bin, pos)\n        a = rng.integers(3) if rng.random() < epsilon else int(Q[s].argmax())\n        pos, r = step(rows[i], pos, a)\n        s_next = state_id(rows[i + 1].t_bin, rows[i + 1].v_bin, pos)\n        Q[s, a] += alpha * (r + gamma * Q[s_next].max() - Q[s, a])\n    epsilon = max(eps_min, epsilon * eps_decay)\nThe ε-greedy rule makes the agent explore random actions early on, then increasingly exploit what it has learned."
+  },
+  {
+    "objectID": "Tutorials/RL.html#reading-the-learned-policy",
+    "href": "Tutorials/RL.html#reading-the-learned-policy",
+    "title": "Reinforcement Learning 101: Q-Learning on Sugar Market Regimes",
+    "section": "5. Reading the learned policy",
+    "text": "5. Reading the learned policy\nlabels = [\"short\", \"flat\", \"long\"]\npolicy = []\nfor t in range(3):\n    for v in range(2):\n        s = state_id(t, v, 0)\n        policy.append({\"trend\": [\"down\", \"sideways\", \"up\"][t],\n                       \"vol\": [\"calm\", \"stressed\"][v],\n                       \"action_from_flat\": labels[int(Q[s].argmax())]})\npd.DataFrame(policy)\nIf the agent has learned something like “long in calm up-trends, flat in stressed markets”, it has rediscovered a trend-following rule with a volatility filter. That is a good sign the machinery works, and a reminder that RL often finds familiar strategies."
+  },
+  {
+    "objectID": "Tutorials/RL.html#testing-on-unseen-years",
+    "href": "Tutorials/RL.html#testing-on-unseen-years",
+    "title": "Reinforcement Learning 101: Q-Learning on Sugar Market Regimes",
+    "section": "6. Testing on unseen years",
+    "text": "6. Testing on unseen years\npos, pnl = 0, []\nfor row in test.itertuples():\n    s = state_id(row.t_bin, row.v_bin, pos)\n    pos, r = step(row, pos, int(Q[s].argmax()))\n    pnl.append(r)\n\npnl = pd.Series(pnl, index=test.index)\nprint(\"Test cumulative log return:\", round(pnl.sum(), 3))\nprint(\"Buy and hold:\", round(test[\"ret_next\"].sum(), 3))\nprint(\"Weekly Sharpe (annualised):\", round(np.sqrt(52) * pnl.mean() / pnl.std(), 2))"
+  },
+  {
+    "objectID": "Tutorials/RL.html#limits-of-tabular-q-learning",
+    "href": "Tutorials/RL.html#limits-of-tabular-q-learning",
+    "title": "Reinforcement Learning 101: Q-Learning on Sugar Market Regimes",
+    "section": "7. Limits of tabular Q-learning",
+    "text": "7. Limits of tabular Q-learning\n\nFew states: real markets need far richer descriptions (curve shape, positioning, weather), which explode the table size.\nOne history: the agent sees each historical path many times and can memorise it. Out-of-sample testing is essential.\nNo market impact: we assume we can trade at the close with a fixed cost.\n\nThe next tutorial replaces the table with a neural network."
+  },
+  {
+    "objectID": "Tutorials/RL.html#next-steps",
+    "href": "Tutorials/RL.html#next-steps",
+    "title": "Reinforcement Learning 101: Q-Learning on Sugar Market Regimes",
+    "section": "Next steps",
+    "text": "Next steps\nRL and trading in financial markets 101 builds a Deep Q-Network trading environment for cocoa futures."
+  },
+  {
+    "objectID": "Tutorials/RLStocks.html#setting-up",
+    "href": "Tutorials/RLStocks.html#setting-up",
+    "title": "RL and Trading in Futures Markets 101: A Deep Q-Network for Cocoa",
+    "section": "1. Setting up",
+    "text": "1. Setting up\n!pip install gymnasium stable-baselines3 yfinance pandas numpy"
+  },
+  {
+    "objectID": "Tutorials/RLStocks.html#features-for-the-agent",
+    "href": "Tutorials/RLStocks.html#features-for-the-agent",
+    "title": "RL and Trading in Futures Markets 101: A Deep Q-Network for Cocoa",
+    "section": "2. Features for the agent",
+    "text": "2. Features for the agent\nimport numpy as np\nimport pandas as pd\nimport yfinance as yf\n\npx = yf.download(\"CC=F\", start=\"2010-01-01\", end=\"2024-06-30\")[\"Close\"].squeeze()\nret = np.log(px).diff()\n\nfeat = pd.DataFrame({\n    \"ret_1d\": ret,\n    \"ret_5d\": ret.rolling(5).sum(),\n    \"ret_20d\": ret.rolling(20).sum(),\n    \"ret_60d\": ret.rolling(60).sum(),\n    \"vol_20d\": ret.rolling(20).std(),\n    \"dist_ma100\": px / px.rolling(100).mean() - 1,\n}).dropna()\nnext_ret = ret.shift(-1).reindex(feat.index)\n\ntrain_idx = feat.index < \"2019-01-01\"\nmu, sd = feat[train_idx].mean(), feat[train_idx].std()\nfeat_z = ((feat - mu) / sd).clip(-5, 5)    # scale with training statistics only\nA note on data: CC=F is a continuous front-month series that jumps at each contract roll. For research beyond a tutorial, build a roll-adjusted series from individual contract months."
+  },
+  {
+    "objectID": "Tutorials/RLStocks.html#the-trading-environment",
+    "href": "Tutorials/RLStocks.html#the-trading-environment",
+    "title": "RL and Trading in Futures Markets 101: A Deep Q-Network for Cocoa",
+    "section": "3. The trading environment",
+    "text": "3. The trading environment\nThe agent chooses short, flat or long each day. The reward is the next day’s return on the chosen position, minus a cost whenever the position changes. The current position is part of the observation so the agent can weigh trading costs.\nimport gymnasium as gym\nfrom gymnasium import spaces\n\nclass FuturesEnv(gym.Env):\n    def __init__(self, features, next_returns, cost=0.0005, episode_len=250):\n        super().__init__()\n        self.X = features.values.astype(np.float32)\n        self.r = next_returns.values.astype(np.float32)\n        self.cost, self.episode_len = cost, episode_len\n        self.action_space = spaces.Discrete(3)        # 0 short, 1 flat, 2 long\n        self.observation_space = spaces.Box(-np.inf, np.inf, shape=(self.X.shape[1] + 1,), dtype=np.float32)\n\n    def _obs(self):\n        return np.append(self.X[self.t], self.pos).astype(np.float32)\n\n    def reset(self, seed=None, options=None):\n        super().reset(seed=seed)\n        self.t = self.np_random.integers(0, len(self.X) - self.episode_len - 1)\n        self.end = self.t + self.episode_len\n        self.pos = 0.0\n        return self._obs(), {}\n\n    def step(self, action):\n        new_pos = float(action) - 1.0\n        reward = new_pos * self.r[self.t] - self.cost * abs(new_pos - self.pos)\n        self.pos = new_pos\n        self.t += 1\n        terminated = self.t >= self.end\n        return self._obs(), float(reward), terminated, False, {}\nEach episode is a random one-year slice of history, which gives the agent many different market conditions to learn from."
+  },
+  {
+    "objectID": "Tutorials/RLStocks.html#training-the-dqn",
+    "href": "Tutorials/RLStocks.html#training-the-dqn",
+    "title": "RL and Trading in Futures Markets 101: A Deep Q-Network for Cocoa",
+    "section": "4. Training the DQN",
+    "text": "4. Training the DQN\nfrom stable_baselines3 import DQN\n\ntrain_env = FuturesEnv(feat_z[train_idx], next_ret[train_idx])\n\nmodel = DQN(\n    \"MlpPolicy\", train_env,\n    learning_rate=1e-4, buffer_size=50_000, batch_size=64,\n    gamma=0.95, exploration_fraction=0.3, exploration_final_eps=0.05,\n    policy_kwargs={\"net_arch\": [64, 64]}, seed=0, verbose=0,\n)\nmodel.learn(total_timesteps=200_000)\nThe key DQN ideas are all inside stable-baselines3:\n\nExperience replay: past transitions are stored in a buffer and sampled at random, which breaks the correlation between consecutive days.\nTarget network: a slowly updated copy of the network provides stable learning targets.\nε-greedy exploration: the agent acts randomly at first and gradually relies on its learned values."
+  },
+  {
+    "objectID": "Tutorials/RLStocks.html#out-of-sample-evaluation",
+    "href": "Tutorials/RLStocks.html#out-of-sample-evaluation",
+    "title": "RL and Trading in Futures Markets 101: A Deep Q-Network for Cocoa",
+    "section": "5. Out-of-sample evaluation",
+    "text": "5. Out-of-sample evaluation\ntest_X = feat_z[~train_idx]\ntest_r = next_ret[~train_idx].fillna(0)\n\npos, pnl, positions = 0.0, [], []\nfor i in range(len(test_X)):\n    obs = np.append(test_X.values[i], pos).astype(np.float32)\n    action, _ = model.predict(obs, deterministic=True)\n    new_pos = float(action) - 1.0\n    pnl.append(new_pos * test_r.values[i] - 0.0005 * abs(new_pos - pos))\n    pos = new_pos\n    positions.append(pos)\n\npnl = pd.Series(pnl, index=test_X.index)\nprint(\"Cumulative log return:\", round(pnl.sum(), 3))\nprint(\"Buy and hold:\", round(test_r.sum(), 3))\nprint(\"Annualised Sharpe:\", round(np.sqrt(252) * pnl.mean() / pnl.std(), 2))\nprint(\"Share of days long / flat / short:\",\n      pd.Series(positions).value_counts(normalize=True).round(2).to_dict())\nCheck performance separately for 2019–2022 and for 2023–24. If the agent made most of its money in the 2024 rally simply by being long, it has learned “cocoa goes up”, not a robust strategy."
+  },
+  {
+    "objectID": "Tutorials/RLStocks.html#making-it-more-realistic",
+    "href": "Tutorials/RLStocks.html#making-it-more-realistic",
+    "title": "RL and Trading in Futures Markets 101: A Deep Q-Network for Cocoa",
+    "section": "6. Making it more realistic",
+    "text": "6. Making it more realistic\nBefore trusting any RL trading result, add:\n\nProper contracts and rolls rather than a continuous series.\nRealistic costs: exchange fees, bid-ask spreads and slippage, which widen sharply in volatile markets such as 2024 cocoa.\nPosition sizing and risk limits: scale positions by volatility and cap drawdowns.\nWalk-forward training: retrain on an expanding window and test on the following period, repeatedly.\nMultiple seeds: RL results vary a lot between runs; report the spread, not the best run."
+  },
+  {
+    "objectID": "Tutorials/RLStocks.html#what-rl-is-good-for-in-commodities",
+    "href": "Tutorials/RLStocks.html#what-rl-is-good-for-in-commodities",
+    "title": "RL and Trading in Futures Markets 101: A Deep Q-Network for Cocoa",
+    "section": "7. What RL is good for in commodities",
+    "text": "7. What RL is good for in commodities\nPure price-based trading agents rarely survive these checks. RL is more promising where the decision itself is the hard part: execution (how to work a large order), hedging programmes for producers and roasters, and inventory and storage decisions where carry, freight and timing interact."
+  },
+  {
+    "objectID": "Tutorials/RLStocks.html#further-reading",
+    "href": "Tutorials/RLStocks.html#further-reading",
+    "title": "RL and Trading in Futures Markets 101: A Deep Q-Network for Cocoa",
+    "section": "Further reading",
+    "text": "Further reading\nFor the fundamentals of agents, rewards and Q-values, start with Reinforcement Learning 101."
+  },
+  {
+    "objectID": "Tutorials/GoogleEarth.html#getting-started",
+    "href": "Tutorials/GoogleEarth.html#getting-started",
+    "title": "Google Earth Engine for Softs: Rainfall, Crop Health and Deforestation in the Cocoa Belt",
+    "section": "1. Getting started",
+    "text": "1. Getting started\nSign up for Earth Engine with a Google account, then open the Code Editor at code.earthengine.google.com. Scripts are written in JavaScript; the Python API (earthengine-api and geemap) mirrors the same functions.\nThe editor has four panels: scripts on the left, code in the centre, the map below, and the Inspector, Console and Tasks tabs on the right."
+  },
+  {
+    "objectID": "Tutorials/GoogleEarth.html#defining-the-region-of-interest",
+    "href": "Tutorials/GoogleEarth.html#defining-the-region-of-interest",
+    "title": "Google Earth Engine for Softs: Rainfall, Crop Health and Deforestation in the Cocoa Belt",
+    "section": "2. Defining the region of interest",
+    "text": "2. Defining the region of interest\nvar countries = ee.FeatureCollection('FAO/GAUL/2015/level0')\n  .filter(ee.Filter.inList('ADM0_NAME', [\"Côte d'Ivoire\", 'Ghana']));\n\n// The cocoa belt sits mainly in the southern, forest-zone half of both countries\nvar cocoaBelt = countries.geometry().intersection(\n  ee.Geometry.Rectangle([-8.6, 4.3, 1.2, 8.3]), 100);\n\nMap.centerObject(cocoaBelt, 6);\nMap.addLayer(cocoaBelt, {color: 'brown'}, 'Cocoa belt (approx.)');\nA rectangle is a rough proxy. For serious work, use published cocoa land-use maps or the farm polygons your supply chain already holds."
+  },
+  {
+    "objectID": "Tutorials/GoogleEarth.html#rainfall-anomalies-with-chirps",
+    "href": "Tutorials/GoogleEarth.html#rainfall-anomalies-with-chirps",
+    "title": "Google Earth Engine for Softs: Rainfall, Crop Health and Deforestation in the Cocoa Belt",
+    "section": "3. Rainfall anomalies with CHIRPS",
+    "text": "3. Rainfall anomalies with CHIRPS\nCHIRPS combines satellite and station data into rainfall estimates from 1981 to the present.\nvar chirps = ee.ImageCollection('UCSB-CHG/CHIRPS/PENTAD');\n\n// Monthly totals averaged over the cocoa belt\nvar months = ee.List.sequence(0, (2024 - 1990) * 12 - 1 + 6);   // Jan 1990 to Jun 2024\nvar monthly = ee.FeatureCollection(months.map(function(m) {\n  var start = ee.Date('1990-01-01').advance(m, 'month');\n  var total = chirps.filterDate(start, start.advance(1, 'month')).sum();\n  var mean = total.reduceRegion({reducer: ee.Reducer.mean(), geometry: cocoaBelt,\n                                 scale: 5000, maxPixels: 1e10});\n  return ee.Feature(null, {month: start.format('YYYY-MM-01'), rain_mm: mean.get('precipitation')});\n}));\n\nprint(ui.Chart.feature.byFeature(monthly.filter(ee.Filter.gte('month', '2018-01-01')), 'month', 'rain_mm')\n  .setOptions({title: 'Monthly rainfall over the cocoa belt (mm)'}));\n\n// Export the full series for modelling (used in the XGBoost tutorial)\nExport.table.toDrive({collection: monthly, description: 'cocoa_belt_chirps_monthly',\n                      fileFormat: 'CSV', selectors: ['month', 'rain_mm']});\nTo map where conditions are unusual, compare a recent period with the long-term mean for the same months:\nfunction seasonTotal(year) {\n  return chirps.filterDate(year + '-07-01', (year + 1) + '-01-01').sum();\n}\nvar normal = ee.ImageCollection(ee.List.sequence(1991, 2020).map(seasonTotal)).mean();\nvar recent = seasonTotal(2023);\nvar anomaly = recent.divide(normal).subtract(1).multiply(100).clip(cocoaBelt);\n\nMap.addLayer(anomaly, {min: -40, max: 40, palette: ['8c510a', 'f6e8c3', '01665e']},\n             'Jul–Dec 2023 rainfall anomaly (%)');\nRainfall from July to December matters most for the following main crop, so a map like this is an early input to crop estimates."
+  },
+  {
+    "objectID": "Tutorials/GoogleEarth.html#vegetation-health-with-sentinel-2-ndvi",
+    "href": "Tutorials/GoogleEarth.html#vegetation-health-with-sentinel-2-ndvi",
+    "title": "Google Earth Engine for Softs: Rainfall, Crop Health and Deforestation in the Cocoa Belt",
+    "section": "4. Vegetation health with Sentinel-2 NDVI",
+    "text": "4. Vegetation health with Sentinel-2 NDVI\nThe Normalised Difference Vegetation Index compares near-infrared and red reflectance. Healthy canopies reflect strongly in near-infrared, so NDVI rises with vigour.\nfunction maskS2(img) {\n  var qa = img.select('QA60');\n  var mask = qa.bitwiseAnd(1 << 10).eq(0).and(qa.bitwiseAnd(1 << 11).eq(0));  // clouds, cirrus\n  return img.updateMask(mask).divide(10000);\n}\n\nfunction ndviComposite(start, end) {\n  return ee.ImageCollection('COPERNICUS/S2_SR_HARMONIZED')\n    .filterBounds(cocoaBelt)\n    .filterDate(start, end)\n    .filter(ee.Filter.lt('CLOUDY_PIXEL_PERCENTAGE', 60))\n    .map(maskS2)\n    .median()\n    .normalizedDifference(['B8', 'B4'])\n    .rename('NDVI');\n}\n\nvar dry2023 = ndviComposite('2023-12-01', '2024-03-01');\nvar dry2022 = ndviComposite('2022-12-01', '2023-03-01');\n\nMap.addLayer(dry2023.clip(cocoaBelt), {min: 0.2, max: 0.9, palette: ['white', 'yellowgreen', 'darkgreen']},\n             'NDVI, Dec 2023–Feb 2024');\nMap.addLayer(dry2023.subtract(dry2022).clip(cocoaBelt), {min: -0.2, max: 0.2, palette: ['red', 'white', 'green']},\n             'NDVI change vs previous dry season');\nWest Africa is very cloudy, which is why we use a median composite over three months and a loose cloud filter. During the Harmattan (dry, dusty winds from December to February), haze can also lower NDVI, so compare like-for-like seasons."
+  },
+  {
+    "objectID": "Tutorials/GoogleEarth.html#forest-loss-with-the-hansen-global-forest-change-data",
+    "href": "Tutorials/GoogleEarth.html#forest-loss-with-the-hansen-global-forest-change-data",
+    "title": "Google Earth Engine for Softs: Rainfall, Crop Health and Deforestation in the Cocoa Belt",
+    "section": "5. Forest loss with the Hansen Global Forest Change data",
+    "text": "5. Forest loss with the Hansen Global Forest Change data\nThe University of Maryland’s Global Forest Change dataset maps tree cover in 2000 and the year of loss for every 30 m pixel.\nvar gfc = ee.Image('UMD/hansen/global_forest_change_2023_v1_11');\nvar forest2000 = gfc.select('treecover2000').gte(30);           // forest = 30%+ canopy cover\nvar lossYear = gfc.select('lossyear');                            // 1 = 2001 ... 23 = 2023\n\nvar lossAfter2020 = forest2000.and(lossYear.gte(21));             // EUDR cut-off: after 31 Dec 2020\n\nMap.addLayer(forest2000.selfMask().clip(cocoaBelt), {palette: ['228b22']}, 'Forest in 2000', false);\nMap.addLayer(lossAfter2020.selfMask().clip(cocoaBelt), {palette: ['ff0000']}, 'Forest loss 2021–2023');\n\n// Loss area by year (hectares)\nvar lossByYear = ee.Image.pixelArea().divide(1e4).addBands(lossYear.updateMask(forest2000))\n  .reduceRegion({\n    reducer: ee.Reducer.sum().group({groupField: 1, groupName: 'year'}),\n    geometry: cocoaBelt, scale: 30, maxPixels: 1e13\n  });\nprint('Forest loss by year (1 = 2001)', lossByYear);\nOverlay farm or cooperative boundaries on the 2021–2023 loss layer and you have the first step of an EUDR due-diligence screen. Tree-cover loss is not the same as legal deforestation, so flagged plots need checking against other evidence."
+  },
+  {
+    "objectID": "Tutorials/GoogleEarth.html#exporting-results",
+    "href": "Tutorials/GoogleEarth.html#exporting-results",
+    "title": "Google Earth Engine for Softs: Rainfall, Crop Health and Deforestation in the Cocoa Belt",
+    "section": "6. Exporting results",
+    "text": "6. Exporting results\nExport.image.toDrive({\n  image: anomaly, description: 'rainfall_anomaly_2023', region: cocoaBelt,\n  scale: 5000, maxPixels: 1e10\n});\nExports appear in the Tasks tab; run them there and the files land in your Google Drive, ready for Python or GIS software."
+  },
+  {
+    "objectID": "Tutorials/GoogleEarth.html#where-to-go-next",
+    "href": "Tutorials/GoogleEarth.html#where-to-go-next",
+    "title": "Google Earth Engine for Softs: Rainfall, Crop Health and Deforestation in the Cocoa Belt",
+    "section": "7. Where to go next",
+    "text": "7. Where to go next\n\nRepeat the workflow for Brazilian coffee (Minas Gerais), Vietnamese robusta (Central Highlands) or Indian sugar cane (Maharashtra, Uttar Pradesh).\nAdd ERA5-Land temperature and soil moisture (ECMWF/ERA5_LAND/MONTHLY_AGGR) to the rainfall series.\nFeed the exported series into the models in XGBoost 101 or the crop-health ideas in Image classification."
   }
 ]

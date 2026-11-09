@@ -1,96 +1,151 @@
-**Introduction to Google Earth Engine**
-
-Introduction:
-
-Google Earth Engine is a cloud-based platform for planetary-scale environmental data analysis. It combines a multi-petabyte catalog of satellite imagery and geospatial datasets with computational capabilities to analyze and extract insights. In this blog, we will explore how to use Google Earth Engine, access its data, what types of analysis are possible, and how to produce composite images and measure deforestation.
-
+---
+title: "Google Earth Engine for Softs: Rainfall, Crop Health and Deforestation in the Cocoa Belt"
 ---
 
-**Part I: Getting Started with Google Earth Engine**
+::: {.callout-note appearance="simple"}
+Written in 2024. All examples use public data and are for learning only, not investment advice.
+:::
 
-**1.1: Setting Up**
+Satellites see crops long before official statistics do. Google Earth Engine (GEE) puts decades of satellite imagery and climate data, plus the computing power to analyse them, in a browser. In this tutorial we focus on the cocoa belt of **Côte d'Ivoire and Ghana**, which produces around 60% of the world's cocoa, and build three things a softs analyst actually uses:
 
-To begin, you will need to sign up for a Google Earth Engine account. Once approved, you can access the Code Editor at https://code.earthengine.google.com/.
+1. Rainfall anomalies over the growing regions.
+2. Vegetation health (NDVI) from Sentinel-2.
+3. Forest loss, increasingly important since the **EU Deforestation Regulation (EUDR)**, adopted in 2023, which will require proof that cocoa, coffee and other commodities sold in the EU were not grown on land deforested after 31 December 2020.
 
-**1.2: Navigating the Interface**
+## 1. Getting started
 
-The Google Earth Engine Code Editor is divided into several panels:
+Sign up for Earth Engine with a Google account, then open the Code Editor at `code.earthengine.google.com`. Scripts are written in JavaScript; the Python API (`earthengine-api` and `geemap`) mirrors the same functions.
 
-- **Scripts panel**: where you can create, save, and manage your scripts.
-- **Code Editor panel**: where you enter JavaScript code.
-- **Map panel**: where results are displayed.
-- **Inspector panel**: to query map results.
+The editor has four panels: scripts on the left, code in the centre, the map below, and the Inspector, Console and Tasks tabs on the right.
 
----
-
-**Part II: Accessing Data**
-
-**2.1: Image and ImageCollection**
-
-In Google Earth Engine, raster data are represented as `Image` objects. A collection of images is an `ImageCollection`. You can access satellite imagery and other raster datasets from the Earth Engine Data Catalog.
-
-**2.2: Example - Accessing Landsat Imagery**
+## 2. Defining the region of interest
 
 ```javascript
-var image = ee.Image('LANDSAT/LC08/C01/T1_TOA/LC08_044034_20140318');
-Map.addLayer(image, {bands: ['B4', 'B3', 'B2'], max: 0.3}, 'true color image');
+var countries = ee.FeatureCollection('FAO/GAUL/2015/level0')
+  .filter(ee.Filter.inList('ADM0_NAME', ["Côte d'Ivoire", 'Ghana']));
+
+// The cocoa belt sits mainly in the southern, forest-zone half of both countries
+var cocoaBelt = countries.geometry().intersection(
+  ee.Geometry.Rectangle([-8.6, 4.3, 1.2, 8.3]), 100);
+
+Map.centerObject(cocoaBelt, 6);
+Map.addLayer(cocoaBelt, {color: 'brown'}, 'Cocoa belt (approx.)');
 ```
 
----
+A rectangle is a rough proxy. For serious work, use published cocoa land-use maps or the farm polygons your supply chain already holds.
 
-**Part III: Types of Analysis**
+## 3. Rainfall anomalies with CHIRPS
 
-**3.1: Basic Operations**
-
-You can perform arithmetic operations on images, compute spectral indices, and extract statistics.
-
-**3.2: Example - NDVI Calculation**
+CHIRPS combines satellite and station data into rainfall estimates from 1981 to the present.
 
 ```javascript
-var ndvi = image.normalizedDifference(['B5', 'B4']);
-Map.addLayer(ndvi, {min: 0, max: 1, palette: ['white', 'green']}, 'NDVI');
+var chirps = ee.ImageCollection('UCSB-CHG/CHIRPS/PENTAD');
+
+// Monthly totals averaged over the cocoa belt
+var months = ee.List.sequence(0, (2024 - 1990) * 12 - 1 + 6);   // Jan 1990 to Jun 2024
+var monthly = ee.FeatureCollection(months.map(function(m) {
+  var start = ee.Date('1990-01-01').advance(m, 'month');
+  var total = chirps.filterDate(start, start.advance(1, 'month')).sum();
+  var mean = total.reduceRegion({reducer: ee.Reducer.mean(), geometry: cocoaBelt,
+                                 scale: 5000, maxPixels: 1e10});
+  return ee.Feature(null, {month: start.format('YYYY-MM-01'), rain_mm: mean.get('precipitation')});
+}));
+
+print(ui.Chart.feature.byFeature(monthly.filter(ee.Filter.gte('month', '2018-01-01')), 'month', 'rain_mm')
+  .setOptions({title: 'Monthly rainfall over the cocoa belt (mm)'}));
+
+// Export the full series for modelling (used in the XGBoost tutorial)
+Export.table.toDrive({collection: monthly, description: 'cocoa_belt_chirps_monthly',
+                      fileFormat: 'CSV', selectors: ['month', 'rain_mm']});
 ```
 
----
-
-**Part IV: Creating Composite Images**
-
-Creating a composite image involves combining several images into one. In the context of Google Earth Engine, you can create a composite image from an `ImageCollection`.
-
-**4.1: Example - Median Composite**
+To map where conditions are unusual, compare a recent period with the long-term mean for the same months:
 
 ```javascript
-var collection = ee.ImageCollection('LANDSAT/LC08/C01/T1_TOA')
-    .filterDate('2019-01-01', '2019-12-31');
+function seasonTotal(year) {
+  return chirps.filterDate(year + '-07-01', (year + 1) + '-01-01').sum();
+}
+var normal = ee.ImageCollection(ee.List.sequence(1991, 2020).map(seasonTotal)).mean();
+var recent = seasonTotal(2023);
+var anomaly = recent.divide(normal).subtract(1).multiply(100).clip(cocoaBelt);
 
-var composite = collection.median();
-
-Map.addLayer(composite, {bands: ['B4', 'B3', 'B2'], max: 0.3}, 'composite image');
+Map.addLayer(anomaly, {min: -40, max: 40, palette: ['8c510a', 'f6e8c3', '01665e']},
+             'Jul–Dec 2023 rainfall anomaly (%)');
 ```
 
----
+Rainfall from July to December matters most for the following main crop, so a map like this is an early input to crop estimates.
 
-**Part V: Measuring Deforestation with Google Earth Engine**
+## 4. Vegetation health with Sentinel-2 NDVI
 
-Google Earth Engine can be used to monitor and measure deforestation. You can compute the difference between two images or track changes over time.
-
-**5.1: Example - Difference in NDVI**
+The Normalised Difference Vegetation Index compares near-infrared and red reflectance. Healthy canopies reflect strongly in near-infrared, so NDVI rises with vigour.
 
 ```javascript
-var image1 = ee.Image('LANDSAT/LC08/C01/T1_TOA/LC08_044034_20140101');
-var image2 = ee.Image('LANDSAT/LC08/C01/T1_TOA/LC08_044034_20141231');
+function maskS2(img) {
+  var qa = img.select('QA60');
+  var mask = qa.bitwiseAnd(1 << 10).eq(0).and(qa.bitwiseAnd(1 << 11).eq(0));  // clouds, cirrus
+  return img.updateMask(mask).divide(10000);
+}
 
-var ndvi1 = image1.normalizedDifference(['B5', 'B4']);
-var ndvi2 = image2.normalizedDifference(['B5', 'B4']);
+function ndviComposite(start, end) {
+  return ee.ImageCollection('COPERNICUS/S2_SR_HARMONIZED')
+    .filterBounds(cocoaBelt)
+    .filterDate(start, end)
+    .filter(ee.Filter.lt('CLOUDY_PIXEL_PERCENTAGE', 60))
+    .map(maskS2)
+    .median()
+    .normalizedDifference(['B8', 'B4'])
+    .rename('NDVI');
+}
 
-var difference = ndvi2.subtract(ndvi1);
-Map.addLayer(difference, {min: -1, max: 1, palette: ['blue', 'white', 'green
+var dry2023 = ndviComposite('2023-12-01', '2024-03-01');
+var dry2022 = ndviComposite('2022-12-01', '2023-03-01');
 
-']}, 'NDVI difference');
+Map.addLayer(dry2023.clip(cocoaBelt), {min: 0.2, max: 0.9, palette: ['white', 'yellowgreen', 'darkgreen']},
+             'NDVI, Dec 2023–Feb 2024');
+Map.addLayer(dry2023.subtract(dry2022).clip(cocoaBelt), {min: -0.2, max: 0.2, palette: ['red', 'white', 'green']},
+             'NDVI change vs previous dry season');
 ```
 
----
+West Africa is very cloudy, which is why we use a median composite over three months and a loose cloud filter. During the Harmattan (dry, dusty winds from December to February), haze can also lower NDVI, so compare like-for-like seasons.
 
-Conclusion:
+## 5. Forest loss with the Hansen Global Forest Change data
 
-Google Earth Engine is a powerful platform for large-scale geospatial data analysis. It provides an accessible interface for both accessing vast amounts of data and applying complex analyses to generate meaningful insights. As we've seen in the blog, it can be used to monitor and measure environmental phenomena such as deforestation. While we've only scratched the surface, I encourage you to explore the platform further, as the range of applications is vast.
+The University of Maryland's Global Forest Change dataset maps tree cover in 2000 and the year of loss for every 30 m pixel.
+
+```javascript
+var gfc = ee.Image('UMD/hansen/global_forest_change_2023_v1_11');
+var forest2000 = gfc.select('treecover2000').gte(30);           // forest = 30%+ canopy cover
+var lossYear = gfc.select('lossyear');                            // 1 = 2001 ... 23 = 2023
+
+var lossAfter2020 = forest2000.and(lossYear.gte(21));             // EUDR cut-off: after 31 Dec 2020
+
+Map.addLayer(forest2000.selfMask().clip(cocoaBelt), {palette: ['228b22']}, 'Forest in 2000', false);
+Map.addLayer(lossAfter2020.selfMask().clip(cocoaBelt), {palette: ['ff0000']}, 'Forest loss 2021–2023');
+
+// Loss area by year (hectares)
+var lossByYear = ee.Image.pixelArea().divide(1e4).addBands(lossYear.updateMask(forest2000))
+  .reduceRegion({
+    reducer: ee.Reducer.sum().group({groupField: 1, groupName: 'year'}),
+    geometry: cocoaBelt, scale: 30, maxPixels: 1e13
+  });
+print('Forest loss by year (1 = 2001)', lossByYear);
+```
+
+Overlay farm or cooperative boundaries on the 2021–2023 loss layer and you have the first step of an EUDR due-diligence screen. Tree-cover loss is not the same as legal deforestation, so flagged plots need checking against other evidence.
+
+## 6. Exporting results
+
+```javascript
+Export.image.toDrive({
+  image: anomaly, description: 'rainfall_anomaly_2023', region: cocoaBelt,
+  scale: 5000, maxPixels: 1e10
+});
+```
+
+Exports appear in the Tasks tab; run them there and the files land in your Google Drive, ready for Python or GIS software.
+
+## 7. Where to go next
+
+- Repeat the workflow for **Brazilian coffee** (Minas Gerais), **Vietnamese robusta** (Central Highlands) or **Indian sugar cane** (Maharashtra, Uttar Pradesh).
+- Add **ERA5-Land** temperature and soil moisture (`ECMWF/ERA5_LAND/MONTHLY_AGGR`) to the rainfall series.
+- Feed the exported series into the models in [XGBoost 101](xgboost.qmd) or the crop-health ideas in [Image classification](ImageClassification.qmd).

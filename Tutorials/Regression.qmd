@@ -1,156 +1,138 @@
-**Tutorial: Regression Models in Python – From Basics to Advanced**
-
-**Introduction**
-
-Regression analysis is a powerful statistical method that allows you to examine the relationship between two or more variables. In this tutorial, we'll explore several types of regression models using Python, including Linear Regression, Lasso, Ridge, Elastic Net, Bayesian Regression, and Decision Trees. 
-
-We'll be using real-world data from the Our World in Data repository.
-
+---
+title: "Regression 101: What Drives Sugar Prices?"
 ---
 
-**Part I: Setting Up Your Environment**
+::: {.callout-note appearance="simple"}
+Written in 2024. All examples use public data and are for learning only, not investment advice.
+:::
 
-To get started, we first need to install some necessary libraries. If you don't have them installed already, you can do so by running the following commands:
+Raw sugar (ICE Sugar No.11) is one of the best markets to learn regression on, because two of its macro drivers are well understood:
 
-```Python
-!pip install pandas numpy sklearn matplotlib seaborn
+- **The Brazilian real.** Brazil is by far the largest sugar exporter and mills earn in dollars but pay costs in reais. A weaker real (USD/BRL up) makes selling sugar abroad more attractive in local terms, which tends to weigh on prices.
+- **Crude oil.** Brazilian mills can turn cane into sugar or ethanol. When oil (and so ethanol) prices are high, more cane goes to ethanol and less sugar reaches the market, which tends to support sugar.
+
+We will test these relationships with linear models in Python, from ordinary least squares to regularised regression and a decision tree.
+
+## 1. Setting up
+
+```python
+!pip install yfinance pandas numpy scikit-learn matplotlib
 ```
 
-`pandas` and `numpy` will help us handle the data, `sklearn` will provide the regression models, and `matplotlib` and `seaborn` will help us visualize the data.
-
----
-
-**Part II: Importing the Data**
-
-We're going to use the Our World in Data's CO2 and GDP dataset. This dataset includes information about countries' CO2 emissions and their GDP.
-
-First, let's import our libraries and load our data.
-
-```Python
+```python
+import numpy as np
 import pandas as pd
-from sklearn.model_selection import train_test_split
+import yfinance as yf
+import matplotlib.pyplot as plt
+```
+
+## 2. Getting the data
+
+We use weekly front-month futures and currency prices from Yahoo Finance: sugar (`SB=F`), WTI crude (`CL=F`), USD/BRL (`BRL=X`) and the US dollar index (`DX-Y.NYB`).
+
+```python
+tickers = {"sugar": "SB=F", "crude": "CL=F", "usdbrl": "BRL=X", "dxy": "DX-Y.NYB"}
+raw = yf.download(list(tickers.values()), start="2010-01-01", end="2024-06-30", interval="1wk")["Close"]
+raw = raw.rename(columns={v: k for k, v in tickers.items()}).dropna()
+raw.tail()
+```
+
+## 3. Levels or returns?
+
+Regressing one price level on another almost always gives an impressive R² that means nothing: both series trend, so they look related even when they are not (a "spurious regression"). The safer approach is to model **weekly percentage changes**.
+
+```python
+rets = np.log(raw).diff().dropna()
+rets.corr().round(2)
+```
+
+You should see a negative correlation between sugar and USD/BRL, and a positive one between sugar and crude, in line with the story above.
+
+## 4. Train and test split, in time order
+
+Never shuffle time series. Train on the past, test on the most recent data:
+
+```python
+X = rets[["crude", "usdbrl", "dxy"]]
+y = rets["sugar"]
+
+split = int(len(rets) * 0.8)
+X_train, X_test = X.iloc[:split], X.iloc[split:]
+y_train, y_test = y.iloc[:split], y.iloc[split:]
+
 from sklearn.preprocessing import StandardScaler
-
-# Load the data
-url = "https://raw.githubusercontent.com/owid/co2-data/master/owid-co2-data.csv"
-data = pd.read_csv(url)
-
-# Check the data
-data.head()
+scaler = StandardScaler().fit(X_train)          # fit on training data only
+X_train_s, X_test_s = scaler.transform(X_train), scaler.transform(X_test)
 ```
 
-We use `pandas`' `read_csv` function to load our data. `data.head()` prints the first 5 rows of our dataframe.
+## 5. Ordinary least squares
 
----
-
-**Part III: Preprocessing the Data**
-
-Before we start modeling, we need to preprocess our data. We will deal with missing values and scale our data.
-
-```Python
-# Drop missing values
-data = data[['year', 'co2', 'gdp']].dropna()
-
-# Define our inputs and target
-X = data[['year', 'gdp']]
-y = data['co2']
-
-# Split the data into train and test sets
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-
-# Scale the data
-scaler = StandardScaler()
-X_train = scaler.fit_transform(X_train)
-X_test = scaler.transform(X_test)
-```
-
-We use `dropna()` to drop missing values, and `train_test_split()` to split our data into a training set and a test set. The `StandardScaler()` standardizes our data to have a mean of 0 and a standard deviation of 1.
-
----
-
-**Part IV: Linear Regression**
-
-Linear regression is a basic and commonly used type of predictive analysis.
-
-```Python
+```python
 from sklearn.linear_model import LinearRegression
-from sklearn.metrics import mean_squared_error
+from sklearn.metrics import r2_score, mean_absolute_error
 
-# Initialize the model
-lr = LinearRegression()
+ols = LinearRegression().fit(X_train_s, y_train)
+pred = ols.predict(X_test_s)
 
-# Fit the model
-lr.fit(X_train, y_train)
-
-# Predict the test set
-y_pred = lr.predict(X_test)
-
-# Evaluate the model
-mse = mean_squared_error(y_test, y_pred)
-print('MSE: ', mse)
+print(dict(zip(X.columns, ols.coef_.round(4))))
+print("Test R2:", round(r2_score(y_test, pred), 3))
 ```
 
-We initialize our model with `LinearRegression()`, fit it to our training data with `lr.fit()`, and make predictions with `lr.predict()`. Finally, we evaluate our model by calculating the Mean Squared Error.
+For proper inference (standard errors, p-values) use `statsmodels`:
 
----
+```python
+import statsmodels.api as sm
+model = sm.OLS(y_train, sm.add_constant(X_train)).fit(cov_type="HAC", cov_kwds={"maxlags": 4})
+print(model.summary())
+```
 
-**Part V: Lasso, Ridge and Elastic Net Regression**
+The `HAC` option corrects the standard errors for autocorrelation, which weekly commodity returns usually have.
 
-These are extensions of linear regression that have regularizations.
+**Reading the result.** These are *contemporaneous* relationships: they explain how sugar moves alongside the real and oil in the same week. They do not forecast next week. That is a useful distinction when someone shows you a model with a high R².
 
-```Python
+## 6. Lasso, Ridge and Elastic Net
+
+Regularisation shrinks coefficients to fight overfitting, which matters as soon as you add many correlated drivers (other currencies, freight, fertiliser prices, weather indices).
+
+```python
 from sklearn.linear_model import Lasso, Ridge, ElasticNet
 
-# Lasso
-lasso = Lasso(alpha=0.1)
-lasso.fit(X_train, y_train)
-y_pred = lasso.predict(X_test)
-print
-
-('Lasso MSE: ', mean_squared_error(y_test, y_pred))
-
-# Ridge
-ridge = Ridge(alpha=0.1)
-ridge.fit(X_train, y_train)
-y_pred = ridge.predict(X_test)
-print('Ridge MSE: ', mean_squared_error(y_test, y_pred))
-
-# Elastic Net
-elastic = ElasticNet(alpha=0.1, l1_ratio=0.5)
-elastic.fit(X_train, y_train)
-y_pred = elastic.predict(X_test)
-print('ElasticNet MSE: ', mean_squared_error(y_test, y_pred))
+for name, m in {"Lasso": Lasso(alpha=0.001),
+                "Ridge": Ridge(alpha=1.0),
+                "ElasticNet": ElasticNet(alpha=0.001, l1_ratio=0.5)}.items():
+    m.fit(X_train_s, y_train)
+    print(name, dict(zip(X.columns, m.coef_.round(4))),
+          "R2:", round(r2_score(y_test, m.predict(X_test_s)), 3))
 ```
 
-For each model, we initialize it (with the appropriate hyperparameters), fit it, make predictions, and evaluate it. The `alpha` hyperparameter controls the strength of the penalty, and `l1_ratio` controls the mixture of L1 and L2 penalties for Elastic Net.
+Lasso can set weak drivers exactly to zero, which makes it a handy first filter when you have dozens of candidate variables.
 
----
+## 7. A decision tree
 
-**Part VI: Bayesian Regression and Decision Trees**
+Trees capture non-linear effects, such as the ethanol link only mattering when oil is high enough for ethanol parity to bind.
 
-Bayesian regression uses Bayes' theorem to update the probability of a hypothesis as more evidence or information becomes available. Decision Trees split the data into branches to make predictions.
-
-```Python
+```python
 from sklearn.tree import DecisionTreeRegressor
-from sklearn.linear_model import BayesianRidge
-
-# Bayesian Ridge Regression
-bayesian = BayesianRidge()
-bayesian.fit(X_train, y_train)
-y_pred = bayesian.predict(X_test)
-print('BayesianRidge MSE: ', mean_squared_error(y_test, y_pred))
-
-# Decision Tree Regression
-tree = DecisionTreeRegressor(max_depth=5)
-tree.fit(X_train, y_train)
-y_pred = tree.predict(X_test)
-print('DecisionTree MSE: ', mean_squared_error(y_test, y_pred))
+tree = DecisionTreeRegressor(max_depth=3, min_samples_leaf=30).fit(X_train, y_train)
+print("Tree R2:", round(r2_score(y_test, tree.predict(X_test)), 3))
 ```
 
-The procedure for Bayesian Ridge and Decision Tree Regression is the same as before. For Decision Trees, the `max_depth` hyperparameter controls the maximum depth of the tree.
+A shallow tree usually does no better than the linear model here, which is itself a finding: these macro relationships are close to linear in returns.
 
----
+## 8. Checking stability
 
-**Conclusion**
+Relationships change. A rolling regression shows whether the real and oil still matter as much as they used to:
 
-In this tutorial, we have covered various types of regression models in Python, including linear regression, lasso, ridge, elastic net, Bayesian regression, and decision trees. We have also demonstrated how to import and preprocess real-world data, fit models, make predictions, and evaluate model performance. By understanding these fundamental concepts, you're now well equipped to explore more complex predictive modeling techniques.
+```python
+from statsmodels.regression.rolling import RollingOLS
+roll = RollingOLS(rets["sugar"], sm.add_constant(rets[["crude", "usdbrl"]]), window=104).fit()
+roll.params[["crude", "usdbrl"]].plot(title="Two-year rolling betas for sugar")
+plt.axhline(0, color="grey", lw=0.8)
+plt.show()
+```
+
+If the betas drift, a model trained on 2015 to 2020 can mislead you in 2024. Policy shocks such as India's export restrictions in 2023 are exactly the kind of event that a macro regression cannot see.
+
+## Next steps
+
+In [Hyperparameters in regression P1](Regression2.qmd) we tune these models properly, using cross-validation that respects time order.

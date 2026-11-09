@@ -1,75 +1,143 @@
-**Deep Learning for Time Series Analysis**
-
-Introduction:
-
-Deep Learning provides powerful tools for time series analysis. Models like Recurrent Neural Networks (RNNs), Long Short-Term Memory (LSTM), and Convolutional Neural Networks (CNNs) have proven to be effective for tasks such as time series forecasting. In this tutorial, we'll explore these models, how they can be implemented in Python, and some ways to optimize them.
-
+---
+title: "Deep Learning for Time Series: LSTM and CNN Forecasts for Cotton"
 ---
 
-**Part I: Understanding Time Series Analysis with Deep Learning**
+::: {.callout-note appearance="simple"}
+Written in 2024. All examples use public data and are for learning only, not investment advice.
+:::
 
-**1.1: What is Time Series Analysis?**
+Recurrent and convolutional neural networks can learn patterns across several input series at once, which makes them tempting for commodity forecasting. They can also overfit spectacularly. In this tutorial we build LSTM and 1D-CNN models for **weekly cotton (ICE Cotton No.2)** returns with a few exogenous drivers, and test them honestly against simple benchmarks.
 
-Time Series Analysis involves studying ordered data points collected over time to identify patterns, trends, cycles, and forecast future data points.
+## 1. Why cotton and which drivers?
 
-**1.2: Deep Learning for Time Series Analysis**
+Cotton prices respond to:
 
-Deep Learning models have shown significant success in Time Series Analysis due to their ability to learn complex temporal dependencies, handle large amounts of data, and automatically extract features.
-
----
-
-**Part II: Deep Learning Models for Time Series Analysis**
-
-**2.1: Recurrent Neural Networks (RNNs)**
-
-RNNs are designed to use their internal state (memory) to process sequences of inputs, which makes them ideal for time series forecasting.
-
-**2.2: Long Short-Term Memory (LSTM)**
-
-LSTMs are an extension of RNNs and were designed to remember long-term dependencies in sequence data.
-
-**2.3: Convolutional Neural Networks (CNNs)**
-
-Though traditionally used for image processing, CNNs can also be used for time series forecasting. They can learn to automatically extract spatial and temporal features from raw input data.
-
----
-
-**Part III: Implementing Deep Learning Models in Python**
-
-Using the Keras library, we can easily implement these models. Here's an example of an LSTM:
+- **The US dollar:** the US is the largest exporter, so a stronger dollar makes US cotton dearer abroad.
+- **Crude oil:** polyester, cotton's main substitute, is made from oil.
+- **Other markets' risk appetite:** cotton often trades with broader commodity and equity sentiment, captured here by the S&P 500.
 
 ```python
-from keras.models import Sequential
-from keras.layers import LSTM, Dense
+import numpy as np
+import pandas as pd
+import yfinance as yf
 
-# Define model architecture
-model = Sequential()
-model.add(LSTM(50, activation='relu', input_shape=(n_steps, n_features)))
-model.add(Dense(1))
-
-# Compile the model
-model.compile(optimizer='adam', loss='mse')
-
-# Fit the model
-model.fit(X, y, epochs=200, verbose=0)
+tickers = {"cotton": "CT=F", "dxy": "DX-Y.NYB", "crude": "CL=F", "spx": "^GSPC"}
+raw = yf.download(list(tickers.values()), start="2005-01-01", end="2024-06-30", interval="1wk")["Close"]
+raw = raw.rename(columns={v: k for k, v in tickers.items()}).dropna()
+rets = np.log(raw).diff().dropna()
 ```
 
----
+## 2. Turning series into supervised windows
 
-**Part IV: Optimizing Deep Learning Models**
+Each sample is the previous 26 weeks of all four return series; the target is next week's cotton return.
 
-Optimization of Deep Learning models for time series analysis is typically done via hyperparameter tuning and architecture design.
+```python
+def make_windows(df, target_col, lookback=26):
+    values = df.values
+    t_idx = df.columns.get_loc(target_col)
+    X, y = [], []
+    for i in range(lookback, len(df)):
+        X.append(values[i - lookback:i])   # weeks i-lookback ... i-1
+        y.append(values[i, t_idx])         # week i, the one after the window
+    return np.array(X), np.array(y)
+```
 
-**4.1: Hyperparameter Tuning**
+The window covers weeks `i-26` to `i-1` and the target is week `i`, the week immediately after it. Checking this indexing is worth five minutes, because an off-by-one error here produces a "perfect" model that is just reading the answer.
 
-Just like in previous algorithms we have discussed, we can adjust parameters such as the learning rate, number of hidden units, number of layers, and many others to optimize the model's performance.
+```python
+X, y = make_windows(rets, "cotton", lookback=26)
+dates = rets.index[26:]   # date of each target week
 
-**4.2: Architecture Design**
+train = dates < "2018-01-01"
+valid = (dates >= "2018-01-01") & (dates < "2021-01-01")
+test  = dates >= "2021-01-01"
 
-The design of the model's architecture can also have a significant impact on performance. For instance, one could decide to stack multiple LSTM layers or use a combination of CNN and LSTM layers.
+# Scale using training statistics only
+mu = X[train].reshape(-1, X.shape[2]).mean(0)
+sd = X[train].reshape(-1, X.shape[2]).std(0)
+X = (X - mu) / sd
+y_scale = y[train].std()
+y_s = y / y_scale
+```
 
----
+## 3. An LSTM model
 
-Conclusion:
+```python
+from tensorflow import keras
+from tensorflow.keras import layers
 
-Deep Learning provides a suite of powerful tools for time series analysis. Understanding these models, their application to time series data, and how to implement and optimize them in Python are key skills in the modern data scientist's toolbox. Always remember, though, that these are complex models, and simpler methods may often provide equally effective solutions. Always consider the complexity and requirements of your specific problem when selecting a model.
+def build_lstm(n_steps, n_feat):
+    model = keras.Sequential([
+        layers.Input(shape=(n_steps, n_feat)),
+        layers.LSTM(32),
+        layers.Dropout(0.3),
+        layers.Dense(16, activation="relu"),
+        layers.Dense(1),
+    ])
+    model.compile(optimizer=keras.optimizers.Adam(1e-3), loss="mae")
+    return model
+
+lstm = build_lstm(X.shape[1], X.shape[2])
+stop = keras.callbacks.EarlyStopping(patience=20, restore_best_weights=True)
+hist = lstm.fit(X[train], y_s[train], validation_data=(X[valid], y_s[valid]),
+                epochs=300, batch_size=32, callbacks=[stop], verbose=0)
+print("Stopped after", len(hist.history["loss"]), "epochs")
+```
+
+Small networks, dropout and early stopping are not optional with a few hundred weekly samples.
+
+## 4. A 1D convolutional model
+
+CNNs scan the window with filters that detect short patterns (for example, a sharp dollar move followed by cotton weakness):
+
+```python
+def build_cnn(n_steps, n_feat):
+    model = keras.Sequential([
+        layers.Input(shape=(n_steps, n_feat)),
+        layers.Conv1D(16, kernel_size=4, activation="relu"),
+        layers.MaxPooling1D(2),
+        layers.Conv1D(16, kernel_size=4, activation="relu"),
+        layers.GlobalAveragePooling1D(),
+        layers.Dropout(0.3),
+        layers.Dense(1),
+    ])
+    model.compile(optimizer="adam", loss="mae")
+    return model
+
+cnn = build_cnn(X.shape[1], X.shape[2])
+cnn.fit(X[train], y_s[train], validation_data=(X[valid], y_s[valid]),
+        epochs=300, batch_size=32, callbacks=[stop], verbose=0)
+```
+
+## 5. Honest evaluation
+
+```python
+from sklearn.metrics import mean_absolute_error
+from sklearn.linear_model import Ridge
+
+def report(name, pred):
+    mae = mean_absolute_error(y[test], pred)
+    hit = (np.sign(pred) == np.sign(y[test])).mean()
+    print(f"{name:8s} MAE={mae:.4f}  hit rate={hit:.3f}")
+
+report("Zero", np.zeros(test.sum()))
+ridge = Ridge(alpha=10).fit(X[train].reshape(train.sum(), -1), y[train])
+report("Ridge", ridge.predict(X[test].reshape(test.sum(), -1)))
+report("LSTM", lstm.predict(X[test], verbose=0).ravel() * y_scale)
+report("CNN", cnn.predict(X[test], verbose=0).ravel() * y_scale)
+```
+
+Run the networks with several random seeds. If results swing with the seed, you are looking at noise, not skill.
+
+## 6. Where deep learning does help in softs
+
+Weekly returns are close to unpredictable, so do not be surprised if the zero forecast is hard to beat. Neural networks earn their keep in richer problems:
+
+- **Crop yield** from sequences of daily weather and satellite vegetation indices over a season.
+- **Physical flows:** forecasting port arrivals or shipments from historical patterns and weather.
+- **Text:** classifying crop reports, weather bulletins or news by sentiment.
+- **Images:** detecting crop disease or land use, covered in [Image classification](ImageClassification.qmd).
+
+## Next steps
+
+[Image classification with deep learning](ImageClassification.qmd) trains a CNN to detect coffee leaf disease.

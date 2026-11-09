@@ -54,31 +54,33 @@ website:
       - section: "Tutorials"
         contents:
           - href: Tutorials/SQL.qmd
-            text: SQL 101
+            text: "SQL 101: a softs market database"
           - href: Tutorials/advSQL.qmd
-            text: Advance SQL
+            text: "Advanced SQL: market analytics"
           - href: Tutorials/Regression.qmd
-            text: Regression analysis 101
+            text: "Regression: what drives sugar?"
           - href: Tutorials/Regression2.qmd
-            text: Hyperparameters in regression P1
+            text: "Hyperparameters P1: tuning without look-ahead"
           - href: Tutorials/Regression3.qmd
-            text: Hyperparameters in regression P2            
+            text: "Hyperparameters P2: Bayesian optimisation on cocoa"
           - href: Tutorials/RF.qmd
-            text: Random Forest 101
+            text: "Random Forest: coffee's weekly direction"
           - href: Tutorials/xgboost.qmd
-            text: XGboost 101
+            text: "XGBoost: cocoa and weather"
+          - href: Tutorials/Forecasting.qmd
+            text: "Forecasting coffee prices (R and Python)"
           - href: Tutorials/NeuralNetworks.qmd
-            text: Deep Learning for Time Series Analysis
+            text: "Deep learning forecasts for cotton"
           - href: Tutorials/ImageClassification.qmd
-            text: Image Classification with Deep Learning
+            text: "Detecting coffee leaf disease"
           - href: Tutorials/RL.qmd
-            text: Reinforcement Learning
+            text: "Reinforcement learning: Q-learning on sugar"
           - href: Tutorials/RLStocks.qmd
-            text: RL and trading in financial markets 101
+            text: "Deep Q-Network for cocoa futures"
           - href: Tutorials/GoogleEarth.qmd
-            text: Google Earth           
-        
- 
+            text: "Google Earth Engine: the cocoa belt"
+
+
 format:
   html:
     theme: cosmo

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Dr Juan Beltran – regression3</title>
+<title>Dr Juan Beltran - Hyperparameters in Regression, Part 2: Bayesian Optimisation on Cocoa</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -227,51 +227,55 @@ gtag('config', 'G-PWP5F6C91J', { 'anonymize_ip': true});
         <li class="dropdown-header">Tutorials</li>
         <li>
     <a class="dropdown-item" href="../Tutorials/SQL.html">
- <span class="dropdown-text">SQL 101</span></a>
+ <span class="dropdown-text">SQL 101: a softs market database</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../Tutorials/advSQL.html">
- <span class="dropdown-text">Advance SQL</span></a>
+ <span class="dropdown-text">Advanced SQL: market analytics</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../Tutorials/Regression.html">
- <span class="dropdown-text">Regression analysis 101</span></a>
+ <span class="dropdown-text">Regression: what drives sugar?</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../Tutorials/Regression2.html">
- <span class="dropdown-text">Hyperparameters in regression P1</span></a>
+ <span class="dropdown-text">Hyperparameters P1: tuning without look-ahead</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../Tutorials/Regression3.html">
- <span class="dropdown-text">Hyperparameters in regression P2</span></a>
+ <span class="dropdown-text">Hyperparameters P2: Bayesian optimisation on cocoa</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../Tutorials/RF.html">
- <span class="dropdown-text">Random Forest 101</span></a>
+ <span class="dropdown-text">Random Forest: coffee’s weekly direction</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../Tutorials/xgboost.html">
- <span class="dropdown-text">XGboost 101</span></a>
+ <span class="dropdown-text">XGBoost: cocoa and weather</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Tutorials/Forecasting.html">
+ <span class="dropdown-text">Forecasting coffee prices (R and Python)</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../Tutorials/NeuralNetworks.html">
- <span class="dropdown-text">Deep Learning for Time Series Analysis</span></a>
+ <span class="dropdown-text">Deep learning forecasts for cotton</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../Tutorials/ImageClassification.html">
- <span class="dropdown-text">Image Classification with Deep Learning</span></a>
+ <span class="dropdown-text">Detecting coffee leaf disease</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../Tutorials/RL.html">
- <span class="dropdown-text">Reinforcement Learning</span></a>
+ <span class="dropdown-text">Reinforcement learning: Q-learning on sugar</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../Tutorials/RLStocks.html">
- <span class="dropdown-text">RL and trading in financial markets 101</span></a>
+ <span class="dropdown-text">Deep Q-Network for cocoa futures</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../Tutorials/GoogleEarth.html">
- <span class="dropdown-text">Google Earth</span></a>
+ <span class="dropdown-text">Google Earth Engine: the cocoa belt</span></a>
   </li>  
     </ul>
   </li>
@@ -292,7 +296,7 @@ gtag('config', 'G-PWP5F6C91J', { 'anonymize_ip': true});
     </nav>
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"></h1>
+      <h1 class="quarto-secondary-nav-title">Hyperparameters in Regression, Part 2: Bayesian Optimisation on Cocoa</h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -415,62 +419,67 @@ gtag('config', 'G-PWP5F6C91J', { 'anonymize_ip': true});
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Tutorials/SQL.html" class="sidebar-item-text sidebar-link">SQL 101</a>
+  <a href="../Tutorials/SQL.html" class="sidebar-item-text sidebar-link">SQL 101: a softs market database</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Tutorials/advSQL.html" class="sidebar-item-text sidebar-link">Advance SQL</a>
+  <a href="../Tutorials/advSQL.html" class="sidebar-item-text sidebar-link">Advanced SQL: market analytics</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Tutorials/Regression.html" class="sidebar-item-text sidebar-link">Regression analysis 101</a>
+  <a href="../Tutorials/Regression.html" class="sidebar-item-text sidebar-link">Regression: what drives sugar?</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Tutorials/Regression2.html" class="sidebar-item-text sidebar-link">Hyperparameters in regression P1</a>
+  <a href="../Tutorials/Regression2.html" class="sidebar-item-text sidebar-link">Hyperparameters P1: tuning without look-ahead</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Tutorials/Regression3.html" class="sidebar-item-text sidebar-link active">Hyperparameters in regression P2</a>
+  <a href="../Tutorials/Regression3.html" class="sidebar-item-text sidebar-link active">Hyperparameters P2: Bayesian optimisation on cocoa</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Tutorials/RF.html" class="sidebar-item-text sidebar-link">Random Forest 101</a>
+  <a href="../Tutorials/RF.html" class="sidebar-item-text sidebar-link">Random Forest: coffee’s weekly direction</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Tutorials/xgboost.html" class="sidebar-item-text sidebar-link">XGboost 101</a>
+  <a href="../Tutorials/xgboost.html" class="sidebar-item-text sidebar-link">XGBoost: cocoa and weather</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Tutorials/NeuralNetworks.html" class="sidebar-item-text sidebar-link">Deep Learning for Time Series Analysis</a>
+  <a href="../Tutorials/Forecasting.html" class="sidebar-item-text sidebar-link">Forecasting coffee prices (R and Python)</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Tutorials/ImageClassification.html" class="sidebar-item-text sidebar-link">Image Classification with Deep Learning</a>
+  <a href="../Tutorials/NeuralNetworks.html" class="sidebar-item-text sidebar-link">Deep learning forecasts for cotton</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Tutorials/RL.html" class="sidebar-item-text sidebar-link">Reinforcement Learning</a>
+  <a href="../Tutorials/ImageClassification.html" class="sidebar-item-text sidebar-link">Detecting coffee leaf disease</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Tutorials/RLStocks.html" class="sidebar-item-text sidebar-link">RL and trading in financial markets 101</a>
+  <a href="../Tutorials/RL.html" class="sidebar-item-text sidebar-link">Reinforcement learning: Q-learning on sugar</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Tutorials/GoogleEarth.html" class="sidebar-item-text sidebar-link">Google Earth</a>
+  <a href="../Tutorials/RLStocks.html" class="sidebar-item-text sidebar-link">Deep Q-Network for cocoa futures</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorials/GoogleEarth.html" class="sidebar-item-text sidebar-link">Google Earth Engine: the cocoa belt</a>
   </div>
 </li>
       </ul>
@@ -480,72 +489,168 @@ gtag('config', 'G-PWP5F6C91J', { 'anonymize_ip': true});
 </nav>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#why-cocoa-and-why-el-niño" id="toc-why-cocoa-and-why-el-niño" class="nav-link active" data-scroll-target="#why-cocoa-and-why-el-niño">1. Why cocoa and why El Niño?</a></li>
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">2. Data</a></li>
+  <li><a href="#features-without-look-ahead" id="toc-features-without-look-ahead" class="nav-link" data-scroll-target="#features-without-look-ahead">3. Features without look-ahead</a></li>
+  <li><a href="#the-objective-function" id="toc-the-objective-function" class="nav-link" data-scroll-target="#the-objective-function">4. The objective function</a></li>
+  <li><a href="#the-search-space" id="toc-the-search-space" class="nav-link" data-scroll-target="#the-search-space">5. The search space</a></li>
+  <li><a href="#compare-with-a-naive-benchmark" id="toc-compare-with-a-naive-benchmark" class="nav-link" data-scroll-target="#compare-with-a-naive-benchmark">6. Compare with a naive benchmark</a></li>
+  <li><a href="#looking-inside-the-trials" id="toc-looking-inside-the-trials" class="nav-link" data-scroll-target="#looking-inside-the-trials">7. Looking inside the trials</a></li>
+  <li><a href="#next-steps" id="toc-next-steps" class="nav-link" data-scroll-target="#next-steps">Next steps</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">Hyperparameters in Regression, Part 2: Bayesian Optimisation on Cocoa</h1>
+</div>
 
 
-<p><strong>Hyperparameter Optimization in Python – Mastering Hyperopt and Sklearn</strong></p>
-<hr>
-<p><strong>Introduction</strong></p>
-<p>In the previous two tutorials we have cover the basics of linear models and some of the hyperparameters.</p>
-<p>As you know, hyperparameters are parameters that are not learned from the data, and they need to be set before the learning process begins. In this tutorial, we will focus on hyperparameter optimization using Hyperopt and Sklearn in Python.</p>
-<p>We will continue with the data and models from the first part of the tutorial.</p>
-<hr>
-<p><strong>Part I: Setting Up Your Environment</strong></p>
-<p>Firstly, we need to install <code>hyperopt</code> if it’s not already installed. You can install it by running the following command:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install hyperopt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Now, let’s import all the libraries we are going to use.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> cross_val_score</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> hyperopt <span class="im">import</span> fmin, tpe, hp, STATUS_OK, Trials</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> Ridge</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<hr>
-<p><strong>Part II: Defining the Objective Function</strong></p>
-<p>We will start by defining our objective function. This function should take in the hyperparameters and return the value that we want to minimize, which in our case is the cross-validation mean squared error of our model.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> objective(hyperparameters):</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    model <span class="op">=</span> Ridge(<span class="op">**</span>hyperparameters)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    mse <span class="op">=</span> cross_val_score(model, X_train, y_train, scoring<span class="op">=</span><span class="st">'neg_mean_squared_error'</span>).mean()</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> {<span class="st">'loss'</span>: <span class="op">-</span>mse, <span class="st">'status'</span>: STATUS_OK}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Here, we’re creating a Ridge regression model with the given hyperparameters, computing the cross-validation mean squared error, and returning it as the loss to be minimized.</p>
-<hr>
-<p><strong>Part III: Setting Up the Search Space</strong></p>
-<p>Now we will define the search space for our hyperparameters. We will search for the optimal <code>alpha</code> value, which is a regularization strength parameter for Ridge regression.</p>
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<div class="callout-note callout callout-style-simple">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Written in 2024. All examples use public data and are for learning only, not investment advice.</p>
+</div>
+</div>
+</div>
+<p>In <a href="../Tutorials/Regression2.html">Part 1</a> we tuned linear models with grid and random search. Here we use <strong>Bayesian optimisation</strong> with <code>hyperopt</code>, which learns from earlier trials where good settings are likely to be. We apply it to a harder problem: forecasting next month’s cocoa price change from weather and macro signals.</p>
+<section id="why-cocoa-and-why-el-niño" class="level2">
+<h2 class="anchored" data-anchor-id="why-cocoa-and-why-el-niño">1. Why cocoa and why El Niño?</h2>
+<p>Around 60% of the world’s cocoa comes from Côte d’Ivoire and Ghana. El Niño years tend to bring drier, hotter conditions to West Africa, and the strong 2023/24 El Niño coincided with poor crops, disease (swollen shoot) and the record rally of early 2024. The Oceanic Niño Index (ONI) is a free, monthly measure of El Niño, so it makes a natural candidate feature.</p>
+</section>
+<section id="data" class="level2">
+<h2 class="anchored" data-anchor-id="data">2. Data</h2>
+<ul>
+<li><strong>Cocoa prices:</strong> World Bank “Pink Sheet” monthly commodity prices (<code>CMO-Historical-Data-Monthly.xlsx</code>, free from the World Bank Commodity Markets page).</li>
+<li><strong>ONI:</strong> NOAA Climate Prediction Center, <code>oni.ascii.txt</code>.</li>
+</ul>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># World Bank Pink Sheet (download the file first)</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>wb <span class="op">=</span> pd.read_excel(<span class="st">"CMO-Historical-Data-Monthly.xlsx"</span>, sheet_name<span class="op">=</span><span class="st">"Monthly Prices"</span>, skiprows<span class="op">=</span><span class="dv">4</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>wb <span class="op">=</span> wb.rename(columns<span class="op">=</span>{wb.columns[<span class="dv">0</span>]: <span class="st">"month"</span>})</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>wb <span class="op">=</span> wb[wb[<span class="st">"month"</span>].astype(<span class="bu">str</span>).<span class="bu">str</span>.match(<span class="vs">r"^\d</span><span class="sc">{4}</span><span class="vs">M\d</span><span class="sc">{2}</span><span class="vs">$"</span>)]</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>wb[<span class="st">"month"</span>] <span class="op">=</span> pd.to_datetime(wb[<span class="st">"month"</span>].<span class="bu">str</span>.replace(<span class="st">"M"</span>, <span class="st">"-"</span>), <span class="bu">format</span><span class="op">=</span><span class="st">"%Y-%m"</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>cocoa <span class="op">=</span> wb.set_index(<span class="st">"month"</span>)[<span class="st">"Cocoa"</span>].astype(<span class="bu">float</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># NOAA ONI: three-month seasons, value assigned to the centre month</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>oni <span class="op">=</span> pd.read_csv(<span class="st">"https://www.cpc.ncep.noaa.gov/data/indices/oni.ascii.txt"</span>, sep<span class="op">=</span><span class="vs">r"\s+"</span>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>season_to_month <span class="op">=</span> {<span class="st">"DJF"</span>: <span class="dv">1</span>, <span class="st">"JFM"</span>: <span class="dv">2</span>, <span class="st">"FMA"</span>: <span class="dv">3</span>, <span class="st">"MAM"</span>: <span class="dv">4</span>, <span class="st">"AMJ"</span>: <span class="dv">5</span>, <span class="st">"MJJ"</span>: <span class="dv">6</span>,</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>                   <span class="st">"JJA"</span>: <span class="dv">7</span>, <span class="st">"JAS"</span>: <span class="dv">8</span>, <span class="st">"ASO"</span>: <span class="dv">9</span>, <span class="st">"SON"</span>: <span class="dv">10</span>, <span class="st">"OND"</span>: <span class="dv">11</span>, <span class="st">"NDJ"</span>: <span class="dv">12</span>}</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>oni[<span class="st">"month"</span>] <span class="op">=</span> pd.to_datetime(<span class="bu">dict</span>(year<span class="op">=</span>oni[<span class="st">"YR"</span>], month<span class="op">=</span>oni[<span class="st">"SEAS"</span>].<span class="bu">map</span>(season_to_month), day<span class="op">=</span><span class="dv">1</span>))</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>oni <span class="op">=</span> oni.set_index(<span class="st">"month"</span>)[<span class="st">"ANOM"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="features-without-look-ahead" class="level2">
+<h2 class="anchored" data-anchor-id="features-without-look-ahead">3. Features without look-ahead</h2>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame({<span class="st">"cocoa"</span>: cocoa, <span class="st">"oni"</span>: oni}).dropna()</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"ret"</span>] <span class="op">=</span> np.log(df[<span class="st">"cocoa"</span>]).diff()</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>feats <span class="op">=</span> pd.DataFrame(index<span class="op">=</span>df.index)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> lag <span class="kw">in</span> (<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">6</span>):</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    feats[<span class="ss">f"oni_lag</span><span class="sc">{</span>lag<span class="sc">}</span><span class="ss">"</span>] <span class="op">=</span> df[<span class="st">"oni"</span>].shift(lag)      <span class="co"># ONI is published with a delay</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>feats[<span class="st">"mom_3m"</span>]  <span class="op">=</span> df[<span class="st">"ret"</span>].rolling(<span class="dv">3</span>).<span class="bu">sum</span>().shift(<span class="dv">1</span>)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>feats[<span class="st">"mom_12m"</span>] <span class="op">=</span> df[<span class="st">"ret"</span>].rolling(<span class="dv">12</span>).<span class="bu">sum</span>().shift(<span class="dv">1</span>)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>feats[<span class="st">"vol_6m"</span>]  <span class="op">=</span> df[<span class="st">"ret"</span>].rolling(<span class="dv">6</span>).std().shift(<span class="dv">1</span>)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>target <span class="op">=</span> df[<span class="st">"ret"</span>].shift(<span class="op">-</span><span class="dv">1</span>)          <span class="co"># next month's return</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> feats.join(target.rename(<span class="st">"y"</span>)).dropna()</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>train <span class="op">=</span> data.loc[:<span class="st">"2019-12"</span>]</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>test  <span class="op">=</span> data.loc[<span class="st">"2020-01"</span>:]</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>X_train, y_train <span class="op">=</span> train.drop(columns<span class="op">=</span><span class="st">"y"</span>), train[<span class="st">"y"</span>]</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>X_test,  y_test  <span class="op">=</span> test.drop(columns<span class="op">=</span><span class="st">"y"</span>),  test[<span class="st">"y"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Every feature uses only information available before the month we predict. Getting this right matters far more than the choice of model.</p>
+</section>
+<section id="the-objective-function" class="level2">
+<h2 class="anchored" data-anchor-id="the-objective-function">4. The objective function</h2>
+<p>Hyperopt minimises a function. We return time-series cross-validated error for a gradient boosting model:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> hyperopt <span class="im">import</span> fmin, tpe, hp, Trials, STATUS_OK</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> GradientBoostingRegressor</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> TimeSeriesSplit, cross_val_score</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>tscv <span class="op">=</span> TimeSeriesSplit(n_splits<span class="op">=</span><span class="dv">5</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> objective(params):</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    model <span class="op">=</span> GradientBoostingRegressor(</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>        n_estimators<span class="op">=</span><span class="bu">int</span>(params[<span class="st">"n_estimators"</span>]),</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>        max_depth<span class="op">=</span><span class="bu">int</span>(params[<span class="st">"max_depth"</span>]),</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>        learning_rate<span class="op">=</span>params[<span class="st">"learning_rate"</span>],</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>        subsample<span class="op">=</span>params[<span class="st">"subsample"</span>],</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>        random_state<span class="op">=</span><span class="dv">0</span>,</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    mae <span class="op">=</span> <span class="op">-</span>cross_val_score(model, X_train, y_train, cv<span class="op">=</span>tscv,</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>                           scoring<span class="op">=</span><span class="st">"neg_mean_absolute_error"</span>).mean()</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> {<span class="st">"loss"</span>: mae, <span class="st">"status"</span>: STATUS_OK}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="the-search-space" class="level2">
+<h2 class="anchored" data-anchor-id="the-search-space">5. The search space</h2>
 <div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>space <span class="op">=</span> {</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">'alpha'</span>: hp.uniform(<span class="st">'alpha'</span>, <span class="fl">0.0</span>, <span class="fl">2.0</span>)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>We’re telling Hyperopt that we want to find an <code>alpha</code> between 0.0 and 2.0. <code>hp.uniform</code> specifies that any value within the range is equally likely to be selected as a candidate.</p>
-<hr>
-<p><strong>Part IV: Running the Optimization</strong></p>
-<p>We are now ready to start our hyperparameter optimization!</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>trials <span class="op">=</span> Trials()</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>best <span class="op">=</span> fmin(fn<span class="op">=</span>objective,</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>            space<span class="op">=</span>space,</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>            algo<span class="op">=</span>tpe.suggest,</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>            max_evals<span class="op">=</span><span class="dv">50</span>,</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>            trials<span class="op">=</span>trials)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>The <code>fmin</code> function performs the optimization. We pass in our objective function, the search space, the optimization algorithm (Tree-structured Parzen Estimator), and the number of evaluations to perform.</p>
-<hr>
-<p><strong>Part V: Visualizing the Results</strong></p>
-<p>Finally, let’s visualize the process of optimization.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>loss <span class="op">=</span> [x[<span class="st">'result'</span>][<span class="st">'loss'</span>] <span class="cf">for</span> x <span class="kw">in</span> trials.trials]</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">6</span>))</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>plt.plot(loss)</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Hyperopt Optimization Process'</span>)</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Iteration'</span>)</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Mean Squared Error'</span>)</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>This script creates a plot of mean squared error over each iteration, which can give you an idea of how the optimization progressed.</p>
-<hr>
-<p><strong>Conclusion</strong></p>
-<p>Hyperparameter optimization is a crucial step in tuning machine learning models, and libraries like Hyperopt provide powerful tools for this purpose. By understanding these techniques, you can train models that perform better and utilize resources more efficiently. Happy modeling!</p>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"n_estimators"</span>:  hp.quniform(<span class="st">"n_estimators"</span>, <span class="dv">50</span>, <span class="dv">500</span>, <span class="dv">25</span>),</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"max_depth"</span>:     hp.quniform(<span class="st">"max_depth"</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">1</span>),</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"learning_rate"</span>: hp.loguniform(<span class="st">"learning_rate"</span>, np.log(<span class="fl">0.005</span>), np.log(<span class="fl">0.2</span>)),</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"subsample"</span>:     hp.uniform(<span class="st">"subsample"</span>, <span class="fl">0.5</span>, <span class="fl">1.0</span>),</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>trials <span class="op">=</span> Trials()</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>best <span class="op">=</span> fmin(objective, space, algo<span class="op">=</span>tpe.suggest, max_evals<span class="op">=</span><span class="dv">100</span>, trials<span class="op">=</span>trials,</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>            rstate<span class="op">=</span>np.random.default_rng(<span class="dv">42</span>))</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(best)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Shallow trees (depth 1 or 2) usually win on monthly commodity data, because there are only a few hundred observations.</p>
+</section>
+<section id="compare-with-a-naive-benchmark" class="level2">
+<h2 class="anchored" data-anchor-id="compare-with-a-naive-benchmark">6. Compare with a naive benchmark</h2>
+<p>Always compare a forecast with something simple. For returns, the honest benchmark is zero (no change):</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_absolute_error</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>final <span class="op">=</span> GradientBoostingRegressor(n_estimators<span class="op">=</span><span class="bu">int</span>(best[<span class="st">"n_estimators"</span>]),</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>                                  max_depth<span class="op">=</span><span class="bu">int</span>(best[<span class="st">"max_depth"</span>]),</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>                                  learning_rate<span class="op">=</span>best[<span class="st">"learning_rate"</span>],</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>                                  subsample<span class="op">=</span>best[<span class="st">"subsample"</span>], random_state<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>final.fit(X_train, y_train)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>pred <span class="op">=</span> final.predict(X_test)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Model MAE:"</span>, mean_absolute_error(y_test, pred))</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Zero MAE: "</span>, mean_absolute_error(y_test, np.zeros_like(y_test)))</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Hit rate: "</span>, (np.sign(pred) <span class="op">==</span> np.sign(y_test)).mean())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Expect the model to struggle in the test period: 2023/24 was outside anything in the training data. That is the real lesson. Weather indices can help, but <strong>supply shocks of this size are why fundamental analysis (crop surveys, arrivals, grindings, disease) matters alongside models</strong>.</p>
+</section>
+<section id="looking-inside-the-trials" class="level2">
+<h2 class="anchored" data-anchor-id="looking-inside-the-trials">7. Looking inside the trials</h2>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>losses <span class="op">=</span> [t[<span class="st">"result"</span>][<span class="st">"loss"</span>] <span class="cf">for</span> t <span class="kw">in</span> trials.trials]</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>plt.plot(np.minimum.accumulate(losses))</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Trial"</span>)<span class="op">;</span> plt.ylabel(<span class="st">"Best CV MAE so far"</span>)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>If the curve flattens after 30 trials, extra evaluations are not buying you anything.</p>
+</section>
+<section id="next-steps" class="level2">
+<h2 class="anchored" data-anchor-id="next-steps">Next steps</h2>
+<p><a href="../Tutorials/RF.html">Random Forest 101</a> switches from predicting the size of a move to predicting its direction.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

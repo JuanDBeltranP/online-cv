@@ -1,103 +1,140 @@
-**Hyperparameter Optimization in Python – Mastering Hyperopt and Sklearn**
-
+---
+title: "Hyperparameters in Regression, Part 2: Bayesian Optimisation on Cocoa"
 ---
 
-**Introduction**
+::: {.callout-note appearance="simple"}
+Written in 2024. All examples use public data and are for learning only, not investment advice.
+:::
 
-In the previous two tutorials we have cover the basics of linear models and some of the hyperparameters.
+In [Part 1](Regression2.qmd) we tuned linear models with grid and random search. Here we use **Bayesian optimisation** with `hyperopt`, which learns from earlier trials where good settings are likely to be. We apply it to a harder problem: forecasting next month's cocoa price change from weather and macro signals.
 
-As you know, hyperparameters are parameters that are not learned from the data, and they need to be set before the learning process begins. In this tutorial, we will focus on hyperparameter optimization using Hyperopt and Sklearn in Python.
+## 1. Why cocoa and why El Niño?
 
-We will continue with the data and models from the first part of the tutorial. 
+Around 60% of the world's cocoa comes from Côte d'Ivoire and Ghana. El Niño years tend to bring drier, hotter conditions to West Africa, and the strong 2023/24 El Niño coincided with poor crops, disease (swollen shoot) and the record rally of early 2024. The Oceanic Niño Index (ONI) is a free, monthly measure of El Niño, so it makes a natural candidate feature.
 
----
+## 2. Data
 
-**Part I: Setting Up Your Environment**
+- **Cocoa prices:** World Bank "Pink Sheet" monthly commodity prices (`CMO-Historical-Data-Monthly.xlsx`, free from the World Bank Commodity Markets page).
+- **ONI:** NOAA Climate Prediction Center, `oni.ascii.txt`.
 
-Firstly, we need to install `hyperopt` if it's not already installed. You can install it by running the following command:
-
-```Python
-!pip install hyperopt
-```
-
-Now, let's import all the libraries we are going to use.
-
-```Python
-import pandas as pd
+```python
 import numpy as np
-from sklearn.model_selection import cross_val_score
-from hyperopt import fmin, tpe, hp, STATUS_OK, Trials
-from sklearn.linear_model import Ridge
-import matplotlib.pyplot as plt
+import pandas as pd
+
+# World Bank Pink Sheet (download the file first)
+wb = pd.read_excel("CMO-Historical-Data-Monthly.xlsx", sheet_name="Monthly Prices", skiprows=4)
+wb = wb.rename(columns={wb.columns[0]: "month"})
+wb = wb[wb["month"].astype(str).str.match(r"^\d{4}M\d{2}$")]
+wb["month"] = pd.to_datetime(wb["month"].str.replace("M", "-"), format="%Y-%m")
+cocoa = wb.set_index("month")["Cocoa"].astype(float)
+
+# NOAA ONI: three-month seasons, value assigned to the centre month
+oni = pd.read_csv("https://www.cpc.ncep.noaa.gov/data/indices/oni.ascii.txt", sep=r"\s+")
+season_to_month = {"DJF": 1, "JFM": 2, "FMA": 3, "MAM": 4, "AMJ": 5, "MJJ": 6,
+                   "JJA": 7, "JAS": 8, "ASO": 9, "SON": 10, "OND": 11, "NDJ": 12}
+oni["month"] = pd.to_datetime(dict(year=oni["YR"], month=oni["SEAS"].map(season_to_month), day=1))
+oni = oni.set_index("month")["ANOM"]
 ```
 
----
+## 3. Features without look-ahead
 
-**Part II: Defining the Objective Function**
+```python
+df = pd.DataFrame({"cocoa": cocoa, "oni": oni}).dropna()
+df["ret"] = np.log(df["cocoa"]).diff()
 
-We will start by defining our objective function. This function should take in the hyperparameters and return the value that we want to minimize, which in our case is the cross-validation mean squared error of our model.
+feats = pd.DataFrame(index=df.index)
+for lag in (1, 3, 6):
+    feats[f"oni_lag{lag}"] = df["oni"].shift(lag)      # ONI is published with a delay
+feats["mom_3m"]  = df["ret"].rolling(3).sum().shift(1)
+feats["mom_12m"] = df["ret"].rolling(12).sum().shift(1)
+feats["vol_6m"]  = df["ret"].rolling(6).std().shift(1)
 
-```Python
-def objective(hyperparameters):
-    model = Ridge(**hyperparameters)
-    mse = cross_val_score(model, X_train, y_train, scoring='neg_mean_squared_error').mean()
-    return {'loss': -mse, 'status': STATUS_OK}
+target = df["ret"].shift(-1)          # next month's return
+data = feats.join(target.rename("y")).dropna()
+
+train = data.loc[:"2019-12"]
+test  = data.loc["2020-01":]
+X_train, y_train = train.drop(columns="y"), train["y"]
+X_test,  y_test  = test.drop(columns="y"),  test["y"]
 ```
 
-Here, we're creating a Ridge regression model with the given hyperparameters, computing the cross-validation mean squared error, and returning it as the loss to be minimized. 
+Every feature uses only information available before the month we predict. Getting this right matters far more than the choice of model.
 
----
+## 4. The objective function
 
-**Part III: Setting Up the Search Space**
+Hyperopt minimises a function. We return time-series cross-validated error for a gradient boosting model:
 
-Now we will define the search space for our hyperparameters. We will search for the optimal `alpha` value, which is a regularization strength parameter for Ridge regression.
+```python
+from hyperopt import fmin, tpe, hp, Trials, STATUS_OK
+from sklearn.ensemble import GradientBoostingRegressor
+from sklearn.model_selection import TimeSeriesSplit, cross_val_score
 
-```Python
+tscv = TimeSeriesSplit(n_splits=5)
+
+def objective(params):
+    model = GradientBoostingRegressor(
+        n_estimators=int(params["n_estimators"]),
+        max_depth=int(params["max_depth"]),
+        learning_rate=params["learning_rate"],
+        subsample=params["subsample"],
+        random_state=0,
+    )
+    mae = -cross_val_score(model, X_train, y_train, cv=tscv,
+                           scoring="neg_mean_absolute_error").mean()
+    return {"loss": mae, "status": STATUS_OK}
+```
+
+## 5. The search space
+
+```python
 space = {
-    'alpha': hp.uniform('alpha', 0.0, 2.0)
+    "n_estimators":  hp.quniform("n_estimators", 50, 500, 25),
+    "max_depth":     hp.quniform("max_depth", 1, 4, 1),
+    "learning_rate": hp.loguniform("learning_rate", np.log(0.005), np.log(0.2)),
+    "subsample":     hp.uniform("subsample", 0.5, 1.0),
 }
-```
 
-We're telling Hyperopt that we want to find an `alpha` between 0.0 and 2.0. `hp.uniform` specifies that any value within the range is equally likely to be selected as a candidate.
-
----
-
-**Part IV: Running the Optimization**
-
-We are now ready to start our hyperparameter optimization!
-
-```Python
 trials = Trials()
-best = fmin(fn=objective,
-            space=space,
-            algo=tpe.suggest,
-            max_evals=50,
-            trials=trials)
+best = fmin(objective, space, algo=tpe.suggest, max_evals=100, trials=trials,
+            rstate=np.random.default_rng(42))
+print(best)
 ```
 
-The `fmin` function performs the optimization. We pass in our objective function, the search space, the optimization algorithm (Tree-structured Parzen Estimator), and the number of evaluations to perform. 
+Shallow trees (depth 1 or 2) usually win on monthly commodity data, because there are only a few hundred observations.
 
----
+## 6. Compare with a naive benchmark
 
-**Part V: Visualizing the Results**
+Always compare a forecast with something simple. For returns, the honest benchmark is zero (no change):
 
-Finally, let's visualize the process of optimization.
+```python
+from sklearn.metrics import mean_absolute_error
 
-```Python
-loss = [x['result']['loss'] for x in trials.trials]
+final = GradientBoostingRegressor(n_estimators=int(best["n_estimators"]),
+                                  max_depth=int(best["max_depth"]),
+                                  learning_rate=best["learning_rate"],
+                                  subsample=best["subsample"], random_state=0)
+final.fit(X_train, y_train)
 
-plt.figure(figsize=(8, 6))
-plt.plot(loss)
-plt.title('Hyperopt Optimization Process')
-plt.xlabel('Iteration')
-plt.ylabel('Mean Squared Error')
+pred = final.predict(X_test)
+print("Model MAE:", mean_absolute_error(y_test, pred))
+print("Zero MAE: ", mean_absolute_error(y_test, np.zeros_like(y_test)))
+print("Hit rate: ", (np.sign(pred) == np.sign(y_test)).mean())
+```
+
+Expect the model to struggle in the test period: 2023/24 was outside anything in the training data. That is the real lesson. Weather indices can help, but **supply shocks of this size are why fundamental analysis (crop surveys, arrivals, grindings, disease) matters alongside models**.
+
+## 7. Looking inside the trials
+
+```python
+import matplotlib.pyplot as plt
+losses = [t["result"]["loss"] for t in trials.trials]
+plt.plot(np.minimum.accumulate(losses))
+plt.xlabel("Trial"); plt.ylabel("Best CV MAE so far")
 plt.show()
 ```
 
-This script creates a plot of mean squared error over each iteration, which can give you an idea of how the optimization progressed. 
+If the curve flattens after 30 trials, extra evaluations are not buying you anything.
 
----
+## Next steps
 
-**Conclusion**
-
-Hyperparameter optimization is a crucial step in tuning machine learning models, and libraries like Hyperopt provide powerful tools for this purpose. By understanding these techniques, you can train models that perform better and utilize resources more efficiently. Happy modeling!
+[Random Forest 101](RF.qmd) switches from predicting the size of a move to predicting its direction.

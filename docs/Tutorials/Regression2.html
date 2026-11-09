@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Dr Juan Beltran – regression2</title>
+<title>Dr Juan Beltran - Hyperparameters in Regression, Part 1: Tuning Without Look-Ahead</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -227,51 +227,55 @@ gtag('config', 'G-PWP5F6C91J', { 'anonymize_ip': true});
         <li class="dropdown-header">Tutorials</li>
         <li>
     <a class="dropdown-item" href="../Tutorials/SQL.html">
- <span class="dropdown-text">SQL 101</span></a>
+ <span class="dropdown-text">SQL 101: a softs market database</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../Tutorials/advSQL.html">
- <span class="dropdown-text">Advance SQL</span></a>
+ <span class="dropdown-text">Advanced SQL: market analytics</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../Tutorials/Regression.html">
- <span class="dropdown-text">Regression analysis 101</span></a>
+ <span class="dropdown-text">Regression: what drives sugar?</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../Tutorials/Regression2.html">
- <span class="dropdown-text">Hyperparameters in regression P1</span></a>
+ <span class="dropdown-text">Hyperparameters P1: tuning without look-ahead</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../Tutorials/Regression3.html">
- <span class="dropdown-text">Hyperparameters in regression P2</span></a>
+ <span class="dropdown-text">Hyperparameters P2: Bayesian optimisation on cocoa</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../Tutorials/RF.html">
- <span class="dropdown-text">Random Forest 101</span></a>
+ <span class="dropdown-text">Random Forest: coffee’s weekly direction</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../Tutorials/xgboost.html">
- <span class="dropdown-text">XGboost 101</span></a>
+ <span class="dropdown-text">XGBoost: cocoa and weather</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Tutorials/Forecasting.html">
+ <span class="dropdown-text">Forecasting coffee prices (R and Python)</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../Tutorials/NeuralNetworks.html">
- <span class="dropdown-text">Deep Learning for Time Series Analysis</span></a>
+ <span class="dropdown-text">Deep learning forecasts for cotton</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../Tutorials/ImageClassification.html">
- <span class="dropdown-text">Image Classification with Deep Learning</span></a>
+ <span class="dropdown-text">Detecting coffee leaf disease</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../Tutorials/RL.html">
- <span class="dropdown-text">Reinforcement Learning</span></a>
+ <span class="dropdown-text">Reinforcement learning: Q-learning on sugar</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../Tutorials/RLStocks.html">
- <span class="dropdown-text">RL and trading in financial markets 101</span></a>
+ <span class="dropdown-text">Deep Q-Network for cocoa futures</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../Tutorials/GoogleEarth.html">
- <span class="dropdown-text">Google Earth</span></a>
+ <span class="dropdown-text">Google Earth Engine: the cocoa belt</span></a>
   </li>  
     </ul>
   </li>
@@ -292,7 +296,7 @@ gtag('config', 'G-PWP5F6C91J', { 'anonymize_ip': true});
     </nav>
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"></h1>
+      <h1 class="quarto-secondary-nav-title">Hyperparameters in Regression, Part 1: Tuning Without Look-Ahead</h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -415,62 +419,67 @@ gtag('config', 'G-PWP5F6C91J', { 'anonymize_ip': true});
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Tutorials/SQL.html" class="sidebar-item-text sidebar-link">SQL 101</a>
+  <a href="../Tutorials/SQL.html" class="sidebar-item-text sidebar-link">SQL 101: a softs market database</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Tutorials/advSQL.html" class="sidebar-item-text sidebar-link">Advance SQL</a>
+  <a href="../Tutorials/advSQL.html" class="sidebar-item-text sidebar-link">Advanced SQL: market analytics</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Tutorials/Regression.html" class="sidebar-item-text sidebar-link">Regression analysis 101</a>
+  <a href="../Tutorials/Regression.html" class="sidebar-item-text sidebar-link">Regression: what drives sugar?</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Tutorials/Regression2.html" class="sidebar-item-text sidebar-link active">Hyperparameters in regression P1</a>
+  <a href="../Tutorials/Regression2.html" class="sidebar-item-text sidebar-link active">Hyperparameters P1: tuning without look-ahead</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Tutorials/Regression3.html" class="sidebar-item-text sidebar-link">Hyperparameters in regression P2</a>
+  <a href="../Tutorials/Regression3.html" class="sidebar-item-text sidebar-link">Hyperparameters P2: Bayesian optimisation on cocoa</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Tutorials/RF.html" class="sidebar-item-text sidebar-link">Random Forest 101</a>
+  <a href="../Tutorials/RF.html" class="sidebar-item-text sidebar-link">Random Forest: coffee’s weekly direction</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Tutorials/xgboost.html" class="sidebar-item-text sidebar-link">XGboost 101</a>
+  <a href="../Tutorials/xgboost.html" class="sidebar-item-text sidebar-link">XGBoost: cocoa and weather</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Tutorials/NeuralNetworks.html" class="sidebar-item-text sidebar-link">Deep Learning for Time Series Analysis</a>
+  <a href="../Tutorials/Forecasting.html" class="sidebar-item-text sidebar-link">Forecasting coffee prices (R and Python)</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Tutorials/ImageClassification.html" class="sidebar-item-text sidebar-link">Image Classification with Deep Learning</a>
+  <a href="../Tutorials/NeuralNetworks.html" class="sidebar-item-text sidebar-link">Deep learning forecasts for cotton</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Tutorials/RL.html" class="sidebar-item-text sidebar-link">Reinforcement Learning</a>
+  <a href="../Tutorials/ImageClassification.html" class="sidebar-item-text sidebar-link">Detecting coffee leaf disease</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Tutorials/RLStocks.html" class="sidebar-item-text sidebar-link">RL and trading in financial markets 101</a>
+  <a href="../Tutorials/RL.html" class="sidebar-item-text sidebar-link">Reinforcement learning: Q-learning on sugar</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Tutorials/GoogleEarth.html" class="sidebar-item-text sidebar-link">Google Earth</a>
+  <a href="../Tutorials/RLStocks.html" class="sidebar-item-text sidebar-link">Deep Q-Network for cocoa futures</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorials/GoogleEarth.html" class="sidebar-item-text sidebar-link">Google Earth Engine: the cocoa belt</a>
   </div>
 </li>
       </ul>
@@ -480,59 +489,128 @@ gtag('config', 'G-PWP5F6C91J', { 'anonymize_ip': true});
 </nav>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#what-is-a-hyperparameter" id="toc-what-is-a-hyperparameter" class="nav-link active" data-scroll-target="#what-is-a-hyperparameter">1. What is a hyperparameter?</a></li>
+  <li><a href="#why-ordinary-cross-validation-leaks" id="toc-why-ordinary-cross-validation-leaks" class="nav-link" data-scroll-target="#why-ordinary-cross-validation-leaks">2. Why ordinary cross-validation leaks</a></li>
+  <li><a href="#grid-search-with-a-pipeline" id="toc-grid-search-with-a-pipeline" class="nav-link" data-scroll-target="#grid-search-with-a-pipeline">3. Grid search with a pipeline</a></li>
+  <li><a href="#randomised-search" id="toc-randomised-search" class="nav-link" data-scroll-target="#randomised-search">4. Randomised search</a></li>
+  <li><a href="#final-check-on-untouched-data" id="toc-final-check-on-untouched-data" class="nav-link" data-scroll-target="#final-check-on-untouched-data">5. Final check on untouched data</a></li>
+  <li><a href="#practical-tips" id="toc-practical-tips" class="nav-link" data-scroll-target="#practical-tips">6. Practical tips</a></li>
+  <li><a href="#next-steps" id="toc-next-steps" class="nav-link" data-scroll-target="#next-steps">Next steps</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">Hyperparameters in Regression, Part 1: Tuning Without Look-Ahead</h1>
+</div>
 
 
-<p><strong>Hyperparameter Optimization in Regression Analysis - Part 1</strong></p>
-<p>Introduction:</p>
-<p>In the previous tutorial, we discussed Lasso, Ridge, and Elastic Net regressions. In this tutorial, we will focus on the basics of how to optimize these models through hyperparameter tuning.</p>
-<hr>
-<p><strong>Part I: Understanding Hyperparameters</strong></p>
-<p><strong>1.1: What are Hyperparameters?</strong></p>
-<p>Hyperparameters are parameters that are not learned from data. They are set prior to the commencement of the learning process and help to control the behavior of the model. For instance, the ‘alpha’ in our previous tutorial is a hyperparameter.</p>
-<hr>
-<p><strong>Part II: Methods for Hyperparameter Tuning</strong></p>
-<p><strong>2.1: Grid Search</strong></p>
-<p>Grid search is a tuning technique that attempts to compute the optimum values of hyperparameters. It is an exhaustive search that is performed on the specific parameter values of a model.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> GridSearchCV</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the grid of hyperparameters 'params'</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>params <span class="op">=</span> {<span class="st">'alpha'</span>: [<span class="fl">0.02</span>, <span class="fl">0.024</span>, <span class="fl">0.025</span>, <span class="fl">0.026</span>, <span class="fl">0.03</span>]}</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Instantiate a 10-fold CV grid search object 'grid'</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>grid <span class="op">=</span> GridSearchCV(estimator<span class="op">=</span>lasso, param_grid<span class="op">=</span>params, cv<span class="op">=</span><span class="dv">10</span>)</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit the grid search</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>grid.fit(X_train, y_train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><strong>2.2: Random Search</strong></p>
-<p>Random search differs from grid search in that it does not try every parameter value. Instead, it randomly selects values within the ranges specified.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> RandomizedSearchCV</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the grid of hyperparameters 'params'</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>params <span class="op">=</span> {<span class="st">'alpha'</span>: [<span class="fl">0.02</span>, <span class="fl">0.024</span>, <span class="fl">0.025</span>, <span class="fl">0.026</span>, <span class="fl">0.03</span>]}</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Instantiate a 10-fold CV randomized search object 'random'</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>random <span class="op">=</span> RandomizedSearchCV(estimator<span class="op">=</span>ridge, param_distributions<span class="op">=</span>params, cv<span class="op">=</span><span class="dv">10</span>)</span>
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<div class="callout-note callout callout-style-simple">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Written in 2024. All examples use public data and are for learning only, not investment advice.</p>
+</div>
+</div>
+</div>
+<p>In <a href="../Tutorials/Regression.html">Regression 101</a> we explained weekly sugar returns with crude oil, the Brazilian real and the dollar. Here we tune the regularisation strength of Lasso, Ridge and Elastic Net. The key lesson is that <strong>standard k-fold cross-validation is wrong for market data</strong>.</p>
+<section id="what-is-a-hyperparameter" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-a-hyperparameter">1. What is a hyperparameter?</h2>
+<p>A hyperparameter is set before training rather than learned from the data. In Lasso and Ridge, <code>alpha</code> controls how hard coefficients are pushed towards zero. Too small and the model overfits noise; too large and it ignores real drivers.</p>
+</section>
+<section id="why-ordinary-cross-validation-leaks" class="level2">
+<h2 class="anchored" data-anchor-id="why-ordinary-cross-validation-leaks">2. Why ordinary cross-validation leaks</h2>
+<p><code>KFold(shuffle=True)</code> mixes weeks from 2023 into the training set and then tests on 2016. The model has effectively seen the future. In markets this makes every model look better than it will ever be in live use.</p>
+<p>The fix is <code>TimeSeriesSplit</code>, which always trains on the past and validates on the period that follows:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> TimeSeriesSplit</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>tscv <span class="op">=</span> TimeSeriesSplit(n_splits<span class="op">=</span><span class="dv">5</span>, gap<span class="op">=</span><span class="dv">1</span>)   <span class="co"># gap avoids overlap at the boundary</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, (tr, va) <span class="kw">in</span> <span class="bu">enumerate</span>(tscv.split(X_train)):</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(i, X_train.index[tr[<span class="dv">0</span>]].date(), <span class="st">"to"</span>, X_train.index[tr[<span class="op">-</span><span class="dv">1</span>]].date(),</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>          <span class="st">"| validate"</span>, X_train.index[va[<span class="dv">0</span>]].date(), <span class="st">"to"</span>, X_train.index[va[<span class="op">-</span><span class="dv">1</span>]].date())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="grid-search-with-a-pipeline" class="level2">
+<h2 class="anchored" data-anchor-id="grid-search-with-a-pipeline">3. Grid search with a pipeline</h2>
+<p>Put the scaler inside a pipeline so it is refitted on each training fold. Scaling on the full sample is another quiet source of leakage.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> Pipeline</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> Lasso</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> GridSearchCV</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>pipe <span class="op">=</span> Pipeline([(<span class="st">"scale"</span>, StandardScaler()), (<span class="st">"model"</span>, Lasso(max_iter<span class="op">=</span><span class="dv">10000</span>))])</span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit the random search</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>random.fit(X_train, y_train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<hr>
-<p><strong>Part III: Hyperparameter Tuning for Regression Models</strong></p>
-<p><strong>3.1: Tuning Lasso Regression</strong></p>
-<p>When tuning Lasso Regression, the main hyperparameter to adjust is ‘alpha’, which controls the amount of shrinkage: the larger the value of alpha, the greater the amount of shrinkage.</p>
-<p><strong>3.2: Tuning Ridge Regression</strong></p>
-<p>In Ridge Regression, ‘alpha’ is also the primary hyperparameter. However, the impact is slightly different: alpha reduces the complexity of the model by coefficient shrinkage.</p>
-<p><strong>3.3: Tuning Elastic Net Regression</strong></p>
-<p>Elastic Net has two key hyperparameters: ‘alpha’ and ‘l1_ratio’. ‘Alpha’ is the penalty term and ‘l1_ratio’ is the mix between L1 and L2 regularization.</p>
-<hr>
-<p>Conclusion:</p>
-<p>Hyperparameter tuning is crucial in building optimal machine learning models. Although it can be a time-consuming process, Python, with libraries such as Scikit-Learn, provides efficient tools for carrying out this process effectively. Tuning your models can lead to significant improvements in model performance.</p>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>grid <span class="op">=</span> GridSearchCV(</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    pipe,</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    param_grid<span class="op">=</span>{<span class="st">"model__alpha"</span>: np.logspace(<span class="op">-</span><span class="dv">5</span>, <span class="op">-</span><span class="dv">1</span>, <span class="dv">20</span>)},</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    cv<span class="op">=</span>tscv,</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    scoring<span class="op">=</span><span class="st">"neg_mean_absolute_error"</span>,</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>grid.fit(X_train, y_train)</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Best alpha:"</span>, grid.best_params_)</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"CV MAE:"</span>, <span class="op">-</span>grid.best_score_)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="randomised-search" class="level2">
+<h2 class="anchored" data-anchor-id="randomised-search">4. Randomised search</h2>
+<p>When there are several hyperparameters, sampling is faster than an exhaustive grid. Elastic Net has two:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> ElasticNet</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> RandomizedSearchCV</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> loguniform, uniform</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>pipe <span class="op">=</span> Pipeline([(<span class="st">"scale"</span>, StandardScaler()), (<span class="st">"model"</span>, ElasticNet(max_iter<span class="op">=</span><span class="dv">10000</span>))])</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>rand <span class="op">=</span> RandomizedSearchCV(</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    pipe,</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    param_distributions<span class="op">=</span>{<span class="st">"model__alpha"</span>: loguniform(<span class="fl">1e-5</span>, <span class="fl">1e-1</span>),</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>                         <span class="st">"model__l1_ratio"</span>: uniform(<span class="dv">0</span>, <span class="dv">1</span>)},</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    n_iter<span class="op">=</span><span class="dv">50</span>, cv<span class="op">=</span>tscv, scoring<span class="op">=</span><span class="st">"neg_mean_absolute_error"</span>, random_state<span class="op">=</span><span class="dv">42</span>,</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>rand.fit(X_train, y_train)</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(rand.best_params_)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="final-check-on-untouched-data" class="level2">
+<h2 class="anchored" data-anchor-id="final-check-on-untouched-data">5. Final check on untouched data</h2>
+<p>Only after tuning do we look at the test period, once:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_absolute_error</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>best <span class="op">=</span> rand.best_estimator_</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Test MAE:"</span>, mean_absolute_error(y_test, best.predict(X_test)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>If test performance is much worse than cross-validated performance, the relationship has probably shifted, or the model was overfit. Both are common in softs, where regimes change with weather, policy and positioning.</p>
+</section>
+<section id="practical-tips" class="level2">
+<h2 class="anchored" data-anchor-id="practical-tips">6. Practical tips</h2>
+<ul>
+<li>Choose the metric that matches the use: MAE for typical error, directional accuracy if you care about the sign.</li>
+<li>Prefer simple models when cross-validated scores are close; they hold up better out of sample.</li>
+<li>Re-tune on a schedule (for example each quarter) rather than after every bad week.</li>
+</ul>
+</section>
+<section id="next-steps" class="level2">
+<h2 class="anchored" data-anchor-id="next-steps">Next steps</h2>
+<p><a href="../Tutorials/Regression3.html">Part 2</a> uses Bayesian optimisation with Hyperopt and moves to a richer cocoa dataset.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

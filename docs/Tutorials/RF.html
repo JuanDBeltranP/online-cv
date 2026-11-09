@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Dr Juan Beltran – rf</title>
+<title>Dr Juan Beltran - Random Forest 101: Predicting Coffee’s Weekly Direction</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -227,51 +227,55 @@ gtag('config', 'G-PWP5F6C91J', { 'anonymize_ip': true});
         <li class="dropdown-header">Tutorials</li>
         <li>
     <a class="dropdown-item" href="../Tutorials/SQL.html">
- <span class="dropdown-text">SQL 101</span></a>
+ <span class="dropdown-text">SQL 101: a softs market database</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../Tutorials/advSQL.html">
- <span class="dropdown-text">Advance SQL</span></a>
+ <span class="dropdown-text">Advanced SQL: market analytics</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../Tutorials/Regression.html">
- <span class="dropdown-text">Regression analysis 101</span></a>
+ <span class="dropdown-text">Regression: what drives sugar?</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../Tutorials/Regression2.html">
- <span class="dropdown-text">Hyperparameters in regression P1</span></a>
+ <span class="dropdown-text">Hyperparameters P1: tuning without look-ahead</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../Tutorials/Regression3.html">
- <span class="dropdown-text">Hyperparameters in regression P2</span></a>
+ <span class="dropdown-text">Hyperparameters P2: Bayesian optimisation on cocoa</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../Tutorials/RF.html">
- <span class="dropdown-text">Random Forest 101</span></a>
+ <span class="dropdown-text">Random Forest: coffee’s weekly direction</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../Tutorials/xgboost.html">
- <span class="dropdown-text">XGboost 101</span></a>
+ <span class="dropdown-text">XGBoost: cocoa and weather</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Tutorials/Forecasting.html">
+ <span class="dropdown-text">Forecasting coffee prices (R and Python)</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../Tutorials/NeuralNetworks.html">
- <span class="dropdown-text">Deep Learning for Time Series Analysis</span></a>
+ <span class="dropdown-text">Deep learning forecasts for cotton</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../Tutorials/ImageClassification.html">
- <span class="dropdown-text">Image Classification with Deep Learning</span></a>
+ <span class="dropdown-text">Detecting coffee leaf disease</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../Tutorials/RL.html">
- <span class="dropdown-text">Reinforcement Learning</span></a>
+ <span class="dropdown-text">Reinforcement learning: Q-learning on sugar</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../Tutorials/RLStocks.html">
- <span class="dropdown-text">RL and trading in financial markets 101</span></a>
+ <span class="dropdown-text">Deep Q-Network for cocoa futures</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../Tutorials/GoogleEarth.html">
- <span class="dropdown-text">Google Earth</span></a>
+ <span class="dropdown-text">Google Earth Engine: the cocoa belt</span></a>
   </li>  
     </ul>
   </li>
@@ -292,7 +296,7 @@ gtag('config', 'G-PWP5F6C91J', { 'anonymize_ip': true});
     </nav>
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"></h1>
+      <h1 class="quarto-secondary-nav-title">Random Forest 101: Predicting Coffee’s Weekly Direction</h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -415,62 +419,67 @@ gtag('config', 'G-PWP5F6C91J', { 'anonymize_ip': true});
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Tutorials/SQL.html" class="sidebar-item-text sidebar-link">SQL 101</a>
+  <a href="../Tutorials/SQL.html" class="sidebar-item-text sidebar-link">SQL 101: a softs market database</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Tutorials/advSQL.html" class="sidebar-item-text sidebar-link">Advance SQL</a>
+  <a href="../Tutorials/advSQL.html" class="sidebar-item-text sidebar-link">Advanced SQL: market analytics</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Tutorials/Regression.html" class="sidebar-item-text sidebar-link">Regression analysis 101</a>
+  <a href="../Tutorials/Regression.html" class="sidebar-item-text sidebar-link">Regression: what drives sugar?</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Tutorials/Regression2.html" class="sidebar-item-text sidebar-link">Hyperparameters in regression P1</a>
+  <a href="../Tutorials/Regression2.html" class="sidebar-item-text sidebar-link">Hyperparameters P1: tuning without look-ahead</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Tutorials/Regression3.html" class="sidebar-item-text sidebar-link">Hyperparameters in regression P2</a>
+  <a href="../Tutorials/Regression3.html" class="sidebar-item-text sidebar-link">Hyperparameters P2: Bayesian optimisation on cocoa</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Tutorials/RF.html" class="sidebar-item-text sidebar-link active">Random Forest 101</a>
+  <a href="../Tutorials/RF.html" class="sidebar-item-text sidebar-link active">Random Forest: coffee’s weekly direction</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Tutorials/xgboost.html" class="sidebar-item-text sidebar-link">XGboost 101</a>
+  <a href="../Tutorials/xgboost.html" class="sidebar-item-text sidebar-link">XGBoost: cocoa and weather</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Tutorials/NeuralNetworks.html" class="sidebar-item-text sidebar-link">Deep Learning for Time Series Analysis</a>
+  <a href="../Tutorials/Forecasting.html" class="sidebar-item-text sidebar-link">Forecasting coffee prices (R and Python)</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Tutorials/ImageClassification.html" class="sidebar-item-text sidebar-link">Image Classification with Deep Learning</a>
+  <a href="../Tutorials/NeuralNetworks.html" class="sidebar-item-text sidebar-link">Deep learning forecasts for cotton</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Tutorials/RL.html" class="sidebar-item-text sidebar-link">Reinforcement Learning</a>
+  <a href="../Tutorials/ImageClassification.html" class="sidebar-item-text sidebar-link">Detecting coffee leaf disease</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Tutorials/RLStocks.html" class="sidebar-item-text sidebar-link">RL and trading in financial markets 101</a>
+  <a href="../Tutorials/RL.html" class="sidebar-item-text sidebar-link">Reinforcement learning: Q-learning on sugar</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Tutorials/GoogleEarth.html" class="sidebar-item-text sidebar-link">Google Earth</a>
+  <a href="../Tutorials/RLStocks.html" class="sidebar-item-text sidebar-link">Deep Q-Network for cocoa futures</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorials/GoogleEarth.html" class="sidebar-item-text sidebar-link">Google Earth Engine: the cocoa belt</a>
   </div>
 </li>
       </ul>
@@ -480,73 +489,156 @@ gtag('config', 'G-PWP5F6C91J', { 'anonymize_ip': true});
 </nav>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#data" id="toc-data" class="nav-link active" data-scroll-target="#data">1. Data</a></li>
+  <li><a href="#features" id="toc-features" class="nav-link" data-scroll-target="#features">2. Features</a></li>
+  <li><a href="#training-in-time-order" id="toc-training-in-time-order" class="nav-link" data-scroll-target="#training-in-time-order">3. Training, in time order</a></li>
+  <li><a href="#tuning-with-time-series-cross-validation" id="toc-tuning-with-time-series-cross-validation" class="nav-link" data-scroll-target="#tuning-with-time-series-cross-validation">4. Tuning with time-series cross-validation</a></li>
+  <li><a href="#what-did-the-forest-learn" id="toc-what-did-the-forest-learn" class="nav-link" data-scroll-target="#what-did-the-forest-learn">5. What did the forest learn?</a></li>
+  <li><a href="#from-probabilities-to-decisions" id="toc-from-probabilities-to-decisions" class="nav-link" data-scroll-target="#from-probabilities-to-decisions">6. From probabilities to decisions</a></li>
+  <li><a href="#next-steps" id="toc-next-steps" class="nav-link" data-scroll-target="#next-steps">Next steps</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">Random Forest 101: Predicting Coffee’s Weekly Direction</h1>
+</div>
 
 
-<p><strong>Random Forests - Understanding, Implementing, and Optimizing</strong></p>
-<p>Introduction:</p>
-<p>Random Forests are a popular machine learning method that are highly flexible and capable of performing both regression and classification tasks. In this tutorial, we will explore Random Forests in depth, including when they are a good fit, their parameters and hyperparameters, and how to implement and optimize them in Python.</p>
-<hr>
-<p><strong>Part I: Understanding Random Forests</strong></p>
-<p><strong>1.1: What is a Random Forest?</strong></p>
-<p>A Random Forest is an ensemble learning method that operates by constructing multiple decision trees during training and outputting the mean/ mode of the individual trees for regression/ classification tasks, respectively.</p>
-<p><strong>1.2: When to Use Random Forests</strong></p>
-<p>Random Forests are particularly effective in situations where you have a large dataset with many features and complex relationships. They can handle both categorical and numerical data and are robust to outliers and missing data. They also prevent overfitting by averaging the output of many trees.</p>
-<hr>
-<p><strong>Part II: Parameters and Hyperparameters of Random Forests</strong></p>
-<p><strong>2.1: Main Parameters</strong></p>
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<div class="callout-note callout callout-style-simple">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Written in 2024. All examples use public data and are for learning only, not investment advice.</p>
+</div>
+</div>
+</div>
+<p>A random forest is a collection of decision trees, each trained on a random sample of the data and features, whose votes are averaged. Forests handle non-linear relationships, need little preprocessing and rarely overfit badly, which makes them a solid first model for market data.</p>
+<p>Here we classify whether <strong>arabica coffee (ICE Coffee “C”)</strong> will rise or fall over the next week, using price-based features and speculative positioning from the CFTC.</p>
+<section id="data" class="level2">
+<h2 class="anchored" data-anchor-id="data">1. Data</h2>
 <ul>
-<li><code>n_estimators</code>: The number of trees in the forest.</li>
-<li><code>max_features</code>: The maximum number of features considered when splitting a node.</li>
-<li><code>max_depth</code>: The maximum depth of the tree.</li>
+<li><strong>Prices:</strong> weekly front-month arabica from Yahoo Finance (<code>KC=F</code>).</li>
+<li><strong>Positioning:</strong> the CFTC Commitments of Traders (COT) disaggregated report, which splits open interest into producers, swap dealers and <strong>managed money</strong> (funds). Funds’ net position is widely watched in softs because crowded positions can unwind sharply.</li>
 </ul>
-<p><strong>2.2: Hyperparameters</strong></p>
-<p>These are parameters that cannot be learned from the data and are set prior to training. In Random Forests, these include all parameters like <code>n_estimators</code>, <code>max_features</code>, and <code>max_depth</code>.</p>
-<hr>
-<p><strong>Part III: Implementing Random Forests in Python</strong></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestClassifier</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Instantiate the random forest model</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>rf <span class="op">=</span> RandomForestClassifier(n_estimators<span class="op">=</span><span class="dv">100</span>, max_depth<span class="op">=</span><span class="dv">2</span>, random_state<span class="op">=</span><span class="dv">0</span>)</span>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> io, zipfile, requests</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> yfinance <span class="im">as</span> yf</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Train the model</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>rf.fit(X_train, y_train)</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Predict on the test set</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> rf.predict(X_test)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<hr>
-<p><strong>Part IV: Optimizing Random Forests</strong></p>
-<p>Optimizing a Random Forest involves tuning its hyperparameters to find the best combination for your specific dataset. This can be achieved using methods such as Grid Search and Randomized Search, as we discussed in the previous tutorial.</p>
-<p><strong>4.1: Grid Search Example</strong></p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> GridSearchCV</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the parameter grid</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>param_grid <span class="op">=</span> {</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">'n_estimators'</span>: [<span class="dv">100</span>, <span class="dv">200</span>, <span class="dv">300</span>, <span class="dv">500</span>],</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">'max_features'</span>: [<span class="st">'auto'</span>, <span class="st">'sqrt'</span>, <span class="st">'log2'</span>],</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">'max_depth'</span> : [<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>]</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a based model</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>rf <span class="op">=</span> RandomForestClassifier()</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Instantiate the grid search model</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>grid_search <span class="op">=</span> GridSearchCV(estimator <span class="op">=</span> rf, param_grid <span class="op">=</span> param_grid, cv <span class="op">=</span> <span class="dv">3</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>px <span class="op">=</span> yf.download(<span class="st">"KC=F"</span>, start<span class="op">=</span><span class="st">"2012-01-01"</span>, end<span class="op">=</span><span class="st">"2024-06-30"</span>, interval<span class="op">=</span><span class="st">"1wk"</span>)[<span class="st">"Close"</span>].squeeze()</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> load_cot(year):</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    url <span class="op">=</span> <span class="ss">f"https://www.cftc.gov/files/dea/history/fut_disagg_txt_</span><span class="sc">{</span>year<span class="sc">}</span><span class="ss">.zip"</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    z <span class="op">=</span> zipfile.ZipFile(io.BytesIO(requests.get(url).content))</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> pd.read_csv(z.<span class="bu">open</span>(z.namelist()[<span class="dv">0</span>]), low_memory<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>cot <span class="op">=</span> pd.concat(load_cot(y) <span class="cf">for</span> y <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2012</span>, <span class="dv">2025</span>))</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>cot <span class="op">=</span> cot[cot[<span class="st">"Market_and_Exchange_Names"</span>].<span class="bu">str</span>.startswith(<span class="st">"COFFEE C"</span>)]</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>cot[<span class="st">"date"</span>] <span class="op">=</span> pd.to_datetime(cot[<span class="st">"Report_Date_as_YYYY-MM-DD"</span>])</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>cot <span class="op">=</span> cot.set_index(<span class="st">"date"</span>).sort_index()</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>cot[<span class="st">"mm_net_pct_oi"</span>] <span class="op">=</span> (cot[<span class="st">"M_Money_Positions_Long_All"</span>] <span class="op">-</span> cot[<span class="st">"M_Money_Positions_Short_All"</span>]) <span class="op">/</span> cot[<span class="st">"Open_Interest_All"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>COT data are as of Tuesday but published on Friday, so we lag them by one week before use. Ignoring publication lags is one of the easiest ways to fool yourself.</p>
+</section>
+<section id="features" class="level2">
+<h2 class="anchored" data-anchor-id="features">2. Features</h2>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame({<span class="st">"px"</span>: px})</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"ret"</span>] <span class="op">=</span> np.log(df[<span class="st">"px"</span>]).diff()</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> pd.DataFrame(index<span class="op">=</span>df.index)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>X[<span class="st">"ret_1w"</span>]  <span class="op">=</span> df[<span class="st">"ret"</span>]</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>X[<span class="st">"ret_4w"</span>]  <span class="op">=</span> df[<span class="st">"ret"</span>].rolling(<span class="dv">4</span>).<span class="bu">sum</span>()</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>X[<span class="st">"ret_13w"</span>] <span class="op">=</span> df[<span class="st">"ret"</span>].rolling(<span class="dv">13</span>).<span class="bu">sum</span>()</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>X[<span class="st">"vol_13w"</span>] <span class="op">=</span> df[<span class="st">"ret"</span>].rolling(<span class="dv">13</span>).std()</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>X[<span class="st">"dist_ma26"</span>] <span class="op">=</span> df[<span class="st">"px"</span>] <span class="op">/</span> df[<span class="st">"px"</span>].rolling(<span class="dv">26</span>).mean() <span class="op">-</span> <span class="dv">1</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>X[<span class="st">"week_of_year"</span>] <span class="op">=</span> df.index.isocalendar().week.astype(<span class="bu">int</span>)   <span class="co"># Brazil harvest / frost seasonality</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>cot_w <span class="op">=</span> cot[<span class="st">"mm_net_pct_oi"</span>].resample(<span class="st">"W-SUN"</span>).last().shift(<span class="dv">1</span>)  <span class="co"># publication lag</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> X.join(cot_w.rename(<span class="st">"mm_net"</span>)).ffill()</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>X[<span class="st">"mm_net_chg_4w"</span>] <span class="op">=</span> X[<span class="st">"mm_net"</span>].diff(<span class="dv">4</span>)</span>
 <span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit the grid search to the data</span></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>grid_search.fit(X_train, y_train)</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the best parameters</span></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>best_params <span class="op">=</span> grid_search.best_params_</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<hr>
-<p>Conclusion:</p>
-<p>Random Forests are a powerful and flexible machine learning algorithm that can provide excellent results on a wide range of problems. Understanding the underlying mechanics, knowing how to implement them in Python, and being able to optimize their hyperparameters are all vital skills for any machine learning practitioner. Remember, as with all machine learning algorithms, it’s important to thoroughly understand your data and the problem at hand to make informed decisions on algorithm selection and tuning.</p>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> (df[<span class="st">"ret"</span>].shift(<span class="op">-</span><span class="dv">1</span>) <span class="op">&gt;</span> <span class="dv">0</span>).astype(<span class="bu">int</span>)   <span class="co"># 1 if next week is up</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> X.join(y.rename(<span class="st">"up"</span>)).dropna()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The week-of-year feature lets the forest pick up seasonality: the Brazilian harvest from roughly May to September, and the frost-risk window in June to August that has driven some of arabica’s biggest rallies.</p>
+</section>
+<section id="training-in-time-order" class="level2">
+<h2 class="anchored" data-anchor-id="training-in-time-order">3. Training, in time order</h2>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestClassifier</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> accuracy_score, classification_report</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>train <span class="op">=</span> data.loc[:<span class="st">"2020-12"</span>]</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>test  <span class="op">=</span> data.loc[<span class="st">"2021-01"</span>:]</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>X_train, y_train <span class="op">=</span> train.drop(columns<span class="op">=</span><span class="st">"up"</span>), train[<span class="st">"up"</span>]</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>X_test,  y_test  <span class="op">=</span> test.drop(columns<span class="op">=</span><span class="st">"up"</span>),  test[<span class="st">"up"</span>]</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>rf <span class="op">=</span> RandomForestClassifier(n_estimators<span class="op">=</span><span class="dv">500</span>, max_depth<span class="op">=</span><span class="dv">4</span>, min_samples_leaf<span class="op">=</span><span class="dv">20</span>,</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>                            random_state<span class="op">=</span><span class="dv">42</span>, n_jobs<span class="op">=-</span><span class="dv">1</span>)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>rf.fit(X_train, y_train)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>pred <span class="op">=</span> rf.predict(X_test)</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Accuracy:"</span>, <span class="bu">round</span>(accuracy_score(y_test, pred), <span class="dv">3</span>))</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Base rate (always up):"</span>, <span class="bu">round</span>(y_test.mean(), <span class="dv">3</span>))</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(classification_report(y_test, pred))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Compare accuracy with the base rate. In a trending market, “always up” can look like 55% accuracy without any skill.</p>
+</section>
+<section id="tuning-with-time-series-cross-validation" class="level2">
+<h2 class="anchored" data-anchor-id="tuning-with-time-series-cross-validation">4. Tuning with time-series cross-validation</h2>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> GridSearchCV, TimeSeriesSplit</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>grid <span class="op">=</span> GridSearchCV(</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    RandomForestClassifier(random_state<span class="op">=</span><span class="dv">42</span>, n_jobs<span class="op">=-</span><span class="dv">1</span>),</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"n_estimators"</span>: [<span class="dv">300</span>, <span class="dv">600</span>], <span class="st">"max_depth"</span>: [<span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">6</span>], <span class="st">"min_samples_leaf"</span>: [<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">40</span>]},</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    cv<span class="op">=</span>TimeSeriesSplit(n_splits<span class="op">=</span><span class="dv">5</span>), scoring<span class="op">=</span><span class="st">"roc_auc"</span>,</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>grid.fit(X_train, y_train)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(grid.best_params_, <span class="bu">round</span>(grid.best_score_, <span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>We score with ROC AUC, which judges how well the model ranks up-weeks above down-weeks, regardless of the 50% threshold.</p>
+</section>
+<section id="what-did-the-forest-learn" class="level2">
+<h2 class="anchored" data-anchor-id="what-did-the-forest-learn">5. What did the forest learn?</h2>
+<p>Built-in feature importances are biased towards continuous variables. Permutation importance on the test set is more honest:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.inspection <span class="im">import</span> permutation_importance</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>imp <span class="op">=</span> permutation_importance(grid.best_estimator_, X_test, y_test, scoring<span class="op">=</span><span class="st">"roc_auc"</span>,</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>                             n_repeats<span class="op">=</span><span class="dv">20</span>, random_state<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>pd.Series(imp.importances_mean, index<span class="op">=</span>X_test.columns).sort_values().plot.barh()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Positioning features often matter most at extremes: when funds are very long, the downside risk from liquidation rises.</p>
+</section>
+<section id="from-probabilities-to-decisions" class="level2">
+<h2 class="anchored" data-anchor-id="from-probabilities-to-decisions">6. From probabilities to decisions</h2>
+<p>Instead of trading every week, act only when the model is confident:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>proba <span class="op">=</span> grid.best_estimator_.predict_proba(X_test)[:, <span class="dv">1</span>]</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>signal <span class="op">=</span> np.where(proba <span class="op">&gt;</span> <span class="fl">0.6</span>, <span class="dv">1</span>, np.where(proba <span class="op">&lt;</span> <span class="fl">0.4</span>, <span class="op">-</span><span class="dv">1</span>, <span class="dv">0</span>))</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>strategy <span class="op">=</span> signal <span class="op">*</span> df[<span class="st">"ret"</span>].shift(<span class="op">-</span><span class="dv">1</span>).reindex(X_test.index)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Weeks active:"</span>, (signal <span class="op">!=</span> <span class="dv">0</span>).mean().<span class="bu">round</span>(<span class="dv">2</span>))</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Cumulative log return:"</span>, strategy.<span class="bu">sum</span>().<span class="bu">round</span>(<span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This ignores costs, rolls and slippage, so treat it as a sanity check rather than a backtest.</p>
+</section>
+<section id="next-steps" class="level2">
+<h2 class="anchored" data-anchor-id="next-steps">Next steps</h2>
+<p><a href="../Tutorials/xgboost.html">XGBoost 101</a> applies gradient boosting to cocoa and adds weather signals.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
